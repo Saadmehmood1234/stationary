@@ -3,181 +3,358 @@
 import { Product } from '@/types';
 import { useCart } from '../providers/CartProvider';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
+import Image from 'next/image';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { 
+  ShoppingCart, 
+  Check, 
+  AlertCircle, 
+  Star,
+  Tag
+} from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
+  viewMode?: "grid" | "list";
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+function ProductCardComponent({ product, viewMode = "grid" }: ProductCardProps) {
   const { dispatch } = useCart();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddToCart = async (e: React.MouseEvent) => {
+  const handleAddToCart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
     setIsAdding(true);
     dispatch({ 
       type: 'ADD_ITEM', 
-      payload: product // Fixed: Just pass the product directly
+      payload: product
     });
     
     setTimeout(() => setIsAdding(false), 600);
-  };
+  }, [dispatch, product]);
+
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true);
+  }, []);
+
+  const handleImageError = useCallback(() => {
+    setImageError(true);
+    setImageLoaded(true);
+  }, []);
 
   const hasDiscount = product.comparePrice && product.comparePrice > product.price;
   const discountPercentage = hasDiscount 
     ? Math.round(((product.comparePrice! - product.price) / product.comparePrice!) * 100)
     : 0;
 
-  const getStockStatus = () => {
-    if (product.status === 'out_of_stock') return { text: 'Out of Stock', color: 'text-red-600', bg: 'bg-red-50' };
-    if (product.stock <= product.lowStockAlert) return { text: 'Low Stock', color: 'text-orange-600', bg: 'bg-orange-50' };
-    return { text: 'In Stock', color: 'text-green-600', bg: 'bg-green-50' };
-  };
+  const getStockStatus = useCallback(() => {
+    if (product.status === 'out_of_stock') return { 
+      text: 'Out of Stock', 
+      color: 'text-red-600', 
+      bg: 'bg-red-50 border-red-200',
+      icon: AlertCircle
+    };
+    if (product.stock <= (product.lowStockAlert || 10)) return { 
+      text: 'Low Stock', 
+      color: 'text-amber-600', 
+      bg: 'bg-amber-50 border-amber-200',
+      icon: AlertCircle
+    };
+    return { 
+      text: 'In Stock', 
+      color: 'text-green-600', 
+      bg: 'bg-green-50 border-green-200',
+      icon: Check
+    };
+  }, [product.status, product.stock, product.lowStockAlert]);
 
   const stockStatus = getStockStatus();
+  const StockIcon = stockStatus.icon;
 
-  return (
-    <Link href={`/shop/${product.slug || product._id}`}>
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden border border-gray-100 hover:border-[#027068]/20">
-        
-        {/* Image Container */}
-        <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
-          {/* Loading Skeleton */}
-          {!imageLoaded && (
-            <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-              <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+  const productImage = imageError 
+    ? '/school-tools-with-calculator.jpg'
+    : product.primaryImage || product.images?.[0] || '/school-tools-with-calculator.jpg';
+  console.log(productImage)  
+  if (viewMode === "list") {
+    return (
+      <Link href={`/shop/${product.slug || product._id}`} className="block group">
+        <Card className="hover:shadow-lg transition-all duration-300 group-hover:border-primary/20 h-full">
+          <div className="flex flex-col md:flex-row">
+            {/* Image Section */}
+            <div className="md:w-48 md:flex-shrink-0 relative">
+              <div className="aspect-square md:h-48 bg-muted/50 relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-tr-none">
+                {!imageLoaded && (
+                  <Skeleton className="absolute inset-0 w-full h-full" />
+                )}
+                <Image
+                  src={productImage}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 192px"
+                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                />
+                
+                {/* Badges */}
+                <div className="absolute top-3 left-3 flex flex-col space-y-2">
+                  {hasDiscount && (
+                    <Badge variant="destructive" className="font-semibold">
+                      -{discountPercentage}%
+                    </Badge>
+                  )}
+                  {product.isFeatured && (
+                    <Badge variant="secondary" className="bg-amber-100 text-amber-800 hover:bg-amber-100">
+                      <Star className="w-3 h-3 mr-1 fill-amber-500" />
+                      Featured
+                    </Badge>
+                  )}
+                </div>
+              </div>
             </div>
-          )}
-          
-          {/* Product Image */}
-          <img 
-            src={product.primaryImage || product.images[0] || '/placeholder-product.jpg'} 
-            alt={product.name}
-            className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onLoad={() => setImageLoaded(true)}
-            onError={(e) => {
-              e.currentTarget.src = '/placeholder-product.jpg';
-              setImageLoaded(true);
-            }}
-          />
 
-          {/* Top Badges */}
-          <div className="absolute top-3 left-3 flex flex-col space-y-2">
-            {/* Discount Badge */}
-            {hasDiscount && (
-              <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                -{discountPercentage}%
-              </span>
+            {/* Content Section */}
+            <div className="flex-1 p-6 flex flex-col">
+              <div className="flex items-start justify-between mb-3">
+                <Badge variant="outline" className="mb-2">
+                  <Tag className="w-3 h-3 mr-1" />
+                  {product.category}
+                </Badge>
+                <Badge 
+                  variant="outline" 
+                  className={`${stockStatus.bg} ${stockStatus.color} border`}
+                >
+                  <StockIcon className="w-3 h-3 mr-1" />
+                  {stockStatus.text}
+                </Badge>
+              </div>
+
+              <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-2 line-clamp-2">
+                {product.name}
+              </h3>
+              
+              <p className="text-muted-foreground text-sm mb-4 line-clamp-2 flex-1">
+                {product.shortDescription || product.description?.substring(0, 120)}
+              </p>
+
+              {product.specifications?.color && (
+                <div className="mb-4">
+                  <Badge variant="secondary" className="text-xs">
+                    Color: {product.specifications.color}
+                  </Badge>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between mt-auto">
+                <div className="flex items-center space-x-2">
+                  <span className="text-2xl font-bold text-primary">
+                    ${product.price?.toFixed(2) || '0.00'}
+                  </span>
+                  {hasDiscount && (
+                    <span className="text-sm text-muted-foreground line-through">
+                      ${product.comparePrice!.toFixed(2)}
+                    </span>
+                  )}
+                </div>
+                
+                <Button
+                  onClick={handleAddToCart}
+                  disabled={product.status === 'out_of_stock' || isAdding}
+                  size="sm"
+                  className={`gap-2 ${
+                    isAdding ? 'bg-green-600 hover:bg-green-700' : ''
+                  }`}
+                >
+                  {isAdding ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Added
+                    </>
+                  ) : product.status === 'out_of_stock' ? (
+                    <>
+                      <AlertCircle className="w-4 h-4" />
+                      Out of Stock
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-4 h-4" />
+                      Add to Cart
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </Link>
+    );
+  }
+
+  // Grid View Layout (Default)
+  return (
+    <Link href={`/shop/${product.slug || product._id}`} className="block group h-full">
+      <Card className="hover:shadow-lg transition-all duration-300 group-hover:border-primary/20 h-full flex flex-col overflow-hidden">
+        {/* Image Section */}
+        <CardHeader className="p-0 relative">
+          <div className="aspect-[4/3] bg-muted/50 relative overflow-hidden">
+            {!imageLoaded && (
+              <Skeleton className="absolute inset-0 w-full h-full" />
             )}
+            <Image
+              src={productImage}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              className={`object-cover transition-transform duration-700 group-hover:scale-105 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
             
-            {/* Featured Badge */}
-            {product.isFeatured && (
-              <span className="bg-[#FDC700] text-[#027068] text-xs font-bold px-2 py-1 rounded-full">
-                Featured
-              </span>
-            )}
-          </div>
+            {/* Badges */}
+            <div className="absolute top-3 left-3 flex flex-col space-y-2">
+              {hasDiscount && (
+                <Badge variant="destructive" className="font-semibold">
+                  -{discountPercentage}%
+                </Badge>
+              )}
+              {product.isFeatured && (
+                <Badge variant="secondary" className="bg-amber-100 text-amber-800 hover:bg-amber-100">
+                  <Star className="w-3 h-3 mr-1 fill-amber-500" />
+                  Featured
+                </Badge>
+              )}
+            </div>
 
-          {/* Stock Status Badge */}
-          <div className={`absolute top-3 right-3 ${stockStatus.bg} ${stockStatus.color} text-xs font-semibold px-2 py-1 rounded-full`}>
-            {stockStatus.text}
-          </div>
-
-          {/* Quick Add Overlay */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300 flex items-center justify-center">
-            <button
-              onClick={handleAddToCart}
-              disabled={product.status === 'out_of_stock' || isAdding}
-              className={`bg-[#027068] text-white px-6 py-2 rounded-lg font-semibold text-sm transform transition-all duration-300 ${
-                product.status === 'out_of_stock' 
-                  ? 'opacity-50 cursor-not-allowed' 
-                  : isAdding
-                  ? 'scale-110 bg-green-500 opacity-100'
-                  : 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 hover:scale-105'
-              } shadow-lg hover:shadow-xl`}
+            {/* Stock Status */}
+            <Badge 
+              variant="outline" 
+              className={`absolute top-3 right-3 ${stockStatus.bg} ${stockStatus.color} border`}
             >
-              {product.status === 'out_of_stock' ? 'Out of Stock' : 
-               isAdding ? 'Added!' : 'Quick Add'}
-            </button>
+              <StockIcon className="w-3 h-3 mr-1" />
+              {stockStatus.text}
+            </Badge>
+
+            {/* Quick Add Overlay */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <Button
+                onClick={handleAddToCart}
+                disabled={product.status === 'out_of_stock' || isAdding}
+                size="lg"
+                className={`transform transition-all duration-300 gap-2 ${
+                  product.status === 'out_of_stock' 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : isAdding
+                    ? 'scale-110 bg-green-600 hover:bg-green-700'
+                    : 'translate-y-4 group-hover:translate-y-0 hover:scale-105'
+                }`}
+              >
+                {isAdding ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    Added!
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-4 h-4" />
+                    Quick Add
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
-        </div>
-        
-        {/* Content Container - Only Essential Info */}
-        <div className="p-4">
-          {/* Category */}
+        </CardHeader>
+
+        {/* Content Section */}
+        <CardContent className="p-4 flex-1 flex flex-col">
           <div className="mb-2">
-            <span className="text-xs font-medium text-[#027068] bg-[#027068]/10 px-2 py-1 rounded">
+            <Badge variant="outline" className="text-xs">
+              <Tag className="w-3 h-3 mr-1" />
               {product.category}
-            </span>
+            </Badge>
           </div>
 
-          {/* Product Name */}
-          <h3 className="font-bold text-gray-800 group-hover:text-[#027068] transition-colors duration-300 line-clamp-2 leading-tight mb-2">
+          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2 flex-1">
             {product.name}
           </h3>
           
-          {/* Short Description */}
-          <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-            {product.shortDescription}
+          <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+            {product.shortDescription || product.description?.substring(0, 100)}
           </p>
 
-          {/* Key Specification - Only show one most important */}
-          {product.specifications.color && (
+          {product.specifications?.color && (
             <div className="mb-3">
-              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+              <Badge variant="secondary" className="text-xs">
                 Color: {product.specifications.color}
-              </span>
+              </Badge>
             </div>
           )}
+        </CardContent>
 
-          {/* Price & CTA */}
-          <div className="flex items-center justify-between">
+        {/* Footer with Price and CTA */}
+        <CardFooter className="p-4 pt-0">
+          <div className="flex items-center justify-between w-full">
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-[#027068]">
-                ${product.price.toFixed(2)}
+              <span className="text-xl font-bold text-primary">
+                ${product.price?.toFixed(2) || '0.00'}
               </span>
               {hasDiscount && (
-                <span className="text-sm text-gray-400 line-through">
+                <span className="text-sm text-muted-foreground line-through">
                   ${product.comparePrice!.toFixed(2)}
                 </span>
               )}
             </div>
             
-            {/* Add to Cart Button */}
-            <button
+            {/* Mobile/Secondary Add to Cart */}
+            <Button
               onClick={handleAddToCart}
               disabled={product.status === 'out_of_stock' || isAdding}
-              className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                product.status === 'out_of_stock'
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : isAdding
-                  ? 'bg-green-500 text-white scale-105'
-                  : 'bg-[#027068] text-white hover:bg-[#025c55] hover:scale-105'
+              size="sm"
+              variant="outline"
+              className={`gap-2 ${
+                isAdding ? 'bg-green-50 text-green-700 border-green-200' : ''
               }`}
             >
-              {product.status === 'out_of_stock' ? (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              ) : isAdding ? (
-                <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+              {isAdding ? (
+                <Check className="w-4 h-4" />
+              ) : product.status === 'out_of_stock' ? (
+                <AlertCircle className="w-4 h-4" />
               ) : (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
+                <ShoppingCart className="w-4 h-4" />
               )}
-            </button>
+              <span className="hidden sm:inline">
+                {product.status === 'out_of_stock' ? 'Out of Stock' : isAdding ? 'Added' : 'Add'}
+              </span>
+            </Button>
           </div>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     </Link>
   );
 }
+
+const areEqual = (prevProps: ProductCardProps, nextProps: ProductCardProps) => {
+  return (
+    prevProps.product._id === nextProps.product._id &&
+    prevProps.product.price === nextProps.product.price &&
+    prevProps.product.stock === nextProps.product.stock &&
+    prevProps.product.status === nextProps.product.status &&
+    prevProps.product.primaryImage === nextProps.product.primaryImage &&
+    prevProps.product.isFeatured === nextProps.product.isFeatured &&
+    prevProps.product.comparePrice === nextProps.product.comparePrice &&
+    prevProps.viewMode === nextProps.viewMode
+  );
+};
+
+export const ProductCard = memo(ProductCardComponent, areEqual);

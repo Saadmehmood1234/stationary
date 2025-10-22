@@ -1,208 +1,182 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Product, ProductVariant } from '@/types';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Loader2, Plus, X, Upload } from "lucide-react";
+import { createProduct } from "@/app/actions/product.actions";
+import toast from "react-hot-toast";
 
-// Mock categories - in real app, fetch from API
-const categories = [
-  { id: 'pens-writing', name: 'Pens & Writing' },
-  { id: 'notebooks', name: 'Notebooks' },
-  { id: 'art-supplies', name: 'Art Supplies' },
-  { id: 'office-supplies', name: 'Office Supplies' }
+const CATEGORIES = [
+  "Writing Instruments",
+  "Paper Products",
+  "Office Supplies",
+  "Art Supplies",
+  "School Supplies",
+  "Desk Accessories",
 ];
 
-const subcategories = {
-  'pens-writing': ['gel-pens', 'ballpoint-pens', 'fountain-pens', 'markers', 'highlighters'],
-  'notebooks': ['lined-notebooks', 'blank-notebooks', 'grid-notebooks', 'dot-grid', 'journals'],
-  'art-supplies': ['markers', 'paints', 'brushes', 'sketchbooks', 'colored-pencils'],
-  'office-supplies': ['files-folders', 'staplers', 'tape', 'clips', 'organizers']
-};
-
-const brands = ['InkWell', 'PaperCraft', 'ArtPro', 'WriteRight', 'StudioSeries'];
+const PEN_TYPES = ["ballpoint", "gel", "fountain", "marker"];
+const PAPER_TYPES = ["lined", "blank", "grid", "dot"];
+const BINDING_TYPES = ["spiral", "perfect", "hardcover"];
+const STATUS_OPTIONS = ["active", "inactive", "out_of_stock", "discontinued"];
 
 export default function CreateProductPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [hasVariants, setHasVariants] = useState(false);
-  const [variants, setVariants] = useState<ProductVariant[]>([]);
-  const [images, setImages] = useState<string[]>([]);
-  const [primaryImage, setPrimaryImage] = useState('');
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState("");
 
   const [formData, setFormData] = useState({
-    // Basic Information
-    sku: '',
-    name: '',
-    description: '',
-    shortDescription: '',
-    
-    // Pricing
+    sku: "",
+    name: "",
+    description: "",
+    shortDescription: "",
     price: 0,
     comparePrice: 0,
     costPrice: 0,
-    
-    // Inventory
     stock: 0,
     lowStockAlert: 10,
     trackQuantity: true,
-    
-    // Category & Organization
-    category: '',
-    subcategory: '',
-    tags: [] as string[],
-    brand: '',
-    
-    // Specifications
+    category: "",
+    subcategory: "",
+    brand: "",
+    primaryImage: "",
     specifications: {
-      color: '',
-      material: '',
-      size: '',
+      color: "",
+      material: "",
+      size: "",
       weight: 0,
       dimensions: {
         length: 0,
         width: 0,
-        height: 0
+        height: 0,
       },
-      penType: '',
-      inkColor: '',
-      pointSize: '',
-      paperType: '',
+      penType: undefined as
+        | "ballpoint"
+        | "gel"
+        | "fountain"
+        | "marker"
+        | undefined,
+      inkColor: "",
+      pointSize: "",
+      paperType: undefined as "lined" | "blank" | "grid" | "dot" | undefined,
       pageCount: 0,
-      binding: ''
+      binding: undefined as "spiral" | "perfect" | "hardcover" | undefined,
     },
-    
-    // Status & Flags
-    status: 'active' as 'active' | 'inactive' | 'out_of_stock' | 'discontinued',
+    status: "active" as "active" | "inactive" | "out_of_stock" | "discontinued",
     isFeatured: false,
     isBestSeller: false,
-    
-    // SEO
-    slug: '',
-    metaTitle: '',
-    metaDescription: ''
+    slug: "",
   });
 
-  const [tagInput, setTagInput] = useState('');
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
 
-  // Handle form input changes
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-  const { name, value, type } = e.target;
-  
-  if (name.startsWith('specifications.')) {
-    const specField = name.replace('specifications.', '');
-    
-    if (specField.includes('.')) {
-      const [parent, child] = specField.split('.');
-      setFormData(prev => ({
+    if (name.startsWith("specifications.")) {
+      const specField = name.split(".")[1];
+      setFormData((prev) => ({
         ...prev,
         specifications: {
           ...prev.specifications,
-          [parent]: {
-            // Create a new object for the nested property instead of spreading
-            ...(prev.specifications[parent as keyof typeof prev.specifications] as any),
-            [child]: type === 'number' ? parseFloat(value) || 0 : value
-          }
-        }
+          [specField]: type === "number" ? parseFloat(value) || 0 : value,
+        },
       }));
-    } else {
-      setFormData(prev => ({
+    } else if (name.startsWith("dimensions.")) {
+      const dimField = name.split(".")[1];
+      setFormData((prev) => ({
         ...prev,
         specifications: {
           ...prev.specifications,
-          [specField]: type === 'number' ? parseFloat(value) || 0 : value
-        }
+          dimensions: {
+            ...prev.specifications.dimensions,
+            [dimField]: parseFloat(value) || 0,
+          },
+        },
       }));
-    }
-  } else {
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'number' ? parseFloat(value) || 0 : 
-              type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    }));
-  }
-};
-  // Handle tag management
-  const handleAddTag = () => {
-    if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
-      setFormData(prev => ({
-        ...prev,
-        tags: [...prev.tags, tagInput.trim()]
-      }));
-      setTagInput('');
-    }
-  };
-
-  const handleRemoveTag = (tagToRemove: string) => {
-    setFormData(prev => ({
-      ...prev,
-      tags: prev.tags.filter(tag => tag !== tagToRemove)
-    }));
-  };
-
-  // Handle image management
-  const handleAddImage = (url: string) => {
-    if (url.trim() && !images.includes(url.trim())) {
-      const newImages = [...images, url.trim()];
-      setImages(newImages);
-      if (!primaryImage) {
-        setPrimaryImage(url.trim());
-      }
-    }
-  };
-
-  const handleRemoveImage = (imageToRemove: string) => {
-    const newImages = images.filter(img => img !== imageToRemove);
-    setImages(newImages);
-    if (primaryImage === imageToRemove) {
-      setPrimaryImage(newImages[0] || '');
-    }
-  };
-
-  // Handle variant management
-  const handleAddVariant = () => {
-    const newVariant: ProductVariant = {
-      sku: `${formData.sku}-VAR-${variants.length + 1}`,
-      name: `${formData.name} - Variant ${variants.length + 1}`,
-      price: formData.price,
-      stock: 0,
-      attributes: {}
-    };
-    setVariants([...variants, newVariant]);
-  };
-
-  const handleVariantChange = (index: number, field: string, value: any) => {
-    const updatedVariants = [...variants];
-    if (field.startsWith('attributes.')) {
-      const attrField = field.replace('attributes.', '');
-      updatedVariants[index] = {
-        ...updatedVariants[index],
-        attributes: {
-          ...updatedVariants[index].attributes,
-          [attrField]: value
-        }
-      };
     } else {
-      updatedVariants[index] = {
-        ...updatedVariants[index],
-        [field]: value
-      };
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "number" ? parseFloat(value) || 0 : value,
+      }));
     }
-    setVariants(updatedVariants);
   };
 
-  const handleRemoveVariant = (index: number) => {
-    setVariants(variants.filter((_, i) => i !== index));
+  const handleSelectChange = (name: string, value: string) => {
+    if (name.startsWith("specifications.")) {
+      const specField = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        specifications: {
+          ...prev.specifications,
+          [specField]: value === "" ? undefined : value,
+        },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
-  // Generate slug from product name
+  const handleSwitchChange = (name: string, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
+  const addImageUrl = () => {
+    if (formData.primaryImage && !imageUrls.includes(formData.primaryImage)) {
+      setImageUrls((prev) => [...prev, formData.primaryImage]);
+      setFormData((prev) => ({ ...prev, primaryImage: "" }));
+    }
+  };
+
+  const removeImageUrl = (index: number) => {
+    setImageUrls((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const addTag = () => {
+    if (tagInput.trim() && !tags.includes(tagInput.trim())) {
+      setTags((prev) => [...prev, tagInput.trim()]);
+      setTagInput("");
+    }
+  };
+
+  const removeTag = (index: number) => {
+    setTags((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const generateSlug = (name: string) => {
     return name
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)+/g, '');
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -210,828 +184,603 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
     try {
       const productData = {
         ...formData,
-        images,
-        primaryImage,
-        hasVariants,
-        variants: hasVariants ? variants : [],
+        images: imageUrls,
+        tags: tags,
+        primaryImage: imageUrls[0] || "",
+        slug: formData.slug || generateSlug(formData.name),
         viewCount: 0,
-        sellCount: 0
+        sellCount: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
-      // In a real application, you would send this to your API
-      const response = await fetch('/api/admin/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData),
-      });
+      const result = await createProduct(productData);
 
-      if (response.ok) {
-        router.push('/admin/products');
-        router.refresh();
+      if (result.success) {
+        toast.success("Product created successfully!");
+        setFormData({
+          sku: "",
+          name: "",
+          description: "",
+          shortDescription: "",
+          price: 0,
+          comparePrice: 0,
+          costPrice: 0,
+          stock: 0,
+          lowStockAlert: 10,
+          trackQuantity: true,
+          category: "",
+          subcategory: "",
+          brand: "",
+          primaryImage: "",
+          specifications: {
+            color: "",
+            material: "",
+            size: "",
+            weight: 0,
+            dimensions: {
+              length: 0,
+              width: 0,
+              height: 0,
+            },
+            penType: undefined as
+              | "ballpoint"
+              | "gel"
+              | "fountain"
+              | "marker"
+              | undefined,
+            inkColor: "",
+            pointSize: "",
+            paperType: undefined as
+              | "lined"
+              | "blank"
+              | "grid"
+              | "dot"
+              | undefined,
+            pageCount: 0,
+            binding: undefined as
+              | "spiral"
+              | "perfect"
+              | "hardcover"
+              | undefined,
+          },
+          status: "active",
+          isFeatured: false,
+          isBestSeller: false,
+          slug: "",
+        });
+
+        setImageUrls([]);
+        setTags([]);
+        setTagInput("");
+
+        console.log("Product created with ID:", result.productId);
       } else {
-        throw new Error('Failed to create product');
+        console.error("Error:", result.error);
+        toast.error(
+          result.error || "Failed to create product. Please try again."
+        );
       }
     } catch (error) {
-      console.error('Error creating product:', error);
-      alert('Error creating product. Please try again.');
+      console.error("Error creating product:", error);
+      toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Create New Product</h1>
-          <p className="text-gray-600 mt-2">Add a new product to your stationery store</p>
-        </div>
+    <div className="container mx-auto p-6 max-w-6xl">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-foreground">
+          Create New Product
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Add a new product to your stationery store
+        </p>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Basic Information Card */}
-          <div className="card">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Basic Information</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Product Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={(e) => {
-                      handleInputChange(e);
-                      // Auto-generate slug when name changes
-                      if (!formData.slug) {
-                        setFormData(prev => ({
-                          ...prev,
-                          slug: generateSlug(e.target.value)
-                        }));
-                      }
-                    }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., Premium Gel Pen - Blue"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="sku" className="block text-sm font-medium text-gray-700 mb-2">
-                    SKU *
-                  </label>
-                  <input
-                    type="text"
-                    id="sku"
-                    name="sku"
-                    required
-                    value={formData.sku}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., PEN-GEL-BLUE-07"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="shortDescription" className="block text-sm font-medium text-gray-700 mb-2">
-                    Short Description *
-                  </label>
-                  <textarea
-                    id="shortDescription"
-                    name="shortDescription"
-                    required
-                    rows={2}
-                    value={formData.shortDescription}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Brief description for product listings"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Description *
-                  </label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    required
-                    rows={4}
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Detailed product description with features and benefits"
-                  />
-                </div>
+      <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Basic Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Basic Information</CardTitle>
+            <CardDescription>Essential product details</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Product Name *</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Natraj Premium Pencil"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="sku">SKU *</Label>
+                <Input
+                  id="sku"
+                  name="sku"
+                  value={formData.sku}
+                  onChange={handleInputChange}
+                  placeholder="e.g., NAT-PB2-2024"
+                  required
+                />
               </div>
             </div>
-          </div>
 
-          {/* Pricing & Inventory Card */}
-          <div className="card">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Pricing & Inventory</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label htmlFor="costPrice" className="block text-sm font-medium text-gray-700 mb-2">
-                    Cost Price ($) *
-                  </label>
-                  <input
-                    type="number"
-                    id="costPrice"
-                    name="costPrice"
-                    required
-                    min="0"
-                    step="0.01"
-                    value={formData.costPrice}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
+            <div className="space-y-2">
+              <Label htmlFor="shortDescription">Short Description *</Label>
+              <Input
+                id="shortDescription"
+                name="shortDescription"
+                value={formData.shortDescription}
+                onChange={handleInputChange}
+                placeholder="Brief description (max 200 characters)"
+                maxLength={200}
+                required
+              />
+            </div>
 
-                <div>
-                  <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
-                    Selling Price ($) *
-                  </label>
-                  <input
-                    type="number"
-                    id="price"
-                    name="price"
-                    required
-                    min="0"
-                    step="0.01"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Full Description *</Label>
+              <Textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Detailed product description with features and benefits"
+                rows={4}
+                required
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-                <div>
-                  <label htmlFor="comparePrice" className="block text-sm font-medium text-gray-700 mb-2">
-                    Compare Price ($)
-                  </label>
-                  <input
-                    type="number"
-                    id="comparePrice"
-                    name="comparePrice"
-                    min="0"
-                    step="0.01"
-                    value={formData.comparePrice}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-2">
-                    Stock Quantity *
-                  </label>
-                  <input
-                    type="number"
-                    id="stock"
-                    name="stock"
-                    required
-                    min="0"
-                    value={formData.stock}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="lowStockAlert" className="block text-sm font-medium text-gray-700 mb-2">
-                    Low Stock Alert
-                  </label>
-                  <input
-                    type="number"
-                    id="lowStockAlert"
-                    name="lowStockAlert"
-                    min="0"
-                    value={formData.lowStockAlert}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div className="flex items-end">
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      name="trackQuantity"
-                      checked={formData.trackQuantity}
-                      onChange={handleInputChange}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">Track Quantity</span>
-                  </label>
-                </div>
+        {/* Pricing & Inventory */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Pricing & Inventory</CardTitle>
+            <CardDescription>
+              Product pricing and stock management
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="costPrice">Cost Price (₹) *</Label>
+                <Input
+                  id="costPrice"
+                  name="costPrice"
+                  type="number"
+                  step="0.01"
+                  value={formData.costPrice}
+                  onChange={handleInputChange}
+                  min="0"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="price">Selling Price (₹) *</Label>
+                <Input
+                  id="price"
+                  name="price"
+                  type="number"
+                  step="0.01"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                  min="0"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="comparePrice">Compare Price (₹)</Label>
+                <Input
+                  id="comparePrice"
+                  name="comparePrice"
+                  type="number"
+                  step="0.01"
+                  value={formData.comparePrice}
+                  onChange={handleInputChange}
+                  min="0"
+                />
               </div>
             </div>
-          </div>
 
-          {/* Category & Organization Card */}
-          <div className="card">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Category & Organization</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-                    Category *
-                  </label>
-                  <select
-                    id="category"
-                    name="category"
-                    required
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select Category</option>
-                    {categories.map(cat => (
-                      <option key={cat.id} value={cat.id}>{cat.name}</option>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="stock">Stock Quantity *</Label>
+                <Input
+                  id="stock"
+                  name="stock"
+                  type="number"
+                  value={formData.stock}
+                  onChange={handleInputChange}
+                  min="0"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lowStockAlert">Low Stock Alert</Label>
+                <Input
+                  id="lowStockAlert"
+                  name="lowStockAlert"
+                  type="number"
+                  value={formData.lowStockAlert}
+                  onChange={handleInputChange}
+                  min="0"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                checked={formData.trackQuantity}
+                onCheckedChange={(checked: any) =>
+                  handleSwitchChange("trackQuantity", checked)
+                }
+              />
+              <Label htmlFor="trackQuantity">Track Quantity</Label>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Category & Organization</CardTitle>
+            <CardDescription>Product categorization</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="category">Category *</Label>
+                <Select
+                  value={formData.category}
+                  onValueChange={(value) =>
+                    handleSelectChange("category", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CATEGORIES.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
                     ))}
-                  </select>
-                </div>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="subcategory">Subcategory</Label>
+                <Input
+                  id="subcategory"
+                  name="subcategory"
+                  value={formData.subcategory}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Pencils, Notebooks"
+                />
+              </div>
+            </div>
 
-                <div>
-                  <label htmlFor="subcategory" className="block text-sm font-medium text-gray-700 mb-2">
-                    Subcategory
-                  </label>
-                  <select
-                    id="subcategory"
-                    name="subcategory"
-                    value={formData.subcategory}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    disabled={!formData.category}
+            <div className="space-y-2">
+              <Label htmlFor="brand">Brand *</Label>
+              <Input
+                id="brand"
+                name="brand"
+                value={formData.brand}
+                onChange={handleInputChange}
+                placeholder="e.g., Natraj, Pilot"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Tags</Label>
+              <div className="flex gap-2">
+                <Input
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  placeholder="Add tags..."
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      addTag();
+                    }
+                  }}
+                />
+                <Button type="button" onClick={addTag} variant="outline">
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {tags.map((tag, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-1 bg-secondary px-2 py-1 rounded-md text-sm"
                   >
-                    <option value="">Select Subcategory</option>
-                    {formData.category && subcategories[formData.category as keyof typeof subcategories]?.map(sub => (
-                      <option key={sub} value={sub}>
-                        {sub.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="brand" className="block text-sm font-medium text-gray-700 mb-2">
-                    Brand *
-                  </label>
-                  <select
-                    id="brand"
-                    name="brand"
-                    required
-                    value={formData.brand}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select Brand</option>
-                    {brands.map(brand => (
-                      <option key={brand} value={brand}>{brand}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-2">
-                    Tags
-                  </label>
-                  <div className="flex space-x-2">
-                    <input
-                      type="text"
-                      value={tagInput}
-                      onChange={(e) => setTagInput(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Add tags..."
-                    />
+                    {tag}
                     <button
                       type="button"
-                      onClick={handleAddTag}
-                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                      onClick={() => removeTag(index)}
+                      className="text-muted-foreground hover:text-foreground"
                     >
-                      Add
+                      <X className="h-3 w-3" />
                     </button>
                   </div>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {formData.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Product Images</CardTitle>
+            <CardDescription>Add product images</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>Add Image URL</Label>
+              <div className="flex gap-2">
+                <Input
+                  value={formData.primaryImage}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      primaryImage: e.target.value,
+                    }))
+                  }
+                  placeholder="https://example.com/image.jpg"
+                />
+                <Button type="button" onClick={addImageUrl} variant="outline">
+                  <Upload className="h-4 w-4 mr-2" />
+                  Add Image
+                </Button>
+              </div>
+            </div>
+
+            {imageUrls.length > 0 && (
+              <div className="space-y-2">
+                <Label>Product Images</Label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {imageUrls.map((url, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={url}
+                        alt={`Product image ${index + 1}`}
+                        className="w-full h-24 object-cover rounded-lg border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeImageUrl(index)}
+                        className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
-                        {tag}
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveTag(tag)}
-                          className="ml-2 hover:text-blue-600"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Images Card */}
-          <div className="card">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Product Images</h2>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Add Image URL
-                  </label>
-                  <div className="flex space-x-2">
-                    <input
-                      type="url"
-                      id="imageUrl"
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="https://example.com/image.jpg"
-                      onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddImage((e.target as HTMLInputElement).value), (e.target as HTMLInputElement).value = '')}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const input = document.getElementById('imageUrl') as HTMLInputElement;
-                        handleAddImage(input.value);
-                        input.value = '';
-                      }}
-                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
-                    >
-                      Add Image
-                    </button>
-                  </div>
-                </div>
-
-                {images.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Product Images ({images.length})
-                    </label>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {images.map((image, index) => (
-                        <div key={index} className="relative group">
-                          <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-                            <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-                              <span className="text-gray-600 text-sm">Image {index + 1}</span>
-                            </div>
-                          </div>
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100">
-                            <button
-                              type="button"
-                              onClick={() => setPrimaryImage(image)}
-                              className={`p-1 rounded ${
-                                primaryImage === image ? 'bg-green-500 text-white' : 'bg-white text-gray-700'
-                              }`}
-                              title="Set as primary"
-                            >
-                              ★
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveImage(image)}
-                              className="p-1 bg-red-500 text-white rounded"
-                              title="Remove image"
-                            >
-                              ×
-                            </button>
-                          </div>
-                          {primaryImage === image && (
-                            <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                              Primary
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Product Specifications Card */}
-          <div className="card">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Product Specifications</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="specifications.color" className="block text-sm font-medium text-gray-700 mb-2">
-                    Color
-                  </label>
-                  <input
-                    type="text"
-                    id="specifications.color"
-                    name="specifications.color"
-                    value={formData.specifications.color}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., Blue, Black, Red"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="specifications.material" className="block text-sm font-medium text-gray-700 mb-2">
-                    Material
-                  </label>
-                  <input
-                    type="text"
-                    id="specifications.material"
-                    name="specifications.material"
-                    value={formData.specifications.material}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., Plastic, Metal, Paper"
-                  />
-                </div>
-
-                {/* Stationery Specific Fields */}
-                <div>
-                  <label htmlFor="specifications.penType" className="block text-sm font-medium text-gray-700 mb-2">
-                    Pen Type
-                  </label>
-                  <select
-                    id="specifications.penType"
-                    name="specifications.penType"
-                    value={formData.specifications.penType}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select Pen Type</option>
-                    <option value="ballpoint">Ballpoint</option>
-                    <option value="gel">Gel</option>
-                    <option value="fountain">Fountain</option>
-                    <option value="marker">Marker</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="specifications.inkColor" className="block text-sm font-medium text-gray-700 mb-2">
-                    Ink Color
-                  </label>
-                  <input
-                    type="text"
-                    id="specifications.inkColor"
-                    name="specifications.inkColor"
-                    value={formData.specifications.inkColor}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., Blue, Black, Red"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="specifications.pointSize" className="block text-sm font-medium text-gray-700 mb-2">
-                    Point Size
-                  </label>
-                  <input
-                    type="text"
-                    id="specifications.pointSize"
-                    name="specifications.pointSize"
-                    value={formData.specifications.pointSize}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="e.g., 0.7mm, 1.0mm"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="specifications.paperType" className="block text-sm font-medium text-gray-700 mb-2">
-                    Paper Type
-                  </label>
-                  <select
-                    id="specifications.paperType"
-                    name="specifications.paperType"
-                    value={formData.specifications.paperType}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select Paper Type</option>
-                    <option value="lined">Lined</option>
-                    <option value="blank">Blank</option>
-                    <option value="grid">Grid</option>
-                    <option value="dot">Dot Grid</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="specifications.pageCount" className="block text-sm font-medium text-gray-700 mb-2">
-                    Page Count
-                  </label>
-                  <input
-                    type="number"
-                    id="specifications.pageCount"
-                    name="specifications.pageCount"
-                    min="0"
-                    value={formData.specifications.pageCount}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="specifications.binding" className="block text-sm font-medium text-gray-700 mb-2">
-                    Binding Type
-                  </label>
-                  <select
-                    id="specifications.binding"
-                    name="specifications.binding"
-                    value={formData.specifications.binding}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select Binding</option>
-                    <option value="spiral">Spiral</option>
-                    <option value="perfect">Perfect</option>
-                    <option value="hardcover">Hardcover</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Variants Card */}
-          <div className="card">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold">Product Variants</h2>
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={hasVariants}
-                    onChange={(e) => setHasVariants(e.target.checked)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="ml-2 text-sm text-gray-700">This product has variants</span>
-                </label>
-              </div>
-
-              {hasVariants && (
-                <div className="space-y-4">
-                  <button
-                    type="button"
-                    onClick={handleAddVariant}
-                    className="btn-secondary"
-                  >
-                    + Add Variant
-                  </button>
-
-                  {variants.map((variant, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">Variant {index + 1}</h3>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveVariant(index)}
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          Remove
-                        </button>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            SKU
-                          </label>
-                          <input
-                            type="text"
-                            value={variant.sku}
-                            onChange={(e) => handleVariantChange(index, 'sku', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Price ($)
-                          </label>
-                          <input
-                            type="number"
-                            min="0"
-                            step="0.01"
-                            value={variant.price}
-                            onChange={(e) => handleVariantChange(index, 'price', parseFloat(e.target.value))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Stock
-                          </label>
-                          <input
-                            type="number"
-                            min="0"
-                            value={variant.stock}
-                            onChange={(e) => handleVariantChange(index, 'stock', parseInt(e.target.value))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          />
-                        </div>
-
-                        <div className="md:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Variant Attributes (e.g., Color: Blue, Size: A4)
-                          </label>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                              type="text"
-                              placeholder="Attribute name (e.g., Color)"
-                              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                  e.preventDefault();
-                                  const target = e.target as HTMLInputElement;
-                                  const valueInput = target.nextElementSibling as HTMLInputElement;
-                                  if (target.value && valueInput.value) {
-                                    handleVariantChange(index, `attributes.${target.value}`, valueInput.value);
-                                    target.value = '';
-                                    valueInput.value = '';
-                                  }
-                                }
-                              }}
-                            />
-                            <input
-                              type="text"
-                              placeholder="Attribute value (e.g., Blue)"
-                              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                  e.preventDefault();
-                                  const target = e.target as HTMLInputElement;
-                                  const nameInput = target.previousElementSibling as HTMLInputElement;
-                                  if (nameInput.value && target.value) {
-                                    handleVariantChange(index, `attributes.${nameInput.value}`, target.value);
-                                    nameInput.value = '';
-                                    target.value = '';
-                                  }
-                                }
-                              }}
-                            />
-                          </div>
-                          
-                          {Object.keys(variant.attributes).length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-2">
-                              {Object.entries(variant.attributes).map(([key, value]) => (
-                                <span
-                                  key={key}
-                                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
-                                >
-                                  {key}: {value}
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      const newAttributes = { ...variant.attributes };
-                                      delete newAttributes[key];
-                                      handleVariantChange(index, 'attributes', newAttributes);
-                                    }}
-                                    className="ml-2 hover:text-gray-600"
-                                  >
-                                    ×
-                                  </button>
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                        <X className="h-3 w-3" />
+                      </button>
                     </div>
                   ))}
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* SEO & Status Card */}
-          <div className="card">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-6">SEO & Status</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-2">
-                    URL Slug *
-                  </label>
-                  <input
-                    type="text"
-                    id="slug"
-                    name="slug"
-                    required
-                    value={formData.slug}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="premium-gel-pen-blue"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
-                    Status *
-                  </label>
-                  <select
-                    id="status"
-                    name="status"
-                    required
-                    value={formData.status}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="out_of_stock">Out of Stock</option>
-                    <option value="discontinued">Discontinued</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700 mb-2">
-                    Meta Title
-                  </label>
-                  <input
-                    type="text"
-                    id="metaTitle"
-                    name="metaTitle"
-                    value={formData.metaTitle}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="SEO title for search engines"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700 mb-2">
-                    Meta Description
-                  </label>
-                  <textarea
-                    id="metaDescription"
-                    name="metaDescription"
-                    rows={3}
-                    value={formData.metaDescription}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="SEO description for search engines"
-                  />
-                </div>
-
-                <div className="flex items-center space-x-6">
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      name="isFeatured"
-                      checked={formData.isFeatured}
-                      onChange={handleInputChange}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">Featured Product</span>
-                  </label>
-
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      name="isBestSeller"
-                      checked={formData.isBestSeller}
-                      onChange={handleInputChange}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">Best Seller</span>
-                  </label>
-                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Product Specifications</CardTitle>
+            <CardDescription>Detailed product specifications</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="specifications.color">Color</Label>
+                <Input
+                  id="specifications.color"
+                  name="specifications.color"
+                  value={formData.specifications.color}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Blue, Black, Red"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="specifications.material">Material</Label>
+                <Input
+                  id="specifications.material"
+                  name="specifications.material"
+                  value={formData.specifications.material}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Plastic, Metal, Paper"
+                />
               </div>
             </div>
-          </div>
 
-          {/* Form Actions */}
-          <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
-            <button
-              type="button"
-              onClick={() => router.back()}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Creating Product...' : 'Create Product'}
-            </button>
-          </div>
-        </form>
-      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="specifications.penType">Pen Type</Label>
+                <Select
+                  value={formData.specifications.penType}
+                  onValueChange={(value) =>
+                    handleSelectChange("specifications.penType", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Pen Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PEN_TYPES.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="specifications.inkColor">Ink Color</Label>
+                <Input
+                  id="specifications.inkColor"
+                  name="specifications.inkColor"
+                  value={formData.specifications.inkColor}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Blue, Black, Red"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="specifications.pointSize">Point Size</Label>
+                <Input
+                  id="specifications.pointSize"
+                  name="specifications.pointSize"
+                  value={formData.specifications.pointSize}
+                  onChange={handleInputChange}
+                  placeholder="e.g., 0.7mm, 1.0mm"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="specifications.paperType">Paper Type</Label>
+                <Select
+                  value={formData.specifications.paperType}
+                  onValueChange={(value) =>
+                    handleSelectChange("specifications.paperType", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Paper Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PAPER_TYPES.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="specifications.pageCount">Page Count</Label>
+                <Input
+                  id="specifications.pageCount"
+                  name="specifications.pageCount"
+                  type="number"
+                  value={formData.specifications.pageCount}
+                  onChange={handleInputChange}
+                  min="0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="specifications.binding">Binding Type</Label>
+                <Select
+                  value={formData.specifications.binding}
+                  onValueChange={(value) =>
+                    handleSelectChange("specifications.binding", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Binding" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {BINDING_TYPES.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>SEO & Status</CardTitle>
+            <CardDescription>
+              Product visibility and SEO settings
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="slug">URL Slug *</Label>
+                <Input
+                  id="slug"
+                  name="slug"
+                  value={formData.slug}
+                  onChange={handleInputChange}
+                  placeholder="e.g., natraj-premium-pencil"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="status">Status *</Label>
+                <Select
+                  value={formData.status}
+                  onValueChange={(value) => handleSelectChange("status", value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {STATUS_OPTIONS.map((status) => (
+                      <SelectItem key={status} value={status}>
+                        {status
+                          .split("_")
+                          .map(
+                            (word) =>
+                              word.charAt(0).toUpperCase() + word.slice(1)
+                          )
+                          .join(" ")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Switch
+                  checked={formData.isFeatured}
+                  onCheckedChange={(checked: any) =>
+                    handleSwitchChange("isFeatured", checked)
+                  }
+                />
+                <Label htmlFor="isFeatured">Featured Product</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Switch
+                  checked={formData.isBestSeller}
+                  onCheckedChange={(checked: any) =>
+                    handleSwitchChange("isBestSeller", checked)
+                  }
+                />
+                <Label htmlFor="isBestSeller">Best Seller</Label>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <div className="flex justify-end space-x-4">
+          <Button type="button" variant="outline" onClick={() => router.back()}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating Product...
+              </>
+            ) : (
+              "Create Product"
+            )}
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

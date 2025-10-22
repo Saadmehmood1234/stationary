@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Product } from "@/types";
 
-// Mock data - in real app, fetch from API
 const mockProducts: Product[] = [
   {
     _id: "1",
@@ -42,23 +41,7 @@ const mockProducts: Product[] = [
     status: "active",
     isFeatured: true,
     isBestSeller: true,
-    hasVariants: true,
-    variants: [
-      {
-        _id: "var-1",
-        sku: "PEN-GEL-BLACK-07",
-        name: "Premium Gel Pen - Black",
-        price: 3.99,
-        stock: 100,
-        attributes: {
-          color: "Black",
-          pointSize: "0.7mm",
-        },
-      },
-    ],
     slug: "premium-gel-pen-blue",
-    metaTitle: "Premium Gel Pen - Smooth Writing | InkWell",
-    metaDescription: "Buy our premium gel pen with smooth writing experience",
     viewCount: 1245,
     sellCount: 89,
     createdAt: new Date("2024-01-01"),

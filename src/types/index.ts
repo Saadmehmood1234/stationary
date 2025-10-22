@@ -1,17 +1,59 @@
 
 export interface CartItem {
   product: Product;
-  quantity: number;
+  quantity: 
+  number;
 }
 
+export interface SessionUser {
+  _id: string;
+  email: string;
+  name: string;
+  verified: boolean;
+}
+
+export interface SessionPayload {
+  userId: string;
+  email: string;
+  name: string;
+  verified: boolean;
+  iat?: number;
+  exp?: number;
+}
+
+export interface ContactFilters {
+  dateRange?: {
+    from: string;
+    to: string;
+  };
+  subject?: string;
+}
 export interface ContactFormData {
+  _id?:string
   name: string;
   email: string;
   subject: string;
   message: string;
 }
 
+export interface ContactDocument extends ContactFormData {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v?: number;
+}
 
+export interface PaginatedContactsResponse {
+  contacts: ContactDocument[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalContacts: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+    limit: number;
+  };
+}
 export interface Product {
   _id?: string;
   sku: string;
@@ -30,56 +72,34 @@ export interface Product {
   brand: string;
   images: string[];
   primaryImage: string;
-  
   specifications: {
     color?: string;
     material?: string;
     size?: string;
-    weight?: number; 
+    weight?: number;
     dimensions?: {
       length: number;
       width: number;
       height: number;
     };
-    penType?: 'ballpoint' | 'gel' | 'fountain' | 'marker';
+    penType?: "ballpoint" | "gel" | "fountain" | "marker";
     inkColor?: string;
     pointSize?: string;
-    paperType?: 'lined' | 'blank' | 'grid' | 'dot';
+    paperType?: "lined" | "blank" | "grid" | "dot";
     pageCount?: number;
-    binding?: 'spiral' | 'perfect' | 'hardcover';
+    binding?: "spiral" | "perfect" | "hardcover";
   };
-  
-  status: 'active' | 'inactive' | 'out_of_stock' | 'discontinued';
+  status: "active" | "inactive" | "out_of_stock" | "discontinued";
   isFeatured: boolean;
   isBestSeller: boolean;
-  
-  hasVariants: boolean;
-  variants?: ProductVariant[];
-  
   slug: string;
-  metaTitle?: string;
-  metaDescription?: string;
-  
   viewCount: number;
   sellCount: number;
-  
   createdAt: Date;
   updatedAt: Date;
 }
 
 
-export interface ProductVariant {
-  _id?: string;
-  sku: string;
-  name: string;
-  price: number;
-  comparePrice?: number;
-  stock: number;
-  attributes: {
-    [key: string]: string; // { color: 'red', size: 'A4' }
-  };
-  image?: string;
-}
 
 
 export interface Category {
