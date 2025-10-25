@@ -5,51 +5,7 @@ import { redirect } from "next/navigation";
 import { Product } from "@/models/Products";
 import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
-
-export interface ProductFormData {
-  _id?: string;
-  sku: string;
-  name: string;
-  description: string;
-  shortDescription: string;
-  price: number;
-  comparePrice?: number;
-  costPrice: number;
-  stock: number;
-  lowStockAlert: number;
-  trackQuantity: boolean;
-  category: string;
-  subcategory?: string;
-  tags: string[];
-  brand: string;
-  images: string[];
-  primaryImage: string;
-  specifications: {
-    color?: string;
-    material?: string;
-    size?: string;
-    weight?: number;
-    dimensions?: {
-      length: number;
-      width: number;
-      height: number;
-    };
-    penType?: "ballpoint" | "gel" | "fountain" | "marker";
-    inkColor?: string;
-    pointSize?: string;
-    paperType?: "lined" | "blank" | "grid" | "dot";
-    pageCount?: number;
-    binding?: "spiral" | "perfect" | "hardcover";
-  };
-  status: "active" | "inactive" | "out_of_stock" | "discontinued";
-  isFeatured: boolean;
-  isBestSeller: boolean;
-  slug: string;
-  viewCount: number;
-  sellCount: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Product as ProductFormData } from "@/types";
 
 export async function createProduct(formData: ProductFormData) {
   try {
@@ -93,9 +49,9 @@ export async function createProduct(formData: ProductFormData) {
       primaryImage: formData.images[0] || formData.primaryImage,
       specifications: {
         ...formData.specifications,
-        penType: formData.specifications.penType || undefined,
-        paperType: formData.specifications.paperType || undefined,
-        binding: formData.specifications.binding || undefined,
+        penType: formData?.specifications?.penType || undefined,
+        paperType: formData.specifications?.paperType || undefined,
+        binding: formData.specifications?.binding || undefined,
       },
     };
     const product = await Product.create(productData);
@@ -126,7 +82,11 @@ export async function createProduct(formData: ProductFormData) {
   }
 }
 
-export async function getProductById(id: string) {
+export async function getProductById(id: string): Promise<{
+  success: boolean;
+  product?: ProductFormData;
+  error?: string;
+}> {
   try {
     await dbConnect();
 
@@ -146,14 +106,56 @@ export async function getProductById(id: string) {
       };
     }
 
+    const productObj = product as any;
+    
+    const serializedProduct: ProductFormData = {
+      _id: productObj._id.toString(),
+      sku: productObj.sku,
+      name: productObj.name,
+      description: productObj.description,
+      shortDescription: productObj.shortDescription,
+      price: productObj.price,
+      comparePrice: productObj.comparePrice,
+      costPrice: productObj.costPrice,
+      stock: productObj.stock,
+      lowStockAlert: productObj.lowStockAlert,
+      trackQuantity: productObj.trackQuantity,
+      category: productObj.category,
+      subcategory: productObj.subcategory,
+      tags: productObj.tags || [],
+      brand: productObj.brand,
+      images: productObj.images || [],
+      primaryImage: productObj.primaryImage,
+      specifications: productObj.specifications ? {
+        color: productObj.specifications.color,
+        material: productObj.specifications.material,
+        size: productObj.specifications.size,
+        weight: productObj.specifications.weight,
+        dimensions: productObj.specifications.dimensions ? {
+          length: productObj.specifications.dimensions.length,
+          width: productObj.specifications.dimensions.width,
+          height: productObj.specifications.dimensions.height,
+        } : undefined,
+        penType: productObj.specifications.penType,
+        inkColor: productObj.specifications.inkColor,
+        pointSize: productObj.specifications.pointSize,
+        paperType: productObj.specifications.paperType,
+        pageCount: productObj.specifications.pageCount,
+        binding: productObj.specifications.binding,
+      } : undefined,
+      status: productObj.status,
+      isFeatured: productObj.isFeatured,
+      isBestSeller: productObj.isBestSeller,
+      slug: productObj.slug,
+      viewCount: productObj.viewCount,
+      sellCount: productObj.sellCount,
+      createdAt: productObj.createdAt?.toISOString(),
+      updatedAt: productObj.updatedAt?.toISOString(),
+    };
+
     return {
       success: true,
-      product: {
-        ...product,
-        _id: (product as any)._id.toString(),
-        createdAt: (product as any).createdAt.toISOString(),
-        updatedAt: (product as any).updatedAt.toISOString(),
-      },
+      product: serializedProduct,
     };
   } catch (error: any) {
     console.error("Error fetching product:", error);
@@ -163,7 +165,6 @@ export async function getProductById(id: string) {
     };
   }
 }
-
 export async function getProductBySlug(slug: string) {
   try {
     await dbConnect();
@@ -243,18 +244,65 @@ export async function getProducts(
     ]);
 
     const totalPages = Math.ceil(total / limit);
-    const serializedProducts = products.map((product: any) => ({
-      ...product,
-      _id: product._id.toString(),
-      specifications: product.specifications ? {
-        ...product.specifications,
-        dimensions: product.specifications.dimensions ? {
-          ...product.specifications.dimensions
-        } : undefined
-      } : {},
-      createdAt: product.createdAt?.toISOString(),
-      updatedAt: product.updatedAt?.toISOString(),
-    }));
+    
+    // Proper serialization for Client Components
+    const serializedProducts = products.map((product: any) => {
+      // Create a plain object with only serializable properties
+      const serialized: any = {
+        _id: product._id.toString(),
+        sku: product.sku,
+        name: product.name,
+        description: product.description,
+        shortDescription: product.shortDescription,
+        price: product.price,
+        comparePrice: product.comparePrice,
+        costPrice: product.costPrice,
+        stock: product.stock,
+        lowStockAlert: product.lowStockAlert,
+        trackQuantity: product.trackQuantity,
+        category: product.category,
+        subcategory: product.subcategory,
+        tags: product.tags || [],
+        brand: product.brand,
+        images: product.images || [],
+        primaryImage: product.primaryImage,
+        status: product.status,
+        isFeatured: product.isFeatured,
+        isBestSeller: product.isBestSeller,
+        slug: product.slug,
+        viewCount: product.viewCount,
+        sellCount: product.sellCount,
+        createdAt: product.createdAt?.toISOString(),
+        updatedAt: product.updatedAt?.toISOString(),
+      };
+
+      // Handle specifications with proper serialization
+      if (product.specifications) {
+        serialized.specifications = {
+          color: product.specifications.color,
+          material: product.specifications.material,
+          size: product.specifications.size,
+          weight: product.specifications.weight,
+          penType: product.specifications.penType,
+          inkColor: product.specifications.inkColor,
+          pointSize: product.specifications.pointSize,
+          paperType: product.specifications.paperType,
+          pageCount: product.specifications.pageCount,
+          binding: product.specifications.binding,
+        };
+
+        // Handle dimensions separately to avoid any Mongoose objects
+        if (product.specifications.dimensions) {
+          serialized.specifications.dimensions = {
+            length: product.specifications.dimensions.length,
+            width: product.specifications.dimensions.width,
+            height: product.specifications.dimensions.height,
+          };
+        }
+      }
+
+      return serialized;
+    });
 
     return {
       success: true,

@@ -85,10 +85,9 @@ function ProductCardComponent({ product, viewMode = "grid" }: ProductCardProps) 
   console.log(productImage)  
   if (viewMode === "list") {
     return (
-      <Link href={`/shop/${product.slug || product._id}`} className="block group">
+      <Link href={`/shop/${product._id || product.slug}`} className="block group">
         <Card className="hover:shadow-lg transition-all duration-300 group-hover:border-primary/20 h-full">
           <div className="flex flex-col md:flex-row">
-            {/* Image Section */}
             <div className="md:w-48 md:flex-shrink-0 relative">
               <div className="aspect-square md:h-48 bg-muted/50 relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-tr-none">
                 {!imageLoaded && (
@@ -200,9 +199,8 @@ function ProductCardComponent({ product, viewMode = "grid" }: ProductCardProps) 
     );
   }
 
-  // Grid View Layout (Default)
   return (
-    <Link href={`/shop/${product.slug || product._id}`} className="block group h-full">
+    <Link href={`/shop/${product._id || product.slug}`} className="block group h-full">
       <Card className="hover:shadow-lg transition-all duration-300 group-hover:border-primary/20 h-full flex flex-col overflow-hidden">
         {/* Image Section */}
         <CardHeader className="p-0 relative">

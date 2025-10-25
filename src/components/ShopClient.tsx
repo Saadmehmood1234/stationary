@@ -18,7 +18,6 @@ export default function ShopClient({ initialProducts }: Props) {
   const [sortBy, setSortBy] = useState<"name" | "price" | "newest">("newest");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Memoize categories
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
       new Map(
@@ -32,7 +31,7 @@ export default function ShopClient({ initialProducts }: Props) {
     return [{ _id: "all", name: "All Products", count: initialProducts.length }, ...uniqueCategories];
   }, [initialProducts]);
 
-  // Memoize filtered and sorted products
+
   const filteredProducts = useMemo(() => {
     let filtered = initialProducts.filter((p) => {
       const matchesCategory = selectedCategory === "all" || p.category === selectedCategory;
@@ -43,7 +42,6 @@ export default function ShopClient({ initialProducts }: Props) {
       return matchesCategory && matchesSearch;
     });
 
-    // Sort products
     switch (sortBy) {
       case "name":
         filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -59,7 +57,6 @@ export default function ShopClient({ initialProducts }: Props) {
     return filtered;
   }, [initialProducts, selectedCategory, searchQuery, sortBy]);
 
-  // Memoize event handlers
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   }, []);
@@ -82,7 +79,6 @@ export default function ShopClient({ initialProducts }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center mb-8">
@@ -93,8 +89,6 @@ export default function ShopClient({ initialProducts }: Props) {
               Discover our wide range of premium stationery products for all your creative and professional needs.
             </p>
           </div>
-
-          {/* Search Bar */}
           <div className="max-w-2xl mx-auto mb-8">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -107,18 +101,12 @@ export default function ShopClient({ initialProducts }: Props) {
               />
             </div>
           </div>
-
-          {/* Controls Bar */}
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            {/* Results Count */}
             <div className="text-gray-600">
               Showing <span className="font-semibold">{filteredProducts.length}</span> of{" "}
               <span className="font-semibold">{initialProducts.length}</span> products
             </div>
-
-            {/* Controls */}
             <div className="flex flex-wrap gap-3 items-center">
-              {/* Sort Dropdown */}
               <select
                 value={sortBy}
                 onChange={(e) => handleSortChange(e.target.value as "name" | "price" | "newest")}
@@ -128,8 +116,6 @@ export default function ShopClient({ initialProducts }: Props) {
                 <option value="name">Name A-Z</option>
                 <option value="price">Price: Low to High</option>
               </select>
-
-              {/* View Mode Toggle */}
               <button
                 onClick={toggleViewMode}
                 className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
@@ -141,8 +127,6 @@ export default function ShopClient({ initialProducts }: Props) {
                   <Grid className="w-5 h-5 text-gray-600" />
                 )}
               </button>
-
-              {/* Mobile Filter Toggle */}
               <button
                 onClick={toggleFilters}
                 className="lg:hidden p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
@@ -157,7 +141,6 @@ export default function ShopClient({ initialProducts }: Props) {
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Filters - Hidden on mobile by default */}
           <div className={`lg:w-64 flex-shrink-0 ${showFilters ? 'block' : 'hidden lg:block'}`}>
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-8">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -189,8 +172,6 @@ export default function ShopClient({ initialProducts }: Props) {
                   </button>
                 ))}
               </div>
-
-              {/* Mobile close button */}
               <button
                 onClick={toggleFilters}
                 className="lg:hidden w-full mt-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
@@ -199,8 +180,6 @@ export default function ShopClient({ initialProducts }: Props) {
               </button>
             </div>
           </div>
-
-          {/* Products Grid */}
           <div className="flex-1">
             {filteredProducts.length > 0 ? (
               <div className={

@@ -55,7 +55,7 @@ export interface PaginatedContactsResponse {
   };
 }
 export interface Product {
-  _id?: string;
+  _id: string;
   sku: string;
   name: string;
   description: string;
@@ -72,7 +72,7 @@ export interface Product {
   brand: string;
   images: string[];
   primaryImage: string;
-  specifications: {
+  specifications?: {
     color?: string;
     material?: string;
     size?: string;
@@ -95,10 +95,15 @@ export interface Product {
   slug: string;
   viewCount: number;
   sellCount: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
+export interface ProductFormData extends Omit<Product, '_id' | 'createdAt' | 'updatedAt'> {
+  _id?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 
 

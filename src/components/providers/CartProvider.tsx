@@ -1,4 +1,3 @@
-// components/providers/CartProvider.tsx
 "use client";
 
 import React, { createContext, useContext, useReducer, useEffect } from "react";
@@ -43,21 +42,19 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       items: updatedItems,
       total: calculateTotal(updatedItems),
     };
-    // Save to localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('cart', JSON.stringify(newState));
     }
     return newState;
   }
   
-  // Create proper CartItem object with both productId and product
   const newCartItem: CartItem = {
-    productId: action.payload._id!, // Required: product ID
-    product: action.payload,        // Required: full product object
-    variantId: undefined,           // Optional: variant ID
-    quantity: 1,                    // Required: quantity
-    price: action.payload.price,    // Required: price at time of adding
-    addedAt: new Date()             // Required: timestamp
+    productId: action.payload._id!, 
+    product: action.payload,       
+    variantId: undefined,          
+    quantity: 1,                    
+    price: action.payload.price,    
+    addedAt: new Date()             
   };
   
   const newItems = [...state.items, newCartItem];
@@ -66,7 +63,6 @@ function cartReducer(state: CartState, action: CartAction): CartState {
     items: newItems,
     total: calculateTotal(newItems),
   };
-  // Save to localStorage
   if (typeof window !== 'undefined') {
     localStorage.setItem('cart', JSON.stringify(newState));
   }
@@ -155,8 +151,6 @@ const initialState: CartState = {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-
-  // Load cart from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedCart = localStorage.getItem("cart");
