@@ -11,6 +11,7 @@ export async function createProduct(formData: ProductFormData) {
   try {
     console.log("Before", formData);
     await dbConnect();
+    
     if (
       !formData.name ||
       !formData.sku ||
@@ -25,7 +26,9 @@ export async function createProduct(formData: ProductFormData) {
       };
     }
     console.log("After", formData);
+    
     const slug = formData.slug || generateSlug(formData.name);
+    
     const existingSku = await Product.findOne({ sku: formData.sku });
     if (existingSku) {
       return {
@@ -45,15 +48,21 @@ export async function createProduct(formData: ProductFormData) {
 
     const productData = {
       ...formData,
+      _id: undefined,
       slug,
-      primaryImage: formData.images[0] || formData.primaryImage,
+      primaryImage: formData.images?.[0] || formData.primaryImage || "",
+      images: formData.images || [],
+      tags: formData.tags || [],
       specifications: {
         ...formData.specifications,
-        penType: formData?.specifications?.penType || undefined,
+        penType: formData.specifications?.penType || undefined,
         paperType: formData.specifications?.paperType || undefined,
         binding: formData.specifications?.binding || undefined,
       },
+      viewCount: 0,
+      sellCount: 0,
     };
+
     const product = await Product.create(productData);
 
     revalidatePath("/admin/products");
@@ -81,6 +90,7 @@ export async function createProduct(formData: ProductFormData) {
     };
   }
 }
+
 
 export async function getProductById(id: string): Promise<{
   success: boolean;

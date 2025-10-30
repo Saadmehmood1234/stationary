@@ -201,7 +201,6 @@ export default function AdminContactsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -282,27 +281,27 @@ export default function AdminContactsPage() {
 
                   <div>
                     <label className="text-sm font-medium">Subject</label>
-                   <Select
-  value={filters.subject || ""}
-  onValueChange={(value) => 
-    setFilters(prev => ({ 
-      ...prev, 
-      subject: value === "all" ? undefined : value 
-    }))
-  }
->
-  <SelectTrigger>
-    <SelectValue placeholder="Select subject" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="all">All subjects</SelectItem>
-    {subjects.map((subject) => (
-      <SelectItem key={subject} value={subject}>
-        {truncateText(subject, 30)}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
+                    <Select
+                      value={filters.subject || ""}
+                      onValueChange={(value) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          subject: value === "all" ? undefined : value,
+                        }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All subjects</SelectItem>
+                        {subjects.map((subject) => (
+                          <SelectItem key={subject} value={subject}>
+                            {truncateText(subject, 30)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <Button
@@ -331,7 +330,6 @@ export default function AdminContactsPage() {
               </Badge>
             </div>
           )}
-
 
           {loading ? (
             <div className="space-y-2">

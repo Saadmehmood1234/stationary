@@ -24,6 +24,7 @@ import {
 import { Loader2, Plus, X, Upload } from "lucide-react";
 import { createProduct } from "@/app/actions/product.actions";
 import toast from "react-hot-toast";
+import { Product, ProductFormData } from "@/types";
 
 const CATEGORIES = [
   "Writing Instruments",
@@ -182,16 +183,17 @@ export default function CreateProductPage() {
     setLoading(true);
 
     try {
-      const productData = {
+      const productData: Product = {
         ...formData,
+        _id: '',
         images: imageUrls,
         tags: tags,
         primaryImage: imageUrls[0] || "",
         slug: formData.slug || generateSlug(formData.name),
         viewCount: 0,
         sellCount: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toDateString(),
+        updatedAt: new Date().toDateString(),
       };
 
       const result = await createProduct(productData);

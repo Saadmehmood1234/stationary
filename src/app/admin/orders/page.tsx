@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Order } from '@/types';
 
-// Mock data - in real app, fetch from API
+
 const mockOrders: Order[] = [
   {
     _id: '1',
@@ -107,7 +107,6 @@ export default function OrdersPage() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="card mb-6">
         <div className="p-4">
           <div className="flex flex-wrap gap-2">
@@ -155,7 +154,6 @@ export default function OrdersPage() {
         </div>
       </div>
 
-      {/* Orders Table */}
       <div className="card">
         <div className="p-6">
           <div className="overflow-x-auto">

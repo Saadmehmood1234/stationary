@@ -36,7 +36,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#027068] border-none">
+      <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-none">
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b border-white/20">
             <Link 

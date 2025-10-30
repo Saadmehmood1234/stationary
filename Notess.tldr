@@ -329,9 +329,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 295.6452026394521,
-			"y": -234.78154078434838,
-			"lastActivityTimestamp": 1761063237569,
+			"x": 1992.0087478365454,
+			"y": 1267.155611736694,
+			"lastActivityTimestamp": 1761847659777,
 			"meta": {}
 		},
 		{
@@ -3213,7 +3213,7 @@
 			"selectedShapeIds": [
 				"shape:3UVhy1s3RPyhpjs5iWVOi"
 			],
-			"hoveredShapeId": null,
+			"hoveredShapeId": "shape:3UVhy1s3RPyhpjs5iWVOi",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -5487,9 +5487,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 917.5421965388781,
-			"y": 410.60579505448027,
-			"z": 0.4094998172969984,
+			"x": -1140.1164326303312,
+			"y": -804.1998882582508,
+			"z": 0.5944413218164812,
 			"meta": {},
 			"id": "camera:page:L9l4gH4g0ftg5tGHj-Whj",
 			"typeName": "camera"
@@ -6728,6 +6728,159 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 480.64384287066207,
+			"y": 1458.470900869868,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:NqLUZWU4J3VgmTYu6QiSU",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "xl",
+				"w": 875.0250244140625,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Steps:"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "first: Complete the workflow"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "second: find out broken functionanlity"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "third: change the ui"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "forth: dark and light mode"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "fifth: testing"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "sixth: deploying at aws"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "seventh: docker"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "eigths: kubernetes"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "nine: maintenance"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
+			"index": "b0Kh3QBPV",
+			"typeName": "shape"
+		},
+		{
 			"meta": {},
 			"id": "binding:GtimE-J3wFQi1MQ1H46qS",
 			"type": "arrow",
@@ -7213,8 +7366,8 @@
 			"typeName": "page"
 		},
 		{
-			"x": 207.13781177583144,
-			"y": -239.0557131462585,
+			"x": 1923.3365051073272,
+			"y": 1267.1018917300305,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -9705,7 +9858,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "move",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -9716,7 +9869,7 @@
 				"x": 0,
 				"y": 0,
 				"w": 1188,
-				"h": 434.3999938964844
+				"h": 448
 			},
 			"insets": [
 				false,
@@ -10016,8 +10169,8 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 219.9853949878315,
-			"y": -202.59973120824736,
+			"x": 1953.4702992242942,
+			"y": 1202.1893281690186,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -10032,14 +10185,14 @@
 				"fill": "none",
 				"color": "black",
 				"labelColor": "black",
-				"bend": -21.809693660354206,
+				"bend": 113.41628181562326,
 				"start": {
-					"x": 0,
-					"y": 0
+					"x": 102.38487201495991,
+					"y": 65.75713152481148
 				},
 				"end": {
-					"x": -165.77849899094906,
-					"y": 101.58241658854519
+					"x": 59.49683728622654,
+					"y": -209.4630019352511
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -10056,7 +10209,7 @@
 				"scale": 1
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
-			"index": "b0KlNHohV",
+			"index": "a9vBluWl",
 			"typeName": "shape"
 		},
 		{

@@ -98,7 +98,7 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
-
+export interface CreateProductInput extends Omit<Product, '_id' | 'createdAt' | 'updatedAt'> {}
 export interface ProductFormData extends Omit<Product, '_id' | 'createdAt' | 'updatedAt'> {
   _id?: string;
   createdAt?: Date;
@@ -120,7 +120,6 @@ export interface Category {
 
 export interface CartItem {
   productId: string;
-  variantId?: string;
   quantity: number;
   price: number;
   addedAt: Date;
@@ -158,31 +157,47 @@ export interface Order {
 
 export interface OrderItem {
   productId: string;
-  variantId?: string;
   name: string;
   sku: string;
   quantity: number;
   price: number;
   total: number;
 }
-
-
-export interface Customer {
-  _id?: string;
-  email: string;
+export interface PrintOrder {
+  _id: string;
   name: string;
-  phone?: string;
-  address?: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-  };
-  preferences: {
-    marketingEmails: boolean;
-    smsNotifications: boolean;
-  };
-  createdAt: Date;
-  lastLogin?: Date;
+  email: string;
+  phone: string;
+  paperSize: 'A4' | 'A3' | 'Letter' | 'Legal';
+  colorType: 'bw' | 'color';
+  pageCount: number;
+  binding: 'none' | 'spiral' | 'stapler';
+  urgency: 'normal' | 'urgent' | 'express';
+  specialInstructions?: string;
+  status: 'pending' | 'confirmed' | 'printing' | 'completed' | 'cancelled';
+  estimatedCost: number;
+  finalCost?: number;
+  fileUrl?: string;
+  fileName?: string;
+  fileSize?: number;
+  fileType?: string;
+  publicId?: string; // Cloudinary public ID
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CreatePrintOrderInput = Omit<PrintOrder, '_id' | 'createdAt' | 'updatedAt' | 'status' | 'estimatedCost' | 'finalCost' | 'fileName' | 'fileSize' | 'fileType' | 'publicId'> & {
+  file?: File;
+};
+
+export interface PrintOrderResponse {
+  success: boolean;
+  data?: PrintOrder;
+  error?: string;
+}
+
+export interface PrintOrdersResponse {
+  success: boolean;
+  data?: PrintOrder[];
+  error?: string;
 }

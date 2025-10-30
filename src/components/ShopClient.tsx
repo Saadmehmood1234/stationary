@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import { ProductCard } from "@/components/ui/ProductCard";
+import { ProductCard } from "@/components/ProductCard";
 import { Product } from "@/types";
-import { Search, Filter, Grid, List, SlidersHorizontal } from "lucide-react";
+import { Search, Filter, Grid, List, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
   initialProducts: Product[];
@@ -17,6 +18,7 @@ export default function ShopClient({ initialProducts }: Props) {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [sortBy, setSortBy] = useState<"name" | "price" | "newest">("newest");
   const [showFilters, setShowFilters] = useState(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
 
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
@@ -30,7 +32,6 @@ export default function ShopClient({ initialProducts }: Props) {
     );
     return [{ _id: "all", name: "All Products", count: initialProducts.length }, ...uniqueCategories];
   }, [initialProducts]);
-
 
   const filteredProducts = useMemo(() => {
     let filtered = initialProducts.filter((p) => {
@@ -57,12 +58,16 @@ export default function ShopClient({ initialProducts }: Props) {
     return filtered;
   }, [initialProducts, selectedCategory, searchQuery, sortBy]);
 
+  const selectedCategoryName = categories.find(cat => cat._id === selectedCategory)?.name || "All Products";
+
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   }, []);
 
   const handleCategorySelect = useCallback((categoryId: string) => {
     setSelectedCategory(categoryId);
+    setShowCategoryDropdown(false);
+    setShowFilters(false);
   }, []);
 
   const handleSortChange = useCallback((value: "name" | "price" | "newest") => {
@@ -77,149 +82,244 @@ export default function ShopClient({ initialProducts }: Props) {
     setShowFilters(prev => !prev);
   }, []);
 
+  const clearFilters = useCallback(() => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+    setShowFilters(false);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Shop Stationery
-            </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Discover our wide range of premium stationery products for all your creative and professional needs.
-            </p>
-          </div>
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search products by name, description, or brand..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg shadow-sm"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            <div className="text-gray-600">
-              Showing <span className="font-semibold">{filteredProducts.length}</span> of{" "}
-              <span className="font-semibold">{initialProducts.length}</span> products
-            </div>
-            <div className="flex flex-wrap gap-3 items-center">
-              <select
-                value={sortBy}
-                onChange={(e) => handleSortChange(e.target.value as "name" | "price" | "newest")}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="newest">Newest First</option>
-                <option value="name">Name A-Z</option>
-                <option value="price">Price: Low to High</option>
-              </select>
-              <button
-                onClick={toggleViewMode}
-                className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                title={viewMode === "grid" ? "Switch to list view" : "Switch to grid view"}
-              >
-                {viewMode === "grid" ? (
-                  <List className="w-5 h-5 text-gray-600" />
-                ) : (
-                  <Grid className="w-5 h-5 text-gray-600" />
-                )}
-              </button>
-              <button
-                onClick={toggleFilters}
-                className="lg:hidden p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
-              >
-                <SlidersHorizontal className="w-5 h-5 text-gray-600" />
-                <span>Filters</span>
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute w-96 h-96 bg-cyan-400 rounded-full blur-3xl opacity-10"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ top: "10%", left: "5%" }}
+        />
+        <motion.div
+          className="absolute w-80 h-80 bg-purple-500 rounded-full blur-3xl opacity-10"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ top: "50%", right: "10%" }}
+        />
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className={`lg:w-64 flex-shrink-0 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-8">
-              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Filter className="w-4 h-4" />
-                Categories
-              </h3>
-              
-              <div className="space-y-2">
-                {categories.map((category) => (
-                  <button
-                    key={category._id}
-                    onClick={() => handleCategorySelect(category._id)}
-                    className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 flex items-center justify-between group ${
-                      selectedCategory === category._id
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
-                        : "text-gray-700 hover:bg-gray-50 border border-transparent"
-                    }`}
-                  >
-                    <span className="font-medium capitalize">
-                      {category.name.replace(/-/g, " ")}
-                    </span>
-                    <span className={`text-sm px-2 py-1 rounded-full ${
-                      selectedCategory === category._id
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
-                    }`}>
-                      {category.count}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              <button
-                onClick={toggleFilters}
-                className="lg:hidden w-full mt-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
-              >
-                Close Filters
-              </button>
-            </div>
-          </div>
-          <div className="flex-1">
-            {filteredProducts.length > 0 ? (
-              <div className={
-                viewMode === "grid" 
-                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6"
-                  : "space-y-6"
-              }>
-                {filteredProducts.map((product) => (
-                  <ProductCard 
-                    key={product._id} 
-                    product={product}
-                    viewMode={viewMode}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-300 rounded-full opacity-40"
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0.2, 0.8, 0.2],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative">
+        <div className="container mx-auto px-4 py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-8"
+          >
+            <motion.h3
+              className="text-center text-lg font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              DISCOVER STATIONARY ITEMS
+            </motion.h3>
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold leading-tight mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent">
+                Shop
+              </span>
+              <span className="bg-gradient-to-r from-cyan-200 via-white to-purple-200 bg-clip-text text-transparent ml-4">
+                Collection
+              </span>
+            </motion.h1>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="max-w-6xl mx-auto"
+          >
+            <div className="flex flex-col sm:flex-row gap-4 items-stretch lg:items-center justify-between mb-6">
+              <div className="flex-1 max-w-2xl">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-300 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 rounded-full focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-gray-400 text-base shadow-lg transition-all duration-300"
                   />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-200">
-                <div className="max-w-md mx-auto">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Search className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    No products found
-                  </h3>
-                  <p className="text-gray-600 mb-6">
-                    Try adjusting your search or filter criteria to find what you're looking for.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSearchQuery("");
-                      setSelectedCategory("all");
-                    }}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                  >
-                    Clear all filters
-                  </button>
                 </div>
               </div>
+              <div className="flex flex-wrap gap-3 items-center">
+                <div className="relative">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300 min-w-[160px] justify-between"
+                  >
+                    <span className="truncate capitalize">
+                      {selectedCategoryName.replace(/-/g, " ")}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${showCategoryDropdown ? 'rotate-180' : ''}`} />
+                  </motion.button>
+
+                  <AnimatePresence>
+                    {showCategoryDropdown && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="absolute top-full left-0 right-0 mt-2 bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border border-white/20 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto"
+                      >
+                        <div className="p-2 space-y-1">
+                          {categories.map((category) => (
+                            <button
+                              key={category._id}
+                              onClick={() => handleCategorySelect(category._id)}
+                              className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 flex items-center justify-between group ${
+                                selectedCategory === category._id
+                                  ? "bg-cyan-500/30 text-cyan-100"
+                                  : "text-gray-300 hover:bg-white/5"
+                              }`}
+                            >
+                              <span className="font-medium capitalize text-sm">
+                                {category.name.replace(/-/g, " ")}
+                              </span>
+                              <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                                selectedCategory === category._id
+                                  ? "bg-cyan-500 text-white"
+                                  : "bg-white/10 text-gray-400"
+                              }`}>
+                                {category.count}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              
+              {(searchQuery || selectedCategory !== "all") && (
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  onClick={clearFilters}
+                  className="text-sm text-cyan-300 hover:text-cyan-200 transition-colors flex items-center gap-1"
+                >
+                  <X className="w-3 h-3" />
+                  Clear filters
+                </motion.button>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <AnimatePresence mode="wait">
+            {filteredProducts.length > 0 ? (
+              <motion.div
+                key="products"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={
+                  viewMode === "grid" 
+                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                    : "space-y-4"
+                }
+              >
+                {filteredProducts.map((product, index) => (
+                  <motion.div
+                    key={product._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <ProductCard 
+                      product={product}
+                      viewMode={viewMode}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="text-center py-16 bg-white/5 backdrop-blur-lg rounded-xl border border-white/20"
+              >
+                <div className="max-w-md mx-auto">
+                  <div className="w-16 h-16 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-400/30">
+                    <Search className="w-8 h-8 text-cyan-300" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    No products found
+                  </h3>
+                  <p className="text-gray-300 mb-6">
+                    Try adjusting your search or filter criteria.
+                  </p>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={clearFilters}
+                    className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 font-medium"
+                  >
+                    Clear all filters
+                  </motion.button>
+                </div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-// Mock data - in real app, fetch from API based on ID
 const mockOrder = {
   _id: '1',
   orderNumber: 'ORD-001',
@@ -46,7 +45,7 @@ interface OrderDetailPageProps {
 }
 
 export default function OrderDetailPage({ params }: OrderDetailPageProps) {
-  const order = mockOrder; // In real app, fetch by params.id
+  const order = mockOrder;
 
   if (!order) {
     notFound();
@@ -98,9 +97,7 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Order Details */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Order Items */}
           <div className="card">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4">Order Items</h2>
@@ -121,7 +118,6 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
             </div>
           </div>
 
-          {/* Order Notes */}
           {order.notes && (
             <div className="card">
               <div className="p-6">
@@ -132,9 +128,7 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
           )}
         </div>
 
-        {/* Order Summary */}
         <div className="space-y-6">
-          {/* Status Card */}
           <div className="card">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4">Order Status</h2>
@@ -159,7 +153,6 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
             </div>
           </div>
 
-          {/* Customer Information */}
           <div className="card">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4">Customer Information</h2>
@@ -171,7 +164,6 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
             </div>
           </div>
 
-          {/* Order Total */}
           <div className="card">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4">Order Total</h2>

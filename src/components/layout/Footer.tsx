@@ -22,7 +22,7 @@ export function Footer() {
     },
   ];
   return (
-    <footer className="bg-[#02726A] text-white">
+    <footer className="bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
@@ -112,14 +112,14 @@ export function Footer() {
                 <Link key={s.id} href={s.link}>
                   <s.icons
                     size={32}
-                    className="hover:text-[#FDC700] bg-[#418883] p-1 rounded-md text-white border border-[#FDC700]"
+                    className="hover:text-[#FDC700] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-1 rounded-md text-white border border-[#FDC700]"
                   />
                 </Link>
               ))}
               </div>
               <div className="flex gap-6 max-md:gap-2 max-md:flex-col max-w-3xl w-full">
-                <p className="flex gap-2 justify-center max-sm:justify-start items-center"><Link href="tel:+919876543210"><Phone size={32} className="hover:text-[#FDC700] bg-[#418883] p-1 rounded-md text-white border border-[#FDC700]"/></Link><span>99115 23323</span></p>
-                <p className="flex gap-2 justify-center max-sm:justify-start items-center"><Link href="mailto:mehmoodsaad347@gmail.com?subject=Hello&body=Hi%20Saad,"><Mail size={32} className="hover:text-[#FDC700] bg-[#418883] p-1 rounded-md text-white border border-[#FDC700]"/></Link><span>mehmoodsaad347@gmail.com</span></p>
+                <p className="flex gap-2 justify-center max-sm:justify-start items-center"><Link href="tel:+919876543210"><Phone size={32} className="hover:text-[#FDC700] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-1 rounded-md text-white border border-[#FDC700]"/></Link><span>99115 23323</span></p>
+                <p className="flex gap-2 justify-center max-sm:justify-start items-center"><Link href="mailto:mehmoodsaad347@gmail.com?subject=Hello&body=Hi%20Saad,"><Mail size={32} className="hover:text-[#FDC700] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-1 rounded-md text-white border border-[#FDC700]"/></Link><span>mehmoodsaad347@gmail.com</span></p>
               </div>
             </div>
         <div className="text-gray-200 flex justify-between w-full max-w-5xl"></div>

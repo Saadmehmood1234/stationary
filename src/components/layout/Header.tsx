@@ -43,7 +43,7 @@ export function Header() {
   );
   const { theme, setTheme } = useTheme();
   return (
-    <header className="bg-[#027068] sticky top-0 z-50 shadow-lg">
+    <header className="bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center group">
@@ -66,7 +66,7 @@ export function Header() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                className="pl-10 text-white placeholder:text-gray-400 bg-white/10 border-white/20 focus:bg-white/15 focus:border-white/30"
+                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300/50 transition-colors"
                 placeholder="Search books, stationery, printing..."
               />
             </div>
