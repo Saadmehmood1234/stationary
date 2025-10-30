@@ -42,7 +42,7 @@ console.log("theme",theme)
         <Button
           variant="ghost"
           size="icon"
-          className="relative h-9 w-9 rounded-lg border border-gray-200 bg-white/50 hover:bg-white/70 dark:border-gray-700 dark:bg-gray-800/50 dark:hover:bg-gray-800/70"
+          className="relative h-9 w-9 rounded-full border border-gray-200 bg-white/50 hover:bg-white/70 dark:border-gray-700 dark:bg-gray-800/50 dark:hover:bg-gray-800/70"
         >
           {getCurrentThemeIcon()}
           <span className="sr-only">Toggle theme</span>

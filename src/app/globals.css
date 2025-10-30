@@ -15,7 +15,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-[#02726A] hover:bg-[#025041] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-[#D5D302] hover:bg-[#D5D306] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
 
   .btn-secondary {
@@ -73,7 +73,7 @@
   --card-foreground: #181C14;
   --popover: oklch(1 0 0);
   --popover-foreground: #181C14;
-  --primary: #02726A; /* Primary button color */
+  --primary: #D5D302; /* Primary button color */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: #181C14;
@@ -84,20 +84,20 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: #02726A;
-  --chart-1: #02726A;
+  --ring: #D5D302;
+  --chart-1: #D5D302;
   --chart-2: #FDC700;
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: #181C14;
-  --sidebar-primary: #02726A;
+  --sidebar-primary: #D5D302;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: #181C14;
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: #02726A;
+  --sidebar-ring: #D5D302;
 }
 
 .dark {
@@ -107,7 +107,7 @@
   --card-foreground: #edebe4;
   --popover: oklch(0.205 0 0);
   --popover-foreground: #edebe4;
-  --primary: #02726A; /* Primary button color */
+  --primary: #D5D302; /* Primary button color */
   --primary-foreground: #edebe4;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: #edebe4;
@@ -118,20 +118,20 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: #02726A;
-  --chart-1: #02726A;
+  --ring: #D5D302;
+  --chart-1: #D5D302;
   --chart-2: #FDC700;
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: #edebe4;
-  --sidebar-primary: #02726A;
+  --sidebar-primary: #D5D302;
   --sidebar-primary-foreground: #edebe4;
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: #edebe4;
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: #02726A;
+  --sidebar-ring: #D5D302;
 }
 
 @layer base {
@@ -154,11 +154,11 @@
   }
   
   .bg-custom-primary {
-    background-color: #02726A;
+    background-color: #D5D302;
   }
   
   .bg-custom-primary-hover {
-    background-color: #025041;
+    background-color: #D5D306;
   }
   
   .bg-custom-accent {
@@ -174,7 +174,7 @@
   }
   
   .text-custom-primary {
-    color: #02726A;
+    color: #D5D302;
   }
   
   .text-custom-accent {
@@ -182,7 +182,7 @@
   }
   
   .border-custom-primary {
-    border-color: #02726A;
+    border-color: #D5D302;
   }
   
   .border-custom-accent {

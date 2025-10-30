@@ -29,7 +29,7 @@ export default function HomePage() {
       title: "Fast Printing",
       description:
         "Quick turnaround on all printing jobs with professional quality and precision.",
-      gradient: "from-blue-400/20 to-cyan-500/20",
+      gradient: "from-blue-400/20 to-[#D5D502]/20",
       border: "border-blue-300/30",
     },
     {
@@ -38,7 +38,7 @@ export default function HomePage() {
       title: "Student Discounts",
       description:
         "Special prices and exclusive offers for students with valid ID cards.",
-      gradient: "from-blue-400/20 to-cyan-500/20",
+      gradient: "from-blue-400/20 to-[#D5D502]/20",
       border: "border-blue-300/30",
     },
     {
@@ -47,7 +47,7 @@ export default function HomePage() {
       title: "Local & Reliable",
       description:
         "Serving the community for years with trusted and reliable services.",
-      gradient: "from-blue-400/20 to-cyan-500/20",
+      gradient: "from-blue-400/20 to-[#D5D502]/20",
       border: "border-blue-300/30",
     },
   ];
@@ -55,7 +55,7 @@ export default function HomePage() {
     <div className="relative bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-64 h-64 bg-cyan-400 rounded-full blur-3xl opacity-10"
+          className="absolute w-64 h-64 bg-[#D5D502] rounded-full blur-3xl opacity-10"
           animate={{
             x: [0, 100, 0],
             y: [0, -50, 0],
@@ -93,7 +93,7 @@ export default function HomePage() {
             className="text-center mb-16"
           >
             <motion.h2
-              className="text-5xl font-bold mb-6 bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent"
+              className="text-5xl font-bold mb-6 bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={
                 isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
@@ -125,8 +125,8 @@ export default function HomePage() {
               href="/shop"
               className="relative inline-flex items-center justify-center px-12 py-3 overflow-hidden font-medium text-white transition duration-300 ease-out rounded-full group"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500 to-primary text-white rounded-full hover:from-cyan-600 hover:to-primary"></span>
-              <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-cyan-300 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-500 to-primary text-white rounded-full hover:from-yellow-600 hover:to-primary"></span>
+              <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-[#D5D502] rounded-full opacity-30 group-hover:rotate-90 ease"></span>
               <span className="relative text-lg font-semibold">
                 View All Products
               </span>
@@ -143,7 +143,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
               Why Choose Ali Book?
             </h2>
           </motion.div>
@@ -163,58 +163,46 @@ export default function HomePage() {
                 className="group"
               >
                 <div
-                  className={`relative bg-white/5 backdrop-blur-lg rounded-3xl border ${feature.border} overflow-hidden md:h-72 h-auto transition-all duration-500 group-hover:shadow-xl group-hover:shadow-cyan-500/10`}
+                  className={`relative bg-white/5 backdrop-blur-lg rounded-3xl border ${feature.border} overflow-hidden md:h-72 h-auto transition-all duration-500 group-hover:shadow-xl group-hover:shadow-[#D5D502]/10`}
                 >
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                   ></div>
 
-                  {/* Responsive flex container - column on mobile, row on desktop */}
                   <div className="flex flex-col md:flex-row h-full">
-                    {/* Image Section - Top on mobile, Left on desktop */}
                     <div className="md:w-1/2 w-full h-48 md:h-auto relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/10 to-blue-500/10">
                         <img
                           src={feature.image}
                           alt={feature.title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                       </div>
-
-                      {/* Gradient overlay - different direction for mobile */}
                       <div className="absolute inset-0 md:bg-gradient-to-r bg-gradient-to-b from-black/20 to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
 
-                      {/* Animated shimmer effect */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-
-                      {/* Floating badge - mobile positioning */}
                       <div className="absolute top-3 left-3 md:top-4 md:left-4">
-                        <span className="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm font-medium border border-cyan-400/30 backdrop-blur-sm">
+                        <span className="bg-[#D5D502]/20 text-[#D5D502] px-2 py-1 rounded-full text-xs md:text-sm font-medium border border-[#D5D502]/30 backdrop-blur-sm">
                           {index + 1}
                         </span>
                       </div>
                     </div>
 
-                    {/* Text Content Section - Bottom on mobile, Right on desktop */}
                     <div className="md:w-1/2 w-full flex flex-col justify-center p-6 md:p-8 relative z-10">
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white group-hover:text-cyan-200 transition-colors">
+                      <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white group-hover:text-[#D5D502] transition-colors">
                         {feature.title}
                       </h3>
                       <p className="text-gray-300 leading-relaxed text-sm md:text-base">
                         {feature.description}
                       </p>
-
-                      {/* Feature indicator */}
                       <div className="flex items-center gap-2 mt-4 md:mt-6">
-                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                        <span className="text-cyan-300 text-xs md:text-sm font-medium">
+                        <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
+                        <span className="text-[#D5D502] text-xs md:text-sm font-medium">
                           Premium Service
                         </span>
                       </div>
                     </div>
                   </div>
-
-                  {/* Background gradient overlay - different direction for mobile */}
                   <div className="absolute inset-0 md:bg-gradient-to-t bg-gradient-to-b from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
               </motion.div>
@@ -231,11 +219,11 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 p-12 max-w-4xl mx-auto"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-3xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/10 to-blue-600/10 rounded-3xl"></div>
 
             <div className="relative z-10">
               <motion.h2
-                className="text-4xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent"
+                className="text-4xl font-bold mb-6 bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -262,7 +250,7 @@ export default function HomePage() {
                   href="/printing"
                   className="relative inline-flex items-center justify-center px-12 py-3 overflow-hidden font-medium text-white transition duration-300 ease-out rounded-full group"
                 >
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500 to-primary text-white rounded-full hover:from-cyan-600 hover:to-primary"></span>
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-500 to-primary text-white rounded-full hover:from-yellow-600 hover:to-primary"></span>
                   <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-pink-300 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
                   <span className="relative text-lg font-semibold">
                     Learn More About Printing
@@ -277,7 +265,7 @@ export default function HomePage() {
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-300 rounded-full opacity-40"
+            className="absolute w-1 h-1 bg-[#D5D502] rounded-full opacity-40"
             animate={{
               y: [0, -100, 0],
               opacity: [0.3, 0.8, 0.3],

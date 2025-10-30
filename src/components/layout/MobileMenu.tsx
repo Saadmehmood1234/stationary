@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { Menu, X, ShoppingCart } from "lucide-react";
-import Image from "next/image";
+import { Menu, X, ShoppingCart, User, LogIn, UserPlus } from "lucide-react";
 import { ThemeToggle } from "../theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
+import { motion } from "framer-motion";
 
 interface MobileMenuProps {
   itemCount: number;
@@ -15,7 +15,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ itemCount }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const menuItems = [
     { href: "/", label: "Home" },
@@ -30,70 +30,70 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-gray-200 hover:text-white hover:bg-white/10"
+          className="md:hidden text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
         >
           <Menu className="h-6 w-6" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-none">
+      <SheetContent 
+        side="right" 
+        className="w-[320px] sm:w-[400px] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-l border-white/10 backdrop-blur-lg"
+      >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 border-b border-white/20">
+          <div className="flex items-center justify-between p-6 border-b border-white/10">
             <Link 
               href="/" 
-              className="flex items-center space-x-3"
+              className="flex items-center space-x-3 group"
               onClick={() => setOpen(false)}
             >
-              <div className="relative w-8 h-8">
-                <Image
-                  src="/logo.png"
-                  alt="Ali Books Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
+              <div className="relative">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#D5D502] to-[#D5D502] rounded-full flex items-center justify-center">
+                  <span className="text-gray-900 font-bold text-xs">AB</span>
+                </div>
+                <div className="absolute -inset-1 bg-gradient-to-br from-[#D5D502] to-[#D5D502] rounded-xl blur-sm opacity-50"></div>
               </div>
-              <span className="text-xl font-bold text-white">Ali Books</span>
+              <span className="text-xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+                Ali Books
+              </span>
             </Link>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setOpen(false)}
-              className="text-white hover:bg-white/10"
+              className="text-white hover:bg-white/10 rounded-xl transition-colors"
             >
               <X className="h-6 w-6" />
             </Button>
           </div>
+
           <nav className="flex-1 p-6">
-            <ul className="space-y-4">
-              {menuItems.map((item) => (
-                <li key={item.label}>
+            <ul className="space-y-2">
+              {menuItems.map((item, index) => (
+                <motion.li
+                  key={item.label}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                >
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-lg transition-colors duration-200 border-l-4 border-transparent hover:border-[#FDC700]"
+                    className="flex items-center py-4 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-full transition-all duration-300 group border-l-4 border-transparent hover:border-[#D5D502]"
                   >
+                    <div className="w-2 h-2 bg-[#D5D502] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 mr-3"></div>
                     {item.label}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </nav>
 
-          {/* Theme Toggler for Mobile */}
-          <div className="p-4 border-t border-white/20">
-            <div className="flex items-center justify-between">
-              <span className="text-white font-medium">Theme</span>
-              <ThemeToggle />
-            </div>
-          </div>
-
-          {/* User Section (if logged in) */}
           {user && (
-            <div className="p-4 border-t border-white/20">
-              <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FDC700]">
-                  <span className="text-sm font-medium text-[#027068]">
+            <div className="p-6 border-t border-white/10">
+              <div className="flex items-center space-x-3 p-4 bg-white/10 rounded-xl">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#D5D502] to-[#D5D502]">
+                  <span className="text-sm font-medium text-white">
                     {user.name?.charAt(0).toUpperCase()}
                   </span>
                 </div>
@@ -101,7 +101,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
                   <p className="text-sm font-medium text-white truncate">
                     {user.name}
                   </p>
-                  <p className="text-xs text-gray-200 truncate">
+                  <p className="text-xs text-gray-300 truncate">
                     {user.email}
                   </p>
                 </div>
@@ -109,47 +109,66 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
             </div>
           )}
 
-          {/* Cart Section */}
-          <div className="p-6 border-t border-white/20">
+          <div className="p-6 border-t border-white/10">
             <Link
               href="/cart"
               onClick={() => setOpen(false)}
-              className="flex items-center justify-between p-4 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200 group"
+              className="flex items-center justify-between p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 group"
             >
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <ShoppingCart className="h-6 w-6 text-white group-hover:text-[#FDC700] transition-colors duration-200" />
+                  <ShoppingCart className="h-6 w-6 text-white group-hover:text-[#D5D502] transition-colors duration-200" />
                   {itemCount > 0 && (
                     <>
-                      <span className="absolute -top-2 -right-2 bg-[#FDC700] text-[#027068] text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      <span className="absolute -top-2 -right-2 bg-gradient-to-r from-[#D5D502] to-[#D5D502] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-slate-900">
                         {itemCount}
                       </span>
-                      <span className="absolute -top-2 -right-2 h-5 w-5 bg-[#FDC700] rounded-full animate-ping opacity-75"></span>
                     </>
                   )}
                 </div>
                 <span className="text-white font-medium">Shopping Cart</span>
               </div>
               {itemCount > 0 && (
-                <span className="text-[#FDC700] font-bold">
+                <span className="text-[#D5D502] font-bold">
                   {itemCount} {itemCount === 1 ? 'item' : 'items'}
                 </span>
               )}
             </Link>
           </div>
 
-          {/* Auth Links (if not logged in) */}
-          {!user && (
-            <div className="p-6 border-t border-white/20 space-y-3">
-              <Button asChild className="w-full bg-[#FDC700] text-[#027068] hover:bg-[#fdc800]">
-                <Link href="/auth/signin" onClick={() => setOpen(false)}>
+          <div className="p-6 border-t border-white/10">
+            <div className="flex items-center justify-between p-3">
+              <span className="text-white font-medium">Theme</span>
+              <ThemeToggle />
+            </div>
+          </div>
+
+          {!user ? (
+            <div className="p-6 border-t border-white/10 space-y-3">
+              <Button asChild className="w-full rounded-full bg-gradient-to-r from-[#D5D502] to-[#D5D502] text-gray-900 hover:from-[#D5D502] hover:to-[#D5D502] transition-all duration-300">
+                <Link href="/auth/signin" onClick={() => setOpen(false)} className="flex items-center gap-2">
+                  <LogIn className="h-4 w-4" />
                   Sign In
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="w-full border-white text-white hover:bg-white/10">
-                <Link href="/auth/signup" onClick={() => setOpen(false)}>
+              <Button asChild variant="outline" className="w-full border-white/20 text-gray-900 rounded-full hover:bg-white/10">
+                <Link href="/auth/signup" onClick={() => setOpen(false)} className="flex items-center gap-2">
+                  <UserPlus className="h-4 w-4" />
                   Sign Up
                 </Link>
+              </Button>
+            </div>
+          ) : (
+            <div className="p-6 border-t border-white/10">
+              <Button 
+                onClick={() => {
+                  logout();
+                  setOpen(false);
+                }}
+                variant="outline" 
+                className="w-full text-gray-900 hover:bg-red-500/10 hover:text-red-300"
+              >
+                Logout
               </Button>
             </div>
           )}

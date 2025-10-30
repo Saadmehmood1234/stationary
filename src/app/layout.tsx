@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
         <ClientProvider>
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900">
             <AuthProvider>
             <Header />
             <main className="flex-grow">{children}</main>

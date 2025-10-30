@@ -37,7 +37,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="relative w-full bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute w-80 h-80 bg-blue-400 rounded-full blur-3xl opacity-20"
@@ -66,7 +66,7 @@ const LandingPage = () => {
           style={{ top: "60%", right: "15%" }}
         />
         <motion.div
-          className="absolute w-64 h-64 bg-cyan-400 rounded-full blur-3xl opacity-25"
+          className="absolute w-64 h-64 bg-[#D5D502] rounded-full blur-3xl opacity-25"
           animate={{
             x: [0, 60, 0],
             y: [0, 30, 0],
@@ -90,7 +90,7 @@ const LandingPage = () => {
               className="text-white space-y-6 relative z-10"
             >
               <motion.h3
-                className="text-center md:text-xl text-sm font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent"
+                className="text-center md:text-xl text-sm font-bold bg-gradient-to-r from-[#D5D502] to-blue-300 bg-clip-text text-transparent"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
@@ -103,14 +103,14 @@ const LandingPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
                   Your One-Stop
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-cyan-200 via-white to-purple-200 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#D5D502] via-white to-purple-200 bg-clip-text text-transparent">
                   Shop for 
                 </span>
-                <span className="bg-gradient-to-r ml-2 from-blue-200 via-cyan-100 to-white bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r ml-2 from-blue-200 via-[#D5D502] to-white bg-clip-text text-transparent">
                   Books & Stationery
                 </span>
               </motion.h1>
@@ -118,7 +118,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="lg:text-2xl md:text-xl text-lg text-center bg-gradient-to-r from-gray-200 to-cyan-100 bg-clip-text text-transparent max-w-4xl mx-auto leading-relaxed"
+                className="lg:text-2xl md:text-xl text-lg text-center bg-gradient-to-r from-gray-200 to-[#D5D502] bg-clip-text text-transparent max-w-4xl mx-auto leading-relaxed"
               >
                 From school and office supplies to printing services and
                 everyday essentials.
@@ -162,7 +162,7 @@ const LandingPage = () => {
                 className="group md:col-span-4"
               >
                 <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-blue-500/20">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
                     <img
                       src="/stationary6.jpg"
                       alt="Luxury Pens Collection"
@@ -198,7 +198,7 @@ const LandingPage = () => {
                 className="group md:col-span-3"
               >
                 <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-cyan-500/20">
+                  <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-[#D5D502]/20">
                     <img
                       src="/stationary4.jpg"
                       alt="Office Essentials"
@@ -206,7 +206,7 @@ const LandingPage = () => {
                     />
                   </div>
 
-                  <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 transition-all duration-500 rounded-3xl"></div>
+                  <div className="absolute inset-0 bg-[#D5D502]/0 group-hover:bg-[#D5D502]/10 transition-all duration-500 rounded-3xl"></div>
                 </div>
               </motion.div>
             </div>
@@ -272,7 +272,7 @@ const LandingPage = () => {
           {[...Array(15)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-cyan-300 rounded-full"
+              className="absolute w-1 h-1 bg-[#D5D502] rounded-full"
               animate={{
                 y: [0, -100, 0],
                 opacity: [0.3, 0.8, 0.3],

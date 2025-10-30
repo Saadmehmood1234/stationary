@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { Instagram, Youtube, Linkedin, Mail, Phone } from "lucide-react";
+import {
+  Instagram,
+  Youtube,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+} from "lucide-react";
 export function Footer() {
   const social = [
     {
@@ -7,124 +15,184 @@ export function Footer() {
       label: "Instagram",
       icons: Instagram,
       link: "#",
+      color: "from-purple-500 to-pink-500",
     },
     {
       id: 2,
       label: "Youtube",
       icons: Youtube,
       link: "#",
+      color: "from-red-500 to-red-600",
     },
     {
       id: 3,
-      label: "Linkedun",
+      label: "LinkedIn",
       icons: Linkedin,
       link: "#",
+      color: "from-blue-500 to-blue-600",
     },
   ];
-  return (
-    <footer className="bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-[#FDC700] rounded-full"></div>
-              <span className="text-xl font-bold">Ali Books</span>
-            </Link>
-            <p className="text-gray-200 mb-4 max-w-md">
-              Your one-stop shop for premium stationery and reliable printing
-              services. Serving students and professionals with quality
-              products.
-            </p>
-            
-          </div>
 
+  const quickLinks = [
+    { name: "Shop All", href: "/shop" },
+    { name: "Printing Services", href: "/printing" },
+    { name: "Contact Us", href: "/contact" },
+    { name: "About Us", href: "/about" },
+  ];
+
+  const categories = [
+    { name: "Pens & Markers", href: "/shop?category=pens" },
+    { name: "Notebooks", href: "/shop?category=notebooks" },
+    { name: "Art Supplies", href: "/shop?category=art-supplies" },
+    { name: "Office Supplies", href: "/shop?category=office-supplies" },
+  ];
+
+  return (
+    <footer className="relative border-t border-white/10 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D5D502] rounded-full blur-[80px] opacity-10"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-purple-500 rounded-full blur-[60px] opacity-10"></div>
+      </div>
+
+      <div className="container mx-auto px-4 py-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-gray-200">
-              <li>
-                <Link
-                  href="/shop"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Shop All
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/printing"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Printing Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </li>
+            <Link href="/" className="flex items-center space-x-3 mb-6">
+              <div className="relative">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#D5D600] to-[#D5D604] rounded-full flex items-center justify-center">
+                  <span className="text-gray-900 font-bold text-lg">AB</span>
+                </div>
+                <div className="absolute -inset-1 bg-gradient-to-br from-[#D5D600] to-[#D5D604] rounded-xl blur-sm opacity-50"></div>
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+                Ali Books
+              </span>
+            </Link>
+
+            <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
+              Your premier destination for premium stationery and professional
+              printing services. Empowering students and professionals with
+              quality products and reliable solutions.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-gray-300">
+                <MapPin size={18} className="text-[#D5D502] flex-shrink-0" />
+                <span className="text-sm">
+                  Ali Book, Tayyab Mosque, Shaheen Bagh, New Delhi 110025
+                </span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-300">
+                <Clock size={18} className="text-[#D5D502] flex-shrink-0" />
+                <span className="text-sm">Mon - Sun: 9:00 AM - 7:00 PM</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="font-bold text-lg mb-6 text-white flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
+              Quick Links
+            </h3>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-300 hover:text-[#D5D502] transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-[#D5D502] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Categories</h3>
-            <ul className="space-y-2 text-gray-200">
-              <li>
-                <Link
-                  href="/shop?category=pens"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Pens & Markers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=notebooks"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Notebooks
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=art-supplies"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Art Supplies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=office-supplies"
-                  className="hover:text-[#FDC700] transition-colors"
-                >
-                  Office Supplies
-                </Link>
-              </li>
+            <h3 className="font-bold text-lg mb-6 text-white flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
+              Categories
+            </h3>
+            <ul className="space-y-3">
+              {categories.map((category) => (
+                <li key={category.name}>
+                  <Link
+                    href={category.href}
+                    className="text-gray-300 hover:text-[#D5D502] transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-[#D5D502] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-        <div className="text-gray-200 flex justify-start max-md:flex-col max-md:mt-8 gap-4 max-w-5xl">
-          <div className="flex gap-4">
-              {social.map((s) => (
-                <Link key={s.id} href={s.link}>
-                  <s.icons
-                    size={32}
-                    className="hover:text-[#FDC700] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-1 rounded-md text-white border border-[#FDC700]"
-                  />
-                </Link>
-              ))}
-              </div>
-              <div className="flex gap-6 max-md:gap-2 max-md:flex-col max-w-3xl w-full">
-                <p className="flex gap-2 justify-center max-sm:justify-start items-center"><Link href="tel:+919876543210"><Phone size={32} className="hover:text-[#FDC700] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-1 rounded-md text-white border border-[#FDC700]"/></Link><span>99115 23323</span></p>
-                <p className="flex gap-2 justify-center max-sm:justify-start items-center"><Link href="mailto:mehmoodsaad347@gmail.com?subject=Hello&body=Hi%20Saad,"><Mail size={32} className="hover:text-[#FDC700] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-1 rounded-md text-white border border-[#FDC700]"/></Link><span>mehmoodsaad347@gmail.com</span></p>
+        <div className="border-t border-white/10 pt-8">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+            <div className="flex justify-start items-center">
+              <div className="flex gap-3">
+                {social.map((socialItem) => (
+                  <a
+                    key={socialItem.id}
+                    href={socialItem.link}
+                    className="group relative"
+                  >
+                    <div
+                      className={`p-3 bg-white/5 backdrop-blur-lg rounded-full border border-white/10 transition-all duration-300 group-hover:bg-gradient-to-br ${socialItem.color} group-hover:border-transparent`}
+                    >
+                      <socialItem.icons
+                        size={20}
+                        className="text-gray-300 group-hover:text-white transition-colors duration-300"
+                      />
+                    </div>
+                  </a>
+                ))}
               </div>
             </div>
-        <div className="text-gray-200 flex justify-between w-full max-w-5xl"></div>
-        <div className="border-t border-[#FDC700] mt-8 pt-8 text-center text-gray-200">
-          <p>&copy; 2025 Ali Books. All rights reserved.</p>
+
+            <div className="flex flex-col sm:flex-row gap-6">
+              <a
+                href="tel:+919911523323"
+                className="flex items-center gap-3 text-gray-300 hover:text-[#D5D502] transition-colors duration-300 group"
+              >
+                <div className="p-2 bg-green-500/20 rounded-full group-hover:bg-green-500/30 transition-colors duration-300">
+                  <Phone size={18} className="text-green-400" />
+                </div>
+                <span className="font-medium">+91-99115 23323</span>
+              </a>
+
+              <a
+                href="mailto:mehmoodsaad347@gmail.com"
+                className="flex items-center gap-3 text-gray-300 hover:text-[#D5D502] transition-colors duration-300 group"
+              >
+                <div className="p-2 bg-blue-500/20 rounded-full group-hover:bg-blue-500/30 transition-colors duration-300">
+                  <Mail size={18} className="text-blue-400" />
+                </div>
+                <span className="font-medium">mehmoodsaad347@gmail.com</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-white/10 mt-8 pt-8 text-center">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-gray-400 text-sm">
+              &copy; 2025 Ali Books. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-sm text-gray-400">
+              <Link
+                href="/privacy"
+                className="hover:text-[#D5D502] transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="hover:text-[#D5D502] transition-colors"
+              >
+                Terms of Service
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
