@@ -1,7 +1,5 @@
 "use client";
 import Link from "next/link";
-import { products } from "@/lib/data";
-import { ProductCard } from "@/components/ProductCard";
 import LandingPage from "@/components/LandingPage";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
