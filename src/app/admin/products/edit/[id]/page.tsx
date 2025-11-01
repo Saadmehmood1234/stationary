@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { getProductById } from '@/app/actions/product.actions';
-import EditProductForm from '@/components/EditProductForm';
+import { EditProductForm } from '@/components/EditProductForm';
 import { Product } from '@/types';
 import { Loader2 } from 'lucide-react';
 

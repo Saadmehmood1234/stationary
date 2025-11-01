@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Loader2, ArrowLeft, Save, AlertCircle } from 'lucide-react'
-
+import { motion } from 'framer-motion'
 interface EditProductFormProps {
   product: Product
 }
@@ -21,7 +21,7 @@ interface FormErrors {
   [key: string]: string
 }
 
-const EditProductForm = ({ product }: EditProductFormProps) => {
+export const EditProductForm = ({ product }: EditProductFormProps) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
@@ -123,269 +123,334 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center gap-4"
+      >
         <Button
           variant="outline"
           size="icon"
           onClick={() => router.back()}
           disabled={isLoading}
+          className="border-white/20 text-white hover:bg-white/10 rounded-xl"
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Edit Product</h1>
-          <p className="text-gray-600 mt-1">Update product information and inventory details</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
+            Edit Product
+          </h1>
+          <p className="text-gray-300 mt-1">Update product information and inventory details</p>
         </div>
-      </div>
+      </motion.div>
+
       {serverError && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="bg-red-500/10 border-red-500/30 text-red-300">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{serverError}</AlertDescription>
         </Alert>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Basic Information</CardTitle>
-            <CardDescription>
-              Essential product details and identification
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="flex items-center gap-1">
-                  Product Name <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter product name"
-                  className={errors.name ? 'border-red-500' : ''}
-                  disabled={isLoading}
-                />
-                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="sku" className="flex items-center gap-1">
-                  SKU <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="sku"
-                  name="sku"
-                  value={formData.sku}
-                  onChange={handleChange}
-                  placeholder="Enter SKU"
-                  className={errors.sku ? 'border-red-500' : ''}
-                  disabled={isLoading}
-                />
-                {errors.sku && <p className="text-sm text-red-500">{errors.sku}</p>}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="shortDescription" className="flex items-center gap-1">
-                Short Description <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="shortDescription"
-                name="shortDescription"
-                value={formData.shortDescription}
-                onChange={handleChange}
-                placeholder="Brief description for product listings"
-                className={errors.shortDescription ? 'border-red-500' : ''}
-                disabled={isLoading}
-              />
-              {errors.shortDescription && <p className="text-sm text-red-500">{errors.shortDescription}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description" className="flex items-center gap-1">
-                Full Description <span className="text-red-500">*</span>
-              </Label>
-              <Textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Detailed product description"
-                rows={4}
-                className={errors.description ? 'border-red-500' : ''}
-                disabled={isLoading}
-              />
-              {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Pricing & Inventory</CardTitle>
-            <CardDescription>
-              Product pricing, costs, and stock management
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="price" className="flex items-center gap-1">
-                  Price <span className="text-red-500">*</span>
-                </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-gray-500">$</span>
+        {/* Basic Information Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
+            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-blue-400"></div>
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-white">Basic Information</CardTitle>
+              <CardDescription className="text-gray-300">
+                Essential product details and identification
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="flex items-center gap-1 text-gray-200">
+                    Product Name <span className="text-red-400">*</span>
+                  </Label>
                   <Input
-                    id="price"
-                    name="price"
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={formData.price}
-                    onChange={handleNumberChange}
-                    className={`pl-8 ${errors.price ? 'border-red-500' : ''}`}
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter product name"
+                    className={`bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                      errors.name ? 'border-red-400' : ''
+                    }`}
                     disabled={isLoading}
                   />
+                  {errors.name && <p className="text-sm text-red-400">{errors.name}</p>}
                 </div>
-                {errors.price && <p className="text-sm text-red-500">{errors.price}</p>}
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="comparePrice">Compare Price</Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-gray-500">$</span>
+                <div className="space-y-2">
+                  <Label htmlFor="sku" className="flex items-center gap-1 text-gray-200">
+                    SKU <span className="text-red-400">*</span>
+                  </Label>
                   <Input
-                    id="comparePrice"
-                    name="comparePrice"
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={formData.comparePrice}
-                    onChange={handleNumberChange}
-                    className={`pl-8 ${errors.comparePrice ? 'border-red-500' : ''}`}
+                    id="sku"
+                    name="sku"
+                    value={formData.sku}
+                    onChange={handleChange}
+                    placeholder="Enter SKU"
+                    className={`bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                      errors.sku ? 'border-red-400' : ''
+                    }`}
                     disabled={isLoading}
                   />
+                  {errors.sku && <p className="text-sm text-red-400">{errors.sku}</p>}
                 </div>
-                {errors.comparePrice && <p className="text-sm text-red-500">{errors.comparePrice}</p>}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="costPrice" className="flex items-center gap-1">
-                  Cost Price <span className="text-red-500">*</span>
+                <Label htmlFor="shortDescription" className="flex items-center gap-1 text-gray-200">
+                  Short Description <span className="text-red-400">*</span>
                 </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-gray-500">$</span>
+                <Input
+                  id="shortDescription"
+                  name="shortDescription"
+                  value={formData.shortDescription}
+                  onChange={handleChange}
+                  placeholder="Brief description for product listings"
+                  className={`bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                    errors.shortDescription ? 'border-red-400' : ''
+                  }`}
+                  disabled={isLoading}
+                />
+                {errors.shortDescription && <p className="text-sm text-red-400">{errors.shortDescription}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description" className="flex items-center gap-1 text-gray-200">
+                  Full Description <span className="text-red-400">*</span>
+                </Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Detailed product description"
+                  rows={4}
+                  className={`bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                    errors.description ? 'border-red-400' : ''
+                  }`}
+                  disabled={isLoading}
+                />
+                {errors.description && <p className="text-sm text-red-400">{errors.description}</p>}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Pricing & Inventory Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
+            <div className="h-1 bg-gradient-to-r from-blue-400 to-[#D5D502]"></div>
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-white">Pricing & Inventory</CardTitle>
+              <CardDescription className="text-gray-300">
+                Product pricing, costs, and stock management
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="price" className="flex items-center gap-1 text-gray-200">
+                    Price <span className="text-red-400">*</span>
+                  </Label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-2.5 text-gray-400">₹</span>
+                    <Input
+                      id="price"
+                      name="price"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={formData.price}
+                      onChange={handleNumberChange}
+                      className={`bg-white/10 border-white/20 text-white pl-8 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                        errors.price ? 'border-red-400' : ''
+                      }`}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {errors.price && <p className="text-sm text-red-400">{errors.price}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="comparePrice" className="text-gray-200">Compare Price</Label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-2.5 text-gray-400">₹</span>
+                    <Input
+                      id="comparePrice"
+                      name="comparePrice"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={formData.comparePrice}
+                      onChange={handleNumberChange}
+                      className={`bg-white/10 border-white/20 text-white pl-8 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                        errors.comparePrice ? 'border-red-400' : ''
+                      }`}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {errors.comparePrice && <p className="text-sm text-red-400">{errors.comparePrice}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="costPrice" className="flex items-center gap-1 text-gray-200">
+                    Cost Price <span className="text-red-400">*</span>
+                  </Label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-2.5 text-gray-400">₹</span>
+                    <Input
+                      id="costPrice"
+                      name="costPrice"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={formData.costPrice}
+                      onChange={handleNumberChange}
+                      className={`bg-white/10 border-white/20 text-white pl-8 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                        errors.costPrice ? 'border-red-400' : ''
+                      }`}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {errors.costPrice && <p className="text-sm text-red-400">{errors.costPrice}</p>}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="stock" className="flex items-center gap-1 text-gray-200">
+                    Stock Quantity <span className="text-red-400">*</span>
+                  </Label>
                   <Input
-                    id="costPrice"
-                    name="costPrice"
+                    id="stock"
+                    name="stock"
                     type="number"
-                    step="0.01"
                     min="0"
-                    value={formData.costPrice}
+                    value={formData.stock}
                     onChange={handleNumberChange}
-                    className={`pl-8 ${errors.costPrice ? 'border-red-500' : ''}`}
+                    className={`bg-white/10 border-white/20 text-white rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                      errors.stock ? 'border-red-400' : ''
+                    }`}
                     disabled={isLoading}
                   />
+                  {errors.stock && <p className="text-sm text-red-400">{errors.stock}</p>}
                 </div>
-                {errors.costPrice && <p className="text-sm text-red-500">{errors.costPrice}</p>}
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="stock" className="flex items-center gap-1">
-                  Stock Quantity <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="stock"
-                  name="stock"
-                  type="number"
-                  min="0"
-                  value={formData.stock}
-                  onChange={handleNumberChange}
-                  className={errors.stock ? 'border-red-500' : ''}
-                  disabled={isLoading}
-                />
-                {errors.stock && <p className="text-sm text-red-500">{errors.stock}</p>}
+                <div className="space-y-2">
+                  <Label htmlFor="status" className="flex items-center gap-1 text-gray-200">
+                    Status <span className="text-red-400">*</span>
+                  </Label>
+                  <Select
+                    value={formData.status}
+                    onValueChange={(value) => handleSelectChange('status', value)}
+                    disabled={isLoading}
+                  >
+                    <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-xl focus:ring-2 focus:ring-[#D5D502]/50">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1f2937] border-white/20">
+                      <SelectItem value="active" className="focus:bg-white/10">Active</SelectItem>
+                      <SelectItem value="inactive" className="focus:bg-white/10">Inactive</SelectItem>
+                      <SelectItem value="out_of_stock" className="focus:bg-white/10">Out of Stock</SelectItem>
+                      <SelectItem value="discontinued" className="focus:bg-white/10">Discontinued</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-              <div className="space-y-2">
-                <Label htmlFor="status" className="flex items-center gap-1">
-                  Status <span className="text-red-500">*</span>
-                </Label>
-                <Select
-                  value={formData.status}
-                  onValueChange={(value) => handleSelectChange('status', value)}
-                  disabled={isLoading}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                    <SelectItem value="out_of_stock">Out of Stock</SelectItem>
-                    <SelectItem value="discontinued">Discontinued</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Category & Brand</CardTitle>
-            <CardDescription>
-              Product categorization and brand information
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="category" className="flex items-center gap-1">
-                  Category <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  placeholder="Enter category"
-                  className={errors.category ? 'border-red-500' : ''}
-                  disabled={isLoading}
-                />
-                {errors.category && <p className="text-sm text-red-500">{errors.category}</p>}
-              </div>
+        {/* Category & Brand Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
+            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-purple-400"></div>
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-white">Category & Brand</CardTitle>
+              <CardDescription className="text-gray-300">
+                Product categorization and brand information
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="category" className="flex items-center gap-1 text-gray-200">
+                    Category <span className="text-red-400">*</span>
+                  </Label>
+                  <Input
+                    id="category"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    placeholder="Enter category"
+                    className={`bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                      errors.category ? 'border-red-400' : ''
+                    }`}
+                    disabled={isLoading}
+                  />
+                  {errors.category && <p className="text-sm text-red-400">{errors.category}</p>}
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="brand" className="flex items-center gap-1">
-                  Brand <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="brand"
-                  name="brand"
-                  value={formData.brand}
-                  onChange={handleChange}
-                  placeholder="Enter brand"
-                  className={errors.brand ? 'border-red-500' : ''}
-                  disabled={isLoading}
-                />
-                {errors.brand && <p className="text-sm text-red-500">{errors.brand}</p>}
+                <div className="space-y-2">
+                  <Label htmlFor="brand" className="flex items-center gap-1 text-gray-200">
+                    Brand <span className="text-red-400">*</span>
+                  </Label>
+                  <Input
+                    id="brand"
+                    name="brand"
+                    value={formData.brand}
+                    onChange={handleChange}
+                    placeholder="Enter brand"
+                    className={`bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50 ${
+                      errors.brand ? 'border-red-400' : ''
+                    }`}
+                    disabled={isLoading}
+                  />
+                  {errors.brand && <p className="text-sm text-red-400">{errors.brand}</p>}
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-        <div className="flex gap-4 justify-end pt-6 border-t">
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex gap-4 justify-end pt-6 border-t border-white/10"
+        >
           <Button
             type="button"
             variant="outline"
             onClick={() => router.back()}
             disabled={isLoading}
+            className="border-white/20 text-white hover:bg-white/10 rounded-xl"
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={isLoading} className="min-w-32">
+          <Button 
+            type="submit" 
+            disabled={isLoading}
+            className="bg-gradient-to-r from-[#D5D502] to-blue-500 hover:from-[#c4c401] hover:to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#D5D502]/20 border-0 min-w-32"
+          >
             {isLoading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -398,10 +463,8 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
               </>
             )}
           </Button>
-        </div>
+        </motion.div>
       </form>
     </div>
-  )
-}
-
-export default EditProductForm
+  );
+};

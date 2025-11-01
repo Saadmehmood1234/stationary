@@ -16,7 +16,7 @@ function VerifyEmailContent() {
     <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardHeader className="text-center space-y-4">
         <div className="mx-auto w-20 h-20 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full flex items-center justify-center mb-2">
-          <Mail className="h-10 w-10 text-white" />
+          <Mail className="h-10 w-10 text-gray-900" />
         </div>
         <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
           Check Your Email
@@ -36,22 +36,22 @@ function VerifyEmailContent() {
         </div>
 
         {message === "check-email" && (
-          <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl">
-            <p className="text-sm text-blue-300">
+          <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
+            <p className="text-sm text-yellow-300">
               If you don&apos;t see the email, check your spam folder or request a new verification link.
             </p>
           </div>
         )}
 
         <div className="space-y-3">
-          <Button asChild className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-white hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all">
+          <Button asChild className="w-full rounded-full text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all">
             <Link href="/">
               Go to Homepage
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
           
-          <Button asChild variant="outline" className="w-full border-white/20 text-gray-300 hover:bg-white/10 hover:text-white">
+          <Button asChild variant="outline" className="w-full rounded-full border-white/20 text-gray-900 hover:bg-white/10 hover:text-white">
             <Link href="/auth/signin">
               Back to Sign In
             </Link>
@@ -86,7 +86,7 @@ function LoadingFallback() {
 
 export default function VerifyEmailPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center sn:p-4">
       <Suspense fallback={<LoadingFallback />}>
         <VerifyEmailContent />
       </Suspense>

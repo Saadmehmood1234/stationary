@@ -185,7 +185,7 @@ export default function ContactPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex flex-col"
           >
-            <div className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-8 ">
+            <div className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-4 sm:p-8 ">
               <div className="flex items-center gap-3 mb-8">
                 <div className="p-3 bg-[#D5D502]/20 rounded-2xl">
                   <MessageCircle className="text-[#D5D502]" size={24} />
@@ -206,7 +206,7 @@ export default function ContactPage() {
                   <img
                     src="/contact.png"
                     alt="Contact Us"
-                    className="w-full h-64 object-cover rounded-2xl shadow-2xl border border-white/10"
+                    className="w-full  rounded-2xl shadow-2xl border border-white/10"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent rounded-2xl"></div>
                 </div>
@@ -218,7 +218,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-8 shadow-2xl"
+            className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 sm:p-8 p-4 shadow-2xl"
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
               Send us a Message

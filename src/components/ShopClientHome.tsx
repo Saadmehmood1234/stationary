@@ -134,7 +134,7 @@ export default function ShopClientHome({ initialProducts }: Props) {
                     boxShadow: "0 0 30px rgba(34, 211, 238, 0.3)"
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative px-8 py-3 cursor-pointer bg-gradient-to-r from-yellow-500 to-primary text-white rounded-full hover:from-yellow-600 hover:to-primary transition-all duration-300 font-semibold overflow-hidden group"
+                  className="relative px-8 py-3 cursor-pointer bg-gradient-to-r from-yellow-500 to-primary text-gray-900 rounded-full hover:from-yellow-600 hover:to-primary transition-all duration-300 font-semibold overflow-hidden group"
                 >
                   <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
                   <span className="relative">Clear all filters</span>

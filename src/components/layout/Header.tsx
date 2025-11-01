@@ -90,10 +90,10 @@ export function Header() {
           >
             <Link href="/" className="flex items-center group">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#D5D502] to-[#D5D502] rounded-full flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
+                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-[#D5D502]  rounded-full flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                   <span className="text-gray-900 font-bold text-sm">AB</span>
                 </div>
-                <div className="absolute -inset-1 bg-gradient-to-br from-[#D5D502] to-[#D5D502] rounded-xl blur-sm opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                <div className="absolute -inset-1 hover:shadow-lg hover:shadow-[#D5D502]/25  rounded-xl blur-sm opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
               </div>
               <span className="ml-3 text-xl max-sm:hidden font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent group-hover:from-[#D5D502] group-hover:to-white transition-all duration-300">
                 Ali Books
@@ -140,9 +140,9 @@ export function Header() {
           <div className="flex justify-end max-lg:w-[60%] max-sm:w-[40%] mx-2">
             <Link href="/shop">
               <Button
-                className={`px-8 max-md:px-4 py-3 font-semibold text-gray-900 bg-gradient-to-r from-[#D5D402] to-[#e5e509] 
-      hover:from-[#e5e509] hover:to-[#D5D402] transition-all duration-300 
-      rounded-full shadow-lg hover:shadow-yellow-300/30 focus:ring-2 
+                className={`px-8 max-md:px-4 py-3 font-semibold text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] 
+      hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300
+      rounded-full shadow-lg focus:ring-2 
       focus:ring-[#D5D402]/50 cursor-pointer`}
               >
                 Shop Now

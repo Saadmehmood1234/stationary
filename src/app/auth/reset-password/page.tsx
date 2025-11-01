@@ -119,14 +119,11 @@ function ResetPasswordContent() {
     <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardHeader className="text-center space-y-4">
         <div className="mx-auto w-16 h-16 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full flex items-center justify-center">
-          <Lock className="h-8 w-8 text-white" />
+          <Lock className="h-8 w-8 text-gray-900" />
         </div>
         <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
           Set New Password
         </CardTitle>
-        <CardDescription className="text-gray-300">
-          Enter your new password below
-        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -140,7 +137,7 @@ function ResetPasswordContent() {
             <label htmlFor="password" className="text-sm font-medium text-gray-300">
               New Password
             </label>
-            <div className="relative">
+            <div className="relative my-2">
               <Input
                 id="password"
                 name="password"
@@ -179,13 +176,13 @@ function ResetPasswordContent() {
               onChange={handleChange}
               required
               disabled={loading}
-              className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+              className="bg-white/5 my-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-white hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+            className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 rounded-full cursor-pointer hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
             disabled={loading || !token}
           >
             {loading ? (
@@ -218,7 +215,7 @@ function LoadingFallback() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center sm:p-4">
       <Suspense fallback={<LoadingFallback />}>
         <ResetPasswordContent />
       </Suspense>

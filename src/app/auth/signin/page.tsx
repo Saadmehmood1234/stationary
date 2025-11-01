@@ -52,10 +52,10 @@ function SigninContent() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
+    <Card className="w-full mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardHeader className="text-center space-y-4">
         <div className="mx-auto w-16 h-16 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full flex items-center justify-center">
-          <BookOpen className="h-8 w-8 text-white" />
+          <BookOpen className="h-8 w-8 text-gray-900" />
         </div>
         <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
           Welcome Back
@@ -85,7 +85,7 @@ function SigninContent() {
               onChange={handleChange}
               required
               disabled={loading}
-              className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+              className="bg-white/5 border-white/20 mt-2 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
             />
           </div>
 
@@ -116,7 +116,7 @@ function SigninContent() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
+                className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -125,7 +125,7 @@ function SigninContent() {
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-white hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+            className="w-full rounded-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
             disabled={loading}
           >
             {loading ? (
@@ -170,7 +170,7 @@ function LoadingFallback() {
 
 export default function SigninPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center sm:p-4">
       <Suspense fallback={<LoadingFallback />}>
         <SigninContent />
       </Suspense>

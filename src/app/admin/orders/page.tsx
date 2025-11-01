@@ -3,7 +3,19 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Order } from '@/types';
-
+import { motion } from 'framer-motion';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Eye, RefreshCw } from 'lucide-react';
 
 const mockOrders: Order[] = [
   {
@@ -17,8 +29,8 @@ const mockOrders: Order[] = [
     items: [
       {
         productId: 'prod-1',
-        name: 'Premium Gel Pen - Blue',
-        sku: 'PEN-GEL-BLUE-07',
+        name: 'Premium Gel Pen - ',
+        sku: 'PEN-GEL--07',
         quantity: 2,
         price: 3.99,
         total: 7.98
@@ -80,162 +92,255 @@ export default function OrdersPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'confirmed': return 'bg-blue-100 text-blue-800';
-      case 'ready': return 'bg-green-100 text-green-800';
-      case 'completed': return 'bg-gray-100 text-gray-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'pending': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
+      case 'confirmed': return 'bg--500/20 text--300 border--500/30';
+      case 'ready': return 'bg-green-500/20 text-green-300 border-green-500/30';
+      case 'completed': return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
+      case 'cancelled': return 'bg-red-500/20 text-red-300 border-red-500/30';
+      default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
     }
   };
 
   const getPaymentStatusColor = (status: string) => {
     switch (status) {
-      case 'paid': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'failed': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'paid': return 'bg-green-500/20 text-green-300 border-green-500/30';
+      case 'pending': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
+      case 'failed': return 'bg-red-500/20 text-red-300 border-red-500/30';
+      default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
     }
   };
 
+  const filterButtons = [
+    { key: 'all', label: 'All Orders', color: 'from-[#D5D502] to-[#D5D506]' },
+    { key: 'pending', label: 'Pending', color: 'from-[#D5D502] to-[#D5D506]' },
+    { key: 'ready', label: 'Ready for Pickup', color: 'from-[#D5D502] to-[#D5D506]' },
+    { key: 'completed', label: 'Completed', color: 'from-[#D5D502] to-[#D5D506]' },
+  ];
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Orders</h1>
-          <p className="text-gray-600 mt-2">Manage customer orders</p>
-        </div>
+    <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute w-64 h-64 bg-[#D5D502] rounded-full blur-3xl opacity-10"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ top: "10%", left: "5%" }}
+        />
+        <motion.div
+          className="absolute w-72 h-72 bg--500 rounded-full blur-3xl opacity-10"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ top: "60%", right: "10%" }}
+        />
+        
+        {/* Floating particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-[#D5D502] rounded-full opacity-40"
+            animate={{
+              y: [0, -60, 0],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
       </div>
 
-      <div className="card mb-6">
-        <div className="p-4">
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setStatusFilter('all')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                statusFilter === 'all'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              All Orders
-            </button>
-            <button
-              onClick={() => setStatusFilter('pending')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                statusFilter === 'pending'
-                  ? 'bg-yellow-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              Pending
-            </button>
-            <button
-              onClick={() => setStatusFilter('ready')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                statusFilter === 'ready'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              Ready for Pickup
-            </button>
-            <button
-              onClick={() => setStatusFilter('completed')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                statusFilter === 'completed'
-                  ? 'bg-gray-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              Completed
-            </button>
+      <div className="relative max-w-7xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex justify-between items-center mb-8"
+        >
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-[#D5D502] to--200 bg-clip-text text-transparent">
+              Orders
+            </h1>
+            <p className="text-gray-300 mt-2 text-lg">Manage customer orders</p>
           </div>
-        </div>
-      </div>
+          <Button className="bg-gradient-to-r from-[#D5D502] to-[#D5D506] rounded-full cursor-pointer hover:from-[#c4c401] hover:to--600 text-gray-900 border-0">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+        </motion.div>
 
-      <div className="card">
-        <div className="p-6">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4">Order</th>
-                  <th className="text-left py-3 px-4">Customer</th>
-                  <th className="text-left py-3 px-4">Items</th>
-                  <th className="text-left py-3 px-4">Total</th>
-                  <th className="text-left py-3 px-4">Status</th>
-                  <th className="text-left py-3 px-4">Payment</th>
-                  <th className="text-left py-3 px-4">Date</th>
-                  <th className="text-left py-3 px-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredOrders.map(order => (
-                  <tr key={order._id} className="border-b border-gray-200 hover:bg-gray-50">
-                    <td className="py-3 px-4">
-                      <div className="font-medium">{order.orderNumber}</div>
-                      <div className="text-sm text-gray-600 capitalize">
-                        {order.collectionMethod}
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="font-medium">{order.customer.name}</div>
-                      <div className="text-sm text-gray-600">{order.customer.email}</div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="text-sm">
-                        {order.items.length} item{order.items.length !== 1 ? 's' : ''}
-                      </div>
-                      <div className="text-xs text-gray-600">
-                        {order.items[0]?.name}
-                        {order.items.length > 1 && ` +${order.items.length - 1} more`}
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 font-semibold">₹{order.total.toFixed(2)}</td>
-                    <td className="py-3 px-4">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                        {order.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(order.paymentStatus)}`}>
-                        {order.paymentStatus}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="text-sm">
-                        {new Date(order.createdAt).toLocaleDateString()}
-                      </div>
-                      <div className="text-xs text-gray-600">
-                        {new Date(order.createdAt).toLocaleTimeString()}
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex space-x-2">
-                        <Link
-                          href={`/admin/orders/${order._id}`}
-                          className="text-blue-600 hover:text-blue-700 text-sm"
-                        >
-                          View
-                        </Link>
-                        <button className="text-green-600 hover:text-green-700 text-sm">
-                          Update
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+        {/* Filter Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mb-8"
+        >
+          <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
+            <div className="h-1 bg-gradient-to-r from-[#D5D502] to--400"></div>
+            <CardContent className="p-6">
+              <div className="flex flex-wrap gap-3">
+                {filterButtons.map((filter) => (
+                  <button
+                    key={filter.key}
+                    onClick={() => setStatusFilter(filter.key)}
+                    className={`px-6 py-3 rounded-full transition-all cursor-pointer duration-300 font-medium ${
+                      statusFilter === filter.key
+                        ? `bg-gradient-to-r ${filter.color} text-gray-900 shadow-lg shadow-${filter.color.split('-')[1]}-500/25`
+                        : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-white/20'
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-          {filteredOrders.length === 0 && (
-            <div className="text-center py-8">
-              <p className="text-gray-500">No orders found matching your criteria.</p>
-            </div>
-          )}
-        </div>
+        {/* Orders Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
+            <div className="h-1 bg-gradient-to-r from--400 to-[#D5D502]"></div>
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-white">
+                Order Management
+              </CardTitle>
+              <CardDescription className="text-gray-300">
+                {filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''} found
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              {filteredOrders.length === 0 ? (
+                <div className="text-center py-16">
+                  <div className="text-gray-400 text-xl mb-2">No orders found</div>
+                  <p className="text-gray-500">No orders match your current filter criteria</p>
+                </div>
+              ) : (
+                <div className="overflow-hidden">
+                  <Table>
+                    <TableHeader className="bg-white/5">
+                      <TableRow className="border-white/10 hover:bg-transparent">
+                        <TableHead className="text-gray-300 font-semibold">Order</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Customer</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Items</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Total</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Status</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Payment</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Date</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredOrders.map((order, index) => (
+                        <motion.tr
+                          key={order._id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="border-white/10 hover:bg-white/5 transition-colors duration-200"
+                        >
+                          <TableCell>
+                            <div className="space-y-1">
+                              <div className="font-medium text-white">{order.orderNumber}</div>
+                              <div className="text-sm text-gray-300 capitalize">
+                                {order.collectionMethod}
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              <div className="font-medium text-white">{order.customer.name}</div>
+                              <div className="text-sm text-gray-300">{order.customer.email}</div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              <div className="text-sm text-white">
+                                {order.items.length} item{order.items.length !== 1 ? 's' : ''}
+                              </div>
+                              <div className="text-xs text-gray-300">
+                                {order.items[0]?.name}
+                                {order.items.length > 1 && ` +${order.items.length - 1} more`}
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="font-semibold text-white">₹{order.total.toFixed(2)}</div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant="outline" 
+                              className={getStatusColor(order.status)}
+                            >
+                              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant="outline" 
+                              className={getPaymentStatusColor(order.paymentStatus)}
+                            >
+                              {order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              <div className="text-sm text-white">
+                                {new Date(order.createdAt).toLocaleDateString()}
+                              </div>
+                              <div className="text-xs text-gray-300">
+                                {new Date(order.createdAt).toLocaleTimeString()}
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex space-x-3">
+                              <Link
+                                href={`/admin/orders/${order._id}`}
+                                className="text-gray-400 hover:text--300 transition-colors duration-200 flex items-center gap-1"
+                              >
+                                <Eye className="h-4 w-4 text-gray-200" />
+                                View
+                              </Link>
+                              <button className="text-[#D5D502] cursor-pointer hover:text-yellow-300 transition-colors duration-200">
+                                Update
+                              </button>
+                            </div>
+                          </TableCell>
+                        </motion.tr>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </div>
   );

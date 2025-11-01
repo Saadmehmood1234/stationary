@@ -59,10 +59,10 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center space-x-3 mb-6">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#D5D600] to-[#D5D604] rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-[#D5D502]  rounded-full flex items-center justify-center">
                   <span className="text-gray-900 font-bold text-lg">AB</span>
                 </div>
-                <div className="absolute -inset-1 bg-gradient-to-br from-[#D5D600] to-[#D5D604] rounded-xl blur-sm opacity-50"></div>
+                <div className="absolute -inset-1 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 rounded-xl blur-sm opacity-50"></div>
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
                 Ali Books
