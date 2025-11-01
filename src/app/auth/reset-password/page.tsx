@@ -1,15 +1,15 @@
 // app/auth/reset-password/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { resetPassword } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, EyeOff, Loader2, CheckCircle } from "lucide-react";
+import { Eye, EyeOff, Loader2, CheckCircle, Lock } from "lucide-react";
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -80,27 +80,32 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <Card className="w-full">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-            <CheckCircle className="h-8 w-8 text-green-600" />
+      <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
+        <CardHeader className="text-center space-y-4">
+          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-2">
+            <CheckCircle className="h-10 w-10 text-white" />
           </div>
-          <CardTitle className="text-2xl font-bold">Password Reset</CardTitle>
-          <CardDescription className="text-lg">
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
+            Password Reset
+          </CardTitle>
+          <CardDescription className="text-gray-300 text-lg">
             Your password has been reset successfully
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 text-center">
-          <div className="space-y-2">
-            <p className="text-gray-600">
+          <div className="space-y-3">
+            <p className="text-gray-300">
               You can now sign in with your new password.
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-400">
               Redirecting to sign in page...
             </p>
           </div>
 
-          <Button asChild className="w-full bg-[#027068] hover:bg-[#025e56]">
+          <Button 
+            asChild 
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+          >
             <a href="/auth/signin">
               Sign In Now
             </a>
@@ -111,23 +116,28 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Set New Password</CardTitle>
-        <CardDescription>
+    <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
+      <CardHeader className="text-center space-y-4">
+        <div className="mx-auto w-16 h-16 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full flex items-center justify-center">
+          <Lock className="h-8 w-8 text-white" />
+        </div>
+        <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+          Set New Password
+        </CardTitle>
+        <CardDescription className="text-gray-300">
           Enter your new password below
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg">
+            <div className="p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl">
               {error}
             </div>
           )}
 
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">
+          <div className="space-y-3">
+            <label htmlFor="password" className="text-sm font-medium text-gray-300">
               New Password
             </label>
             <div className="relative">
@@ -141,22 +151,23 @@ export default function ResetPasswordPage() {
                 required
                 disabled={loading}
                 minLength={8}
+                className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20 pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-400">
               Must be at least 8 characters long
             </p>
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="confirmPassword" className="text-sm font-medium">
+          <div className="space-y-3">
+            <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">
               Confirm New Password
             </label>
             <Input
@@ -168,17 +179,18 @@ export default function ResetPasswordPage() {
               onChange={handleChange}
               required
               disabled={loading}
+              className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-[#027068] hover:bg-[#025e56]"
+            className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-white hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
             disabled={loading || !token}
           >
             {loading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 Resetting Password...
               </>
             ) : (
@@ -188,5 +200,28 @@ export default function ResetPasswordPage() {
         </form>
       </CardContent>
     </Card>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
+      <CardContent className="p-8 text-center">
+        <div className="flex items-center justify-center gap-3 text-gray-300">
+          <Loader2 className="w-6 h-6 animate-spin" />
+          <span>Loading...</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center p-4">
+      <Suspense fallback={<LoadingFallback />}>
+        <ResetPasswordContent />
+      </Suspense>
+    </div>
   );
 }
