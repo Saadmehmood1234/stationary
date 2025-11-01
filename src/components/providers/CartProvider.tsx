@@ -50,8 +50,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
   
   const newCartItem: CartItem = {
     productId: action.payload._id!, 
-    product: action.payload,       
-    variantId: undefined,          
+    product: action.payload,      
     quantity: 1,                    
     price: action.payload.price,    
     addedAt: new Date()             
