@@ -53,13 +53,13 @@ export default function ShopClientHome({ initialProducts }: Props) {
         <div className="mb-8">
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cyan-300/50 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#D6D402]/50 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300/50 transition-colors"
+                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#D6D402]/50 transition-colors"
               />
             </div>
           </div>
@@ -94,23 +94,23 @@ export default function ShopClientHome({ initialProducts }: Props) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center py-20  rounded-3xl shadow-2xl shadow-cyan-500/10 border border-white/20 relative"
+              className="text-center py-20  rounded-3xl shadow-2xl shadow-[#D6D402]/10 border border-white/20 relative"
             >
               <div className="max-w-md mx-auto">
                 <motion.div
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ duration: 0.8, type: "spring" }}
-                  className="w-20 h-20 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-cyan-400/30"
+                  className="w-20 h-20 bg-gradient-to-br from-[#D6D402]/10 to-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#D6D402]/30"
                 >
-                  <Search className="w-10 h-10 text-cyan-300" />
+                  <Search className="w-10 h-10 text-[#D6D402]" />
                 </motion.div>
                 
                 <motion.h3
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent mb-4"
+                  className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-[#D6D402] bg-clip-text text-transparent mb-4"
                 >
                   No products found
                 </motion.h3>
@@ -144,7 +144,7 @@ export default function ShopClientHome({ initialProducts }: Props) {
                 {[...Array(5)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1 h-1 bg-cyan-300 rounded-full opacity-40"
+                    className="absolute w-1 h-1 bg-[#D6D402] rounded-full opacity-40"
                     animate={{
                       y: [0, -30, 0],
                       opacity: [0.3, 0.8, 0.3],

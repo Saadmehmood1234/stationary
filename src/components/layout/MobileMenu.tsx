@@ -92,8 +92,8 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
           {user && (
             <div className="p-6 border-t border-white/10">
               <div className="flex items-center space-x-3 p-4 bg-white/10 rounded-xl">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#D5D502] to-[#D5D502]">
-                  <span className="text-sm font-medium text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#D5D502] to-[#D5D502]">
+                  <span className="text-sm font-medium text-gray-900">
                     {user.name?.charAt(0).toUpperCase()}
                   </span>
                 </div>
@@ -120,7 +120,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
                   <ShoppingCart className="h-6 w-6 text-white group-hover:text-[#D5D502] transition-colors duration-200" />
                   {itemCount > 0 && (
                     <>
-                      <span className="absolute -top-2 -right-2 bg-gradient-to-r from-[#D5D502] to-[#D5D502] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-slate-900">
+                      <span className="absolute -top-2 -right-2 bg-gradient-to-r from-[#D5D502] to-[#D5D502] text-gray-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-slate-900">
                         {itemCount}
                       </span>
                     </>

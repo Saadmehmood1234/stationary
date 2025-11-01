@@ -3,6 +3,27 @@
 import { useRef, useState } from "react";
 import { createPrintOrder } from "../actions/print.actions";
 import { CreatePrintOrderInput } from "@/types";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Upload,
+  FileText,
+  Printer,
+  BookOpen,
+  Image,
+  Shield,
+  Clock,
+  IndianRupeeIcon,
+  CheckCircle,
+  X,
+  Send,
+  Loader2,
+  MessageCircle,
+  Mail,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function ModernPrintingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,28 +49,35 @@ export default function ModernPrintingPage() {
 
   const printingServices = [
     {
-      icon: "🖨️",
+      icon: <Printer className="w-8 h-8" />,
       title: "Standard Printing",
-      description: "High-quality B&W and color printing",
+      description:
+        "High-quality B&W and color printing for all your document needs",
       features: ["A4/A3 Sizes", "Multiple paper types", "Quick turnaround"],
+      gradient: "from-[#D5D506] to-[#D5D502]",
     },
     {
-      icon: "📚",
+      icon: <BookOpen className="w-8 h-8" />,
       title: "Thesis & Binding",
-      description: "Professional thesis printing and binding",
+      description: "Professional thesis printing and binding services",
       features: ["Spiral Binding", "Hard Cover", "Soft Cover"],
+      gradient: "from-purple-500 to-pink-500",
     },
     {
-      icon: "🎨",
+      icon: <Image className="w-8 h-8" />,
       title: "Photo Printing",
-      description: "Premium photo and graphic printing",
+      description:
+        "Premium photo and graphic printing with exceptional quality",
       features: ["Glossy/Matte", "High Resolution", "Multiple Sizes"],
+      gradient: "from-green-500 to-emerald-500",
     },
     {
-      icon: "📄",
+      icon: <Shield className="w-8 h-8" />,
       title: "Lamination",
-      description: "Protect your important documents",
+      description:
+        "Protect your important documents with professional lamination",
       features: ["A4/A3 Lamination", "Thick & Thin", "Instant Service"],
+      gradient: "from-orange-500 to-red-500",
     },
   ];
 
@@ -61,6 +89,7 @@ export default function ModernPrintingPage() {
     { type: "Spiral Binding", price: "₹50-100" },
     { type: "Lamination (A4)", price: "₹20/page" },
   ];
+
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setFileError("");
@@ -112,6 +141,7 @@ export default function ModernPrintingPage() {
       }, 200);
     }
   };
+
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setUploadProgress(0);
@@ -183,6 +213,7 @@ export default function ModernPrintingPage() {
       setIsSubmitting(false);
     }
   };
+
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -199,6 +230,7 @@ export default function ModernPrintingPage() {
       return "📊";
     return "📁";
   };
+
   const calculateEstimatedCost = () => {
     let cost = 0;
     const pageCount = formData.pageCount || 1;
@@ -223,517 +255,684 @@ export default function ModernPrintingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <section className="relative bg-white py-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-90"></div>
-        <div className="relative container mx-auto px-4 text-center text-white">
-          <h1 className="text-5xl font-bold mb-6">
-            Professional Printing Services
-          </h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            High-quality printing with fast turnaround. Upload your files and
-            get instant quotes.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900">
+      <section className="relative py-14 overflow-hidden">
+        <div className="absolute inset-0 " />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#D5D506]/10 via-transparent to-transparent" />
+
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-7xl font-bold text-white mb-6"
             >
-              Request Print Online
-            </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300">
-              Upload Files
-            </button>
+              Printing Services
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+            >
+              High-quality printing with fast turnaround. Upload your files and
+              get instant quotes with our professional printing services.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="group relative cursor-pointer bg-gradient-to-r from-[#D5D506] to-[#D5D502] text-gray-900 px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#D5D506]/25 transition-all duration-300 flex items-center gap-3"
+              >
+                <Printer className="w-5 h-5" />
+                Request Print Online
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              </button>
+
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-10 relative">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">
-            Our Printing Services
-          </h2>
-          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            From simple documents to complex projects, we handle all your
-            printing needs with precision and care.
-          </p>
+          <div className="text-center mb-16">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-4xl font-bold text-gray-100 mb-4"
+            >
+              Our Printing Services
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-slate-400 text-lg max-w-2xl mx-auto"
+            >
+              From simple documents to complex projects, we handle all your
+              printing needs with precision and care.
+            </motion.p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {printingServices.map((service, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700 hover:border-slate-500 transition-all duration-300"
               >
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
+                <div
+                  className={`w-12 h-12 rounded-full bg-gradient-to-r ${service.gradient} flex items-center justify-center text-gray-900 mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-300 mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                  {service.description}
+                </p>
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
                     <li
                       key={idx}
-                      className="flex items-center text-sm text-gray-500"
+                      className="flex items-center text-sm text-slate-300"
                     >
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                      <div className="w-1.5 h-1.5 bg-[#D5D506] rounded-full mr-3" />
                       {feature}
                     </li>
                   ))}
                 </ul>
-              </div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#D5D506]/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
-      <section className="py-20 bg-gray-50">
+
+      <section className="py-20 bg-slate-800/30">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
-                <h2 className="text-2xl font-bold">Transparent Pricing</h2>
-                <p className="opacity-90">No hidden costs, no surprises</p>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+            >
+              <h2 className="text-3xl font-bold text-gray-300 mb-8">
+                How It Works
+              </h2>
+              <div className="space-y-6">
+                {[
+                  {
+                    step: "01",
+                    title: "Upload & Specify",
+                    desc: "Upload your files and specify your printing requirements",
+                    icon: <Upload className="w-5 h-5" />,
+                  },
+                  {
+                    step: "02",
+                    title: "Instant Quote",
+                    desc: "Get immediate pricing and production timeline",
+                    icon: <FileText className="w-5 h-5" />,
+                  },
+                  {
+                    step: "03",
+                    title: "Quality Production",
+                    desc: "Professional printing with thorough quality assurance",
+                    icon: <Printer className="w-5 h-5" />,
+                  },
+                  {
+                    step: "04",
+                    title: "Ready for Collection",
+                    desc: "Collect your perfectly printed materials",
+                    icon: <CheckCircle className="w-5 h-5" />,
+                  },
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-start gap-4 p-4 bg-slate-800/30 rounded-xl border border-slate-700 hover:border-slate-600 transition-colors"
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#D5D506] to-[#D5D502] rounded-xl flex items-center justify-center text-gray-900 font-bold text-sm">
+                      {item.step}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="text-[#D5D506]">{item.icon}</div>
+                        <h3 className="text-lg font-semibold text-gray-300">
+                          {item.title}
+                        </h3>
+                      </div>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700 overflow-hidden"
+            >
+              <div className="bg-gradient-to-r from-[#D5D506] to-[#D5D502] p-6">
+                <div className="flex items-center gap-3">
+                  <IndianRupeeIcon className="w-6 h-6 text-gray-900" />
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Transparent Pricing
+                  </h2>
+                </div>
+                <p className="text-[#D5D506] mt-1">
+                  No hidden costs, no surprises
+                </p>
               </div>
               <div className="p-6">
                 <div className="space-y-4">
                   {printingPrices.map((item, index) => (
                     <div
                       key={index}
-                      className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0"
+                      className="flex justify-between items-center py-3 border-b border-slate-700 last:border-b-0"
                     >
-                      <span className="text-gray-700">{item.type}</span>
-                      <span className="font-semibold text-gray-900">
+                      <span className="text-slate-300">{item.type}</span>
+                      <span className="font-semibold text-[#D5D502]">
                         {item.price}
                       </span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                  <p className="text-sm text-blue-800">
+                <div className="mt-6 p-4 bg-[#D5D502]/10 rounded-xl border border-[#D5D502]/20">
+                  <p className="text-sm text-[#D5D502]">
                     🎓 <strong>Student Discount:</strong> 10% off on all
                     printing services with valid student ID
                   </p>
                 </div>
               </div>
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold mb-8">How It Works</h2>
-              <div className="space-y-8">
-                {[
-                  {
-                    step: "01",
-                    title: "Request & Upload",
-                    desc: "Fill out our form and upload your files",
-                  },
-                  {
-                    step: "02",
-                    title: "Instant Quote",
-                    desc: "Get immediate pricing and timeline",
-                  },
-                  {
-                    step: "03",
-                    title: "We Print & Quality Check",
-                    desc: "Professional printing with quality assurance",
-                  },
-                  {
-                    step: "04",
-                    title: "Ready for Pickup/Delivery",
-                    desc: "Collect your perfect prints",
-                  },
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start space-x-6">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-                      {item.step}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-600">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-8">Send Us Your Files</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <a
-              href="https://wa.me/15551234567"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-green-600 text-white p-6 rounded-2xl hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
-            >
-              <div className="text-3xl mb-3">📱</div>
-              <h3 className="font-semibold text-lg mb-2">WhatsApp</h3>
-              <p className="text-green-100 text-sm">
-                Quick file sharing & chat
-              </p>
-            </a>
-
-            <a
-              href="mailto:printing@yourstore.com"
-              className="bg-blue-600 text-white p-6 rounded-2xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
-            >
-              <div className="text-3xl mb-3">✉️</div>
-              <h3 className="font-semibold text-lg mb-2">Email</h3>
-              <p className="text-blue-100 text-sm">Send large files easily</p>
-            </a>
-
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-purple-600 text-white p-6 rounded-2xl hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
-            >
-              <div className="text-3xl mb-3">💻</div>
-              <h3 className="font-semibold text-lg mb-2">Online Form</h3>
-              <p className="text-purple-100 text-sm">Detailed specifications</p>
-            </button>
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-200 mb-4">
+              Send Us Your Files
+            </h2>
+            <p className="text-slate-400">
+              Choose your preferred method to get started
+            </p>
           </div>
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+  {[
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      title: "WhatsApp",
+      desc: "Quick file sharing & instant chat support",
+      color: "from-green-500 to-emerald-500",
+      action: () => window.open('https://wa.me/9911523323', '_blank')
+    },
+    {
+      icon: <Mail className="w-6 h-6" />,
+      title: "Email",
+      desc: "Send large files with detailed specifications",
+      color: "from-[#D5D502] to-yellow-500",
+      action: () => window.location.href = 'mailto:printing@yourstore.com'
+    },
+    {
+      icon: <FileText className="w-6 h-6" />,
+      title: "Online Form",
+      desc: "Detailed specifications with instant quote",
+      color: "from-purple-500 to-pink-500",
+      action: () => setIsModalOpen(true)
+    },
+  ].map((method, index) => (
+    <motion.button
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      onClick={method.action}
+      className="group p-6 bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700 hover:border-slate-500 transition-all duration-300 text-left relative overflow-hidden"
+    >
+      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${method.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
+        {method.icon}
+      </div>
+      <h3 className="text-lg font-semibold text-white mb-2">{method.title}</h3>
+      <p className="text-slate-400 text-sm">{method.desc}</p>
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </motion.button>
+  ))}
+</div>
         </div>
       </section>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Print Request
-                </h2>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  ×
-                </button>
-              </div>
-
-              {submitted ? (
-                <div className="text-center py-12">
-                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-3xl text-green-600">✓</span>
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-800">
-                    {selectedFile
-                      ? "File Uploaded & Request Submitted!"
-                      : "Request Submitted Successfully!"}
-                  </h3>
-                  <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                    {selectedFile
-                      ? "Your file has been securely uploaded to Cloudinary and your print request is being processed."
-                      : "We've received your print request. Please send your files via WhatsApp or Email."}
-                  </p>
-                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 max-w-md mx-auto">
-                    <p className="font-semibold text-blue-900">
-                      Estimated Cost: ₹{calculateEstimatedCost()}
-                    </p>
-                    <p className="text-sm text-blue-700 mt-1">
-                      {selectedFile
-                        ? "File securely stored in Cloudinary"
-                        : "Please send your files to complete the request"}
+      {/* Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl"
+            >
+              <div className="p-8">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">
+                      Print Request
+                    </h2>
+                    <p className="text-slate-400 mt-1">
+                      Get an instant quote for your printing needs
                     </p>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsModalOpen(false)}
+                    className="h-10 w-10 text-slate-400 hover:text-white hover:bg-slate-700 rounded-xl"
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="bg-gray-50 p-6 rounded-xl border-2 border-dashed border-gray-300">
-                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
-                      Upload Your File to Cloudinary{" "}
-                      {!selectedFile && "(Optional)"}
+
+                {submitted ? (
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
+                      <CheckCircle className="w-10 h-10 text-green-400" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-white mb-4">
+                      Request Submitted Successfully!
                     </h3>
-
-                    {!selectedFile ? (
-                      <div className="text-center py-8">
-                        <div className="text-4xl mb-4">☁️</div>
-                        <p className="text-gray-600 mb-4">
-                          Files are securely stored in Cloudinary
-                        </p>
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          onChange={handleFileSelect}
-                          accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png"
-                          className="hidden"
-                          id="file-upload"
-                        />
-                        <label
-                          htmlFor="file-upload"
-                          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer inline-block"
-                        >
-                          Choose File
-                        </label>
-                        <p className="text-sm text-gray-500 mt-3">
-                          Supported: PDF, Word, PowerPoint, Images (Max: 10MB)
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="bg-white p-4 rounded-lg border border-green-200">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-3">
-                            <div className="text-2xl">
-                              {getFileIcon(selectedFile.type)}
-                            </div>
-                            <div>
-                              <p className="font-medium text-gray-900">
-                                {selectedFile.name}
-                              </p>
-                              <p className="text-sm text-gray-500">
-                                {formatFileSize(selectedFile.size)}
-                              </p>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={handleRemoveFile}
-                            className="text-red-600 hover:text-red-800 p-1"
-                          >
-                            ×
-                          </button>
-                        </div>
-
-                        {/* File Preview for Images */}
-                        {filePreview && (
-                          <div className="mb-3">
-                            <img
-                              src={filePreview}
-                              alt="File preview"
-                              className="max-w-32 max-h-32 object-cover rounded-lg border"
-                            />
-                          </div>
-                        )}
-
-                        {/* Upload Progress */}
-                        {uploadProgress > 0 && uploadProgress < 100 && (
-                          <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
-                            <div
-                              className="bg-green-600 h-2 rounded-full transition-all duration-300"
-                              style={{ width: `${uploadProgress}%` }}
-                            ></div>
-                          </div>
-                        )}
-
-                        {uploadProgress > 0 && (
-                          <div className="flex justify-between items-center text-sm text-gray-600">
-                            <span>
-                              {uploadProgress < 100
-                                ? "Uploading to Cloudinary..."
-                                : "Ready to submit"}
-                            </span>
-                            <span>{uploadProgress}%</span>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {fileError && (
-                      <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-red-700 text-sm">{fileError}</p>
-                      </div>
-                    )}
+                    <p className="text-slate-400 mb-6 max-w-md mx-auto leading-relaxed">
+                      {selectedFile
+                        ? "Your file has been securely uploaded and your print request is being processed. We'll contact you shortly."
+                        : "We've received your print request. Please send your files via WhatsApp or Email to complete the order."}
+                    </p>
+                    <div className="bg-[#D5D506]/10 p-4 rounded-xl border border-[#D5D506]/20 max-w-md mx-auto">
+                      <p className="font-semibold text-[#D5D506]">
+                        Estimated Cost: ₹{calculateEstimatedCost()}
+                      </p>
+                      <p className="text-sm text-[#D5D506] mt-1">
+                        Final price confirmed upon file review
+                      </p>
+                    </div>
                   </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-8">
+                    {/* File Upload */}
+                    <div className="bg-slate-700/50 rounded-xl border border-slate-600 p-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Upload className="w-5 h-5 text-[#D5D506]" />
+                        <h3 className="text-lg font-semibold text-white">
+                          Upload Your File
+                        </h3>
+                        <span className="text-slate-400 text-sm">
+                          (Optional)
+                        </span>
+                      </div>
 
-                  <div className="bg-gray-50 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
-                      Contact Information
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {!selectedFile ? (
+                        <div className="text-center py-8 border-2 border-dashed border-slate-600 rounded-lg hover:border-slate-500 transition-colors">
+                          <FileText className="w-12 h-12 text-slate-500 mx-auto mb-4" />
+                          <p className="text-slate-400 mb-4">
+                            Files are securely stored in Cloudinary
+                          </p>
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            onChange={handleFileSelect}
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png"
+                            className="hidden"
+                            id="file-upload"
+                          />
+                          <Button
+                            asChild
+                            variant="default"
+                            className="bg-[#D5D506] hover:bg-[#D5D506] text-gray-900 px-6 py-3 rounded-lg"
+                          >
+                            <label
+                              htmlFor="file-upload"
+                              className="cursor-pointer"
+                            >
+                              <Upload className="w-4 h-4 mr-2 text-gray-900" />
+                              Choose File
+                            </label>
+                          </Button>
+                          <p className="text-sm text-slate-500 mt-3">
+                            PDF, Word, PowerPoint, Images • Max 10MB
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="bg-slate-600/50 p-4 rounded-lg border border-slate-500">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                              <FileText className="w-8 h-8 text-[#D5D506]" />
+                              <div>
+                                <p className="font-medium text-white">
+                                  {selectedFile.name}
+                                </p>
+                                <p className="text-sm text-slate-400">
+                                  {formatFileSize(selectedFile.size)}
+                                </p>
+                              </div>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={handleRemoveFile}
+                              className="h-8 w-8 text-slate-400 hover:text-red-400 hover:bg-slate-500"
+                            >
+                              <X className="w-4 h-4" />
+                            </Button>
+                          </div>
+
+                          {filePreview && (
+                            <div className="mb-3">
+                              <img
+                                src={filePreview}
+                                alt="File preview"
+                                className="max-w-32 max-h-32 object-cover rounded-lg border border-slate-500"
+                              />
+                            </div>
+                          )}
+
+                          {uploadProgress > 0 && uploadProgress < 100 && (
+                            <div className="w-full bg-slate-500 rounded-full h-2 mb-2">
+                              <div
+                                className="bg-[#D5D506] h-2 rounded-full transition-all duration-300"
+                                style={{ width: `${uploadProgress}%` }}
+                              />
+                            </div>
+                          )}
+
+                          {uploadProgress > 0 && (
+                            <div className="flex justify-between items-center text-sm text-slate-400">
+                              <span>
+                                {uploadProgress < 100
+                                  ? "Uploading..."
+                                  : "Ready to submit"}
+                              </span>
+                              <span>{uploadProgress}%</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {fileError && (
+                        <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                          <p className="text-red-400 text-sm">{fileError}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Contact Information */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-slate-300">
                           Full Name *
-                        </label>
-                        <input
-                          type="text"
+                        </Label>
+                        <Input
+                          id="name"
                           name="name"
+                          type="text"
                           required
                           value={formData.name}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                           placeholder="Enter your full name"
+                          className="bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:border-[#D5D506] focus:ring-[#D5D506]/20"
                         />
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+
+                      <div className="space-y-2">
+                        <Label htmlFor="phone" className="text-slate-300">
                           Phone Number *
-                        </label>
-                        <input
-                          type="tel"
+                        </Label>
+                        <Input
+                          id="phone"
                           name="phone"
+                          type="tel"
                           required
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                           placeholder="Enter your phone number"
+                          className="bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:border-[#D5D506] focus:ring-[#D5D506]/20"
                         />
                       </div>
-                      <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+
+                      <div className="space-y-2 md:col-span-2">
+                        <Label htmlFor="email" className="text-slate-300">
                           Email Address *
-                        </label>
-                        <input
-                          type="email"
+                        </Label>
+                        <Input
+                          id="email"
                           name="email"
+                          type="email"
                           required
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                           placeholder="Enter your email address"
+                          className="bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:border-[#D5D506] focus:ring-[#D5D506]/20"
                         />
                       </div>
                     </div>
-                  </div>
 
-                  {/* Print Specifications */}
-                  <div className="bg-gray-50 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
-                      Print Specifications
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {/* Print Specifications */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="paperSize" className="text-slate-300">
                           Paper Size *
-                        </label>
-                        <select
+                        </Label>
+                        <Select
                           name="paperSize"
                           required
                           value={formData.paperSize}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          onValueChange={(value) =>
+                            handleInputChange({
+                              target: { name: "paperSize", value },
+                            } as any)
+                          }
                         >
-                          <option value="A4">A4</option>
-                          <option value="A3">A3</option>
-                          <option value="Letter">Letter</option>
-                          <option value="Legal">Legal</option>
-                        </select>
+                          <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:ring-[#D5D506]/20 focus:border-[#D5D506]">
+                            <SelectValue placeholder="Select paper size" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-700 border-slate-600 text-white">
+                            <SelectItem value="A4">A4</SelectItem>
+                            <SelectItem value="A3">A3</SelectItem>
+                            <SelectItem value="Letter">Letter</SelectItem>
+                            <SelectItem value="Legal">Legal</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="colorType" className="text-slate-300">
                           Color Type *
-                        </label>
-                        <select
+                        </Label>
+                        <Select
                           name="colorType"
                           required
                           value={formData.colorType}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          onValueChange={(value) =>
+                            handleInputChange({
+                              target: { name: "colorType", value },
+                            } as any)
+                          }
                         >
-                          <option value="bw">Black & White</option>
-                          <option value="color">Color</option>
-                        </select>
+                          <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:ring-[#D5D506]/20 focus:border-[#D5D506]">
+                            <SelectValue placeholder="Select color type" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-700 border-slate-600 text-white">
+                            <SelectItem value="bw">Black & White</SelectItem>
+                            <SelectItem value="color">Color</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="pageCount" className="text-slate-300">
                           Number of Pages *
-                        </label>
-                        <input
-                          type="number"
+                        </Label>
+                        <Input
+                          id="pageCount"
                           name="pageCount"
+                          type="number"
                           required
                           min="1"
                           value={formData.pageCount}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          className="bg-slate-700 border-slate-600 text-white focus:border-[#D5D506] focus:ring-[#D5D506]/20"
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="binding" className="text-slate-300">
                           Binding
-                        </label>
-                        <select
+                        </Label>
+                        <Select
                           name="binding"
                           value={formData.binding}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          onValueChange={(value) =>
+                            handleInputChange({
+                              target: { name: "binding", value },
+                            } as any)
+                          }
                         >
-                          <option value="none">No Binding</option>
-                          <option value="spiral">Spiral Binding</option>
-                          <option value="stapler">Stapler</option>
-                        </select>
+                          <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:ring-[#D5D506]/20 focus:border-[#D5D506]">
+                            <SelectValue placeholder="Select binding" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-700 border-slate-600 text-white">
+                            <SelectItem value="none">No Binding</SelectItem>
+                            <SelectItem value="spiral">
+                              Spiral Binding
+                            </SelectItem>
+                            <SelectItem value="stapler">Stapler</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
-                      <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <div className="space-y-2 md:col-span-2">
+                        <Label htmlFor="urgency" className="text-slate-300">
                           Urgency
-                        </label>
-                        <select
+                        </Label>
+                        <Select
                           name="urgency"
                           value={formData.urgency}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          onValueChange={(value) =>
+                            handleInputChange({
+                              target: { name: "urgency", value },
+                            } as any)
+                          }
                         >
-                          <option value="normal">Normal (24-48 hours)</option>
-                          <option value="urgent">Urgent (Same day) +30%</option>
-                          <option value="express">
-                            Express (2-4 hours) +50%
-                          </option>
-                        </select>
+                          <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:ring-[#D5D506]/20 focus:border-[#D5D506]">
+                            <SelectValue placeholder="Select urgency" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-700 border-slate-600 text-white">
+                            <SelectItem value="normal">
+                              Normal (24-48 hours)
+                            </SelectItem>
+                            <SelectItem value="urgent">
+                              Urgent (Same day) +30%
+                            </SelectItem>
+                            <SelectItem value="express">
+                              Express (2-4 hours) +50%
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Additional Information */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Special Instructions
-                    </label>
-                    <textarea
-                      name="specialInstructions"
-                      rows={4}
-                      value={formData.specialInstructions}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                      placeholder="Any special requirements, file details, or additional instructions..."
-                    />
-                  </div>
+                    {/* Special Instructions */}
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="specialInstructions"
+                        className="text-slate-300"
+                      >
+                        Special Instructions
+                      </Label>
+                      <textarea
+                        id="specialInstructions"
+                        name="specialInstructions"
+                        rows={4}
+                        value={formData.specialInstructions}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:border-[#D5D506] focus:ring-2 focus:ring-[#D5D506]/20 transition-colors resize-none"
+                        placeholder="Any special requirements, file details, or additional instructions..."
+                      />
+                    </div>
 
-                  {/* Cost Estimate */}
-                  <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl text-white">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="font-semibold text-lg">
-                          Estimated Cost
-                        </span>
-                        <p className="text-blue-100 text-sm">
-                          Inclusive of all charges
+                    {/* Cost Estimate */}
+                    <div className="bg-gradient-to-r from-[#D5D506] to-[#D5D502] rounded-xl p-6 text-gray-900">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="font-semibold text-lg">
+                            Estimated Cost
+                          </p>
+                          <p className="text-[#D5D506] text-sm">
+                            Inclusive of all charges
+                          </p>
+                        </div>
+                        <p className="text-3xl font-bold">
+                          ₹{calculateEstimatedCost()}
                         </p>
                       </div>
-                      <span className="text-3xl font-bold">
-                        ₹{calculateEstimatedCost()}
-                      </span>
                     </div>
-                  </div>
-                  <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
-                    <span>🔒</span>
-                    <span>Files securely stored in Cloudinary</span>
-                  </div>
-                  <div className="flex space-x-4">
-                    <button
-                      type="button"
-                      onClick={() => setIsModalOpen(false)}
-                      className="flex-1 bg-gray-500 text-white py-4 px-6 rounded-xl hover:bg-gray-600 transition-all duration-200 font-semibold"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={
-                        !!isSubmitting || (!!selectedFile && uploadProgress < 90)
-                      }
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? "Uploading..." : "Submit Print Request"}
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+
+                    {/* Submit Buttons */}
+                    <div className="flex gap-4 pt-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setIsModalOpen(false)}
+                        className="flex-1 bg-slate-700 border-slate-600 rounded-full text-slate-300 hover:bg-slate-600 hover:text-white h-12 text-base font-semibold"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        disabled={
+                          !!isSubmitting ||
+                          (!!selectedFile && uploadProgress < 90)
+                        }
+                        className="flex-1 rounded-full bg-gradient-to-r from-[#D5D506] to-yellow-400 hover:from-[#D5D506] hover:to-yellow-300 text-gray-900 h-12 text-base font-semibold shadow-lg hover:shadow-[#D5D506]/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                            Uploading...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-5 h-5 mr-2" />
+                            Submit Print Request
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

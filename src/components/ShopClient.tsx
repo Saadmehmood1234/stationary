@@ -92,7 +92,7 @@ export default function ShopClient({ initialProducts }: Props) {
     <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute w-96 h-96 bg-cyan-400 rounded-full blur-3xl opacity-10"
+          className="absolute w-96 h-96 bg-[#D5D502] rounded-full blur-3xl opacity-10"
           animate={{
             x: [0, 100, 0],
             y: [0, -50, 0],
@@ -123,7 +123,7 @@ export default function ShopClient({ initialProducts }: Props) {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-300 rounded-full opacity-40"
+            className="absolute w-1 h-1 bg-[#D5D502] rounded-full opacity-40"
             animate={{
               y: [0, -100, 0],
               opacity: [0.2, 0.8, 0.2],
@@ -150,7 +150,7 @@ export default function ShopClient({ initialProducts }: Props) {
             className="text-center mb-8"
           >
             <motion.h3
-              className="text-center text-lg font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent mb-4"
+              className="text-center text-lg font-bold bg-gradient-to-r from-[#D5D502] to-blue-300 bg-clip-text text-transparent mb-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -163,10 +163,10 @@ export default function ShopClient({ initialProducts }: Props) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
                 Shop
               </span>
-              <span className="bg-gradient-to-r from-cyan-200 via-white to-purple-200 bg-clip-text text-transparent ml-4">
+              <span className="bg-gradient-to-r from-[#D5D502] via-white to-purple-200 bg-clip-text text-transparent ml-4">
                 Collection
               </span>
             </motion.h1>
@@ -181,13 +181,13 @@ export default function ShopClient({ initialProducts }: Props) {
             <div className="flex flex-col sm:flex-row gap-4 items-stretch lg:items-center justify-between mb-6">
               <div className="flex-1 max-w-2xl">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-300 w-5 h-5" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#D5D502] w-5 h-5" />
                   <input
                     type="text"
                     placeholder="Search products..."
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 rounded-full focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-gray-400 text-base shadow-lg transition-all duration-300"
+                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 rounded-full focus:ring-2 focus:ring-[#D5D502] focus:border-transparent text-white placeholder-gray-400 text-base shadow-lg transition-all duration-300"
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function ShopClient({ initialProducts }: Props) {
                               onClick={() => handleCategorySelect(category._id)}
                               className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 flex items-center justify-between group ${
                                 selectedCategory === category._id
-                                  ? "bg-cyan-500/30 text-cyan-100"
+                                  ? "bg-[#D5D502]/30 text-[#D5D502]"
                                   : "text-gray-300 hover:bg-white/5"
                               }`}
                             >
@@ -229,7 +229,7 @@ export default function ShopClient({ initialProducts }: Props) {
                               </span>
                               <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                                 selectedCategory === category._id
-                                  ? "bg-cyan-500 text-white"
+                                  ? "bg-[#D5D502] text-white"
                                   : "bg-white/10 text-gray-400"
                               }`}>
                                 {category.count}
@@ -251,7 +251,7 @@ export default function ShopClient({ initialProducts }: Props) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   onClick={clearFilters}
-                  className="text-sm text-cyan-300 hover:text-cyan-200 transition-colors flex items-center gap-1"
+                  className="text-sm text-[#D5D502] hover:text-[#D5D502] transition-colors flex items-center gap-1"
                 >
                   <X className="w-3 h-3" />
                   Clear filters
@@ -299,8 +299,8 @@ export default function ShopClient({ initialProducts }: Props) {
                 className="text-center py-16 bg-white/5 backdrop-blur-lg rounded-xl border border-white/20"
               >
                 <div className="max-w-md mx-auto">
-                  <div className="w-16 h-16 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-400/30">
-                    <Search className="w-8 h-8 text-cyan-300" />
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#D5D502]/20 to-blue-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#D5D502]/30">
+                    <Search className="w-8 h-8 text-[#D5D502]" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">
                     No products found

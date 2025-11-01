@@ -112,7 +112,7 @@ function ProductCardComponent({
     if (isAdding) {
       return "bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-500/50 scale-105";
     }
-    return "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-cyan-500/50 hover:scale-105";
+    return "bg-gradient-to-r from-[#D5D502] to-[#D5D508] hover:from-[#D5D502] hover:to-[#D5D508] text-white border-[#D5D502]/50 hover:scale-105";
   };
   return (
     <Link href={`/shop/${product._id}`} className="block group h-full">
@@ -128,14 +128,14 @@ function ProductCardComponent({
         onHoverEnd={() => setIsHovered(false)}
         className="h-full"
       >
-        <Card className="bg-white/5 backdrop-blur-lg border border-white/20 hover:border-cyan-300/30 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-cyan-500/10 h-full flex flex-col overflow-hidden relative max-w-xs mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/20 hover:border-[#D5D502]/30 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-[#D5D502]/10 h-full flex flex-col overflow-hidden relative max-w-xs mx-auto">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/5 via-transparent to-[#D5D508]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           {isHovered && (
             <>
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1 h-1 bg-cyan-300 rounded-full"
+                  className="absolute w-1 h-1 bg-[#D5D502] rounded-full"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: [0, 0.8, 0],
@@ -158,7 +158,7 @@ function ProductCardComponent({
             </>
           )}
           <CardHeader className="p-0 relative">
-            <div className="aspect-[3/2] bg-gradient-to-br from-cyan-500/10 to-blue-500/10 relative overflow-hidden">
+            <div className="aspect-[3/2] bg-gradient-to-br from-[#D5D502]/10 to-[#D5D508]/10 relative overflow-hidden">
               {" "}
               {!imageLoaded && (
                 <Skeleton className="absolute inset-0 w-full h-full bg-white/10" />
@@ -226,7 +226,7 @@ function ProductCardComponent({
                       </>
                     ) : (
                       <>
-                        <ShoppingCart className="w-3.5 h-3.5" />
+                        <ShoppingCart className="w-3.5 h-3.5 text-white" />
                         Quick Add
                       </>
                     )}
@@ -239,14 +239,14 @@ function ProductCardComponent({
             <div className="mb-1">
               <Badge
                 variant="outline"
-                className="bg-white/10 border-white/20 text-cyan-200 text-[10px] px-1.5 py-0"
+                className="bg-white/10 border-white/20 text-[#D5D502] text-[10px] px-1.5 py-0"
               >
                 <Tag className="w-2.5 h-2.5 mr-1" />
                 {product.category}
               </Badge>
             </div>
 
-            <h3 className="font-semibold text-white group-hover:text-cyan-200 transition-colors line-clamp-2 leading-tight mb-1 flex-1 text-sm">
+            <h3 className="font-semibold text-white group-hover:text-[#D5D502] transition-colors line-clamp-2 leading-tight mb-1 flex-1 text-sm">
               {product.name}
             </h3>
 
@@ -259,7 +259,7 @@ function ProductCardComponent({
               <div className="mb-2">
                 <Badge
                   variant="secondary"
-                  className="bg-white/10 text-cyan-200 border-white/20 text-[10px] px-1.5 py-0"
+                  className="bg-white/10 text-[#D5D502] border-white/20 text-[10px] px-1.5 py-0"
                 >
                   Color: {product.specifications.color}
                 </Badge>
@@ -269,12 +269,12 @@ function ProductCardComponent({
           <CardFooter className="p-3 pt-0 relative z-10">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center space-x-2">
-                <span className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent">
-                  ${product.price?.toFixed(2) || "0.00"}
+                <span className="text-lg font-bold bg-gradient-to-r from-[#D5D502] to-[#D5D508] bg-clip-text text-transparent">
+                  ₹{product.price?.toFixed(2) || "0.00"}
                 </span>
                 {hasDiscount && (
                   <span className="text-xs text-gray-400 line-through">
-                    ${product.comparePrice!.toFixed(2)}
+                    ₹{product.comparePrice!.toFixed(2)}
                   </span>
                 )}
               </div>
@@ -296,9 +296,9 @@ function ProductCardComponent({
                   {isAdding ? (
                     <Check className="w-3 h-3" />
                   ) : product.status === "out_of_stock" ? (
-                    <AlertCircle className="w-3 h-3" />
+                    <AlertCircle className="w-3 h-3 text-red-500" />
                   ) : (
-                    <ShoppingCart className="w-3 h-3" />
+                    <ShoppingCart className="w-3 h-3 text-white" />
                   )}
                   <span className="hidden xs:inline">
                     {product.status === "out_of_stock"

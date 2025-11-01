@@ -142,7 +142,7 @@ export function Header() {
               <Button
                 className={`px-8 max-md:px-4 py-3 font-semibold text-gray-900 bg-gradient-to-r from-[#D5D402] to-[#e5e509] 
       hover:from-[#e5e509] hover:to-[#D5D402] transition-all duration-300 
-      rounded-xl shadow-lg hover:shadow-yellow-300/30 focus:ring-2 
+      rounded-full shadow-lg hover:shadow-yellow-300/30 focus:ring-2 
       focus:ring-[#D5D402]/50 cursor-pointer`}
               >
                 Shop Now
@@ -201,29 +201,29 @@ export function Header() {
                     <span className="sr-only">Menu</span>
                   </div>
                 </MenubarTrigger>
-                <MenubarContent className="min-w-[200px] bg-white/95 backdrop-blur-lg dark:bg-slate-900/95 border-white/20 dark:border-slate-700/50">
+                <MenubarContent className="min-w-[200px] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 backdrop-blur-lg dark:bg-slate-900/95 border-white/20 dark:border-slate-700/50">
                   {user ? (
                     <MenubarItem
                       onClick={() => router.push("/profile")}
-                      className="flex items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
+                      className="flex items-center text-white gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
                     >
-                      <User className="h-4 w-4" />
+                      <User className="h-4 w-4 text-white" />
                       Profile
                     </MenubarItem>
                   ) : (
                     <>
                       <MenubarItem
                         onClick={() => router.push("/auth/signin")}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
+                        className="flex text-white items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
                       >
-                        <LogIn className="h-4 w-4" />
+                        <LogIn className="h-4 w-4 text-white" />
                         Sign In
                       </MenubarItem>
                       <MenubarItem
                         onClick={() => router.push("/auth/signup")}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
+                        className="flex text-white items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
                       >
-                        <UserPlus className="h-4 w-4" />
+                        <UserPlus className="h-4 w-4 text-white" />
                         Sign Up
                       </MenubarItem>
                     </>
@@ -232,9 +232,9 @@ export function Header() {
                   <MenubarSeparator className="bg-white/20" />
                   <MenubarItem
                     onClick={() => router.push("/cart")}
-                    className="flex items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
+                    className="flex items-center gap-2 text-white cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
                   >
-                    <ShoppingCart className="h-4 w-4" />
+                    <ShoppingCart className="h-4 w-4 text-white" />
                     Cart
                     {itemCount > 0 && (
                       <span className="ml-auto bg-gradient-to-r from-[#D5D502] to-[#D5D502] text-gray-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
@@ -246,14 +246,14 @@ export function Header() {
                   <MenubarSeparator className="bg-white/20" />
 
                   <MenubarSub>
-                    <MenubarSubTrigger className="hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors">
-                      <div className="flex items-center gap-2">
+                    {/* <MenubarSubTrigger className="hover:bg-[#D5D502]/10 text-white dark:hover:bg-[#D5D502]/20 transition-colors">
+                      <div className="flex  items-center gap-2">
                         <div className="h-4 w-4 flex items-center justify-center">
                           <div className="h-3 w-3 rounded-full border border-current" />
                         </div>
                         Theme
                       </div>
-                    </MenubarSubTrigger>
+                    </MenubarSubTrigger> */}
                     <MenubarSubContent className="bg-white/95 backdrop-blur-lg dark:bg-slate-900/95 border-white/20 dark:border-slate-700/50">
                       <MenubarItem
                         onClick={() => setTheme("light")}

@@ -179,7 +179,7 @@ export default function CartPage() {
                             {item.product.name}
                           </h3>
                           <p className="text-[#D5D502] font-bold text-base">
-                            ${item.product.price}
+                            ₹{item.product.price}
                           </p>
                         </div>
                       </div>
@@ -193,7 +193,7 @@ export default function CartPage() {
                           {item.product.shortDescription}
                         </p>
                         <p className="text-[#D5D502] font-bold text-lg">
-                          ${item.product.price}
+                          ₹{item.product.price}
                         </p>
                       </div>
 
@@ -236,7 +236,7 @@ export default function CartPage() {
                         {/* Mobile total price */}
                         <div className="sm:hidden flex flex-col items-end">
                           <p className="font-bold text-white text-base">
-                            ${(item.product.price * item.quantity).toFixed(2)}
+                            ₹{(item.product.price * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       </div>
@@ -244,7 +244,7 @@ export default function CartPage() {
                       {/* Total Price & Remove - Hidden on mobile */}
                       <div className="hidden sm:flex flex-col items-end justify-between">
                         <p className="font-bold text-white text-lg mb-2">
-                          ${(item.product.price * item.quantity).toFixed(2)}
+                          ₹{(item.product.price * item.quantity).toFixed(2)}
                         </p>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
@@ -294,13 +294,13 @@ export default function CartPage() {
                   <div className="flex justify-between items-center">
                     <span className="text-gray-300">Subtotal</span>
                     <span className="font-semibold text-white">
-                      ${state.total.toFixed(2)}
+                      ₹{state.total.toFixed(2)}
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center">
                     <span className="text-gray-300">Tax</span>
-                    <span className="text-gray-400">$0.00</span>
+                    <span className="text-gray-400">₹0.00</span>
                   </div>
 
                   <div className="flex justify-between items-center">
@@ -314,7 +314,7 @@ export default function CartPage() {
                         Total
                       </span>
                       <span className="text-2xl font-bold text-[#D5D502]">
-                        ${state.total.toFixed(2)}
+                        ₹{state.total.toFixed(2)}
                       </span>
                     </div>
                   </div>

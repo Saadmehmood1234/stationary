@@ -353,7 +353,7 @@ export default function ContactPage() {
                     Sending Message...
                   </span>
                 ) : (
-                  <span className="relative flex items-center justify-center gap-2">
+                  <span className="relative flex text-gray-900 items-center justify-center gap-2">
                     <Send size={20} />
                     Send Message
                   </span>

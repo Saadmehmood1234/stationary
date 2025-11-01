@@ -192,7 +192,7 @@ export default function OrdersPage() {
                         {order.items.length > 1 && ` +${order.items.length - 1} more`}
                       </div>
                     </td>
-                    <td className="py-3 px-4 font-semibold">${order.total.toFixed(2)}</td>
+                    <td className="py-3 px-4 font-semibold">₹{order.total.toFixed(2)}</td>
                     <td className="py-3 px-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
                         {order.status}
