@@ -193,6 +193,50 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 3788.088254219447,
+			"y": 1419.6142942970516,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:vwmGawQGwoayZnVhU8AMe",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 270.04115534485845,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 1057.127381672985,
+					"y": 12.584849781821504
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b06rcbE51",
+			"typeName": "shape"
+		},
+		{
 			"x": 252.1016328767863,
 			"y": 543.1630762899064,
 			"rotation": 0,
@@ -236,6 +280,214 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "ar6w6dxV",
+			"typeName": "shape"
+		},
+		{
+			"x": 2412.0747962096407,
+			"y": 806.270050353161,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:A11GcwRZiAkeJ2veLeFzQ",
+			"type": "geo",
+			"props": {
+				"w": 708,
+				"h": 642.2584972378538,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Printing"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Design better Printing Service text"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Make send your file card to look clickable"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Make background consistent"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) make circle steps in the how it works"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) redesign pricing table"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Recolor the form"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) make uploading animation correctly with 100% progress in the form"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) make form responsive for small screens"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) add cursor-pointer in the button of the form"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Redesign the estimate cost section"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) make cursor-pointer at cut form and circle"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Add payment option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13) Show success message after payment"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0ChlPrKV",
 			"typeName": "shape"
 		},
 		{
@@ -327,12 +579,45 @@
 			"typeName": "shape"
 		},
 		{
+			"meta": {},
+			"id": "binding:bFYWAp8pwGhnml4Xw9a3k",
+			"type": "arrow",
+			"fromId": "shape:knSf37MfrNbq0kbRcN-3W",
+			"toId": "shape:MMalSjbqE_QzYcpnBk0pl",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.49678991156008306,
+					"y": 0.9862011018553996
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
+		},
+		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 1992.0087478365454,
-			"y": 1267.155611736694,
-			"lastActivityTimestamp": 1761847659777,
+			"x": 1855.6830203748534,
+			"y": 1214.2159637239722,
+			"lastActivityTimestamp": 1762611086201,
 			"meta": {}
+		},
+		{
+			"editingShapeId": "shape:HAR9o8XPFkDDi08Cd-cxs",
+			"croppingShapeId": null,
+			"selectedShapeIds": [
+				"shape:HAR9o8XPFkDDi08Cd-cxs"
+			],
+			"hoveredShapeId": "shape:HAR9o8XPFkDDi08Cd-cxs",
+			"erasingShapeIds": [],
+			"hintingShapeIds": [],
+			"focusedGroupId": null,
+			"meta": {},
+			"id": "instance_page_state:page:rLFftkeea7MdYYK-XjLmo",
+			"pageId": "page:rLFftkeea7MdYYK-XjLmo",
+			"typeName": "instance_page_state"
 		},
 		{
 			"x": 72.92575166896444,
@@ -376,6 +661,256 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "aRuI1QY8",
+			"typeName": "shape"
+		},
+		{
+			"x": 2408.1460850032954,
+			"y": -176.84954256385458,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:I5A-wfpLSvMh95woMVKE1",
+			"type": "geo",
+			"props": {
+				"w": 717.4154418645803,
+				"h": 651.4814477597531,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Shop Detail Page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add cursor-pointer in the change image"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add cursor-pointer in the tab"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Show only available data"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Add cursor-pointer to add to whislist and"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Make the add to wishlist working"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Add purcchange button instead of Add to cart"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) change the name of wishlist to add to cart"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) Add cursor-pointer at share"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Make the share url correct"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) remove some text"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) highlight the product company name"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Add payment option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13) Calculate amount "
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "14) Show success after success"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "15) Add cursor-pointer in the increment/decrement button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "16) Add icons in share button and add to cart button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "17) round circle discount"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b081nWVMV",
 			"typeName": "shape"
 		},
 		{
@@ -1109,6 +1644,202 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 6871.878050069863,
+			"y": -37.05274202454348,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:gi-E_i8u5B2kZubKrTegj",
+			"type": "geo",
+			"props": {
+				"w": 735.2650661752,
+				"h": 475.50765919933946,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Admin sidebar"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add Daily product sale"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Stocks"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Revenue"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) leads"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Customer Feedback"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Track sales"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Due bills"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) What products needs to buy list"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Schedule Your task/work"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Track Printing "
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) Track Printing machinery"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Money spent on a printing"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aNYRK6OV",
+			"typeName": "shape"
+		},
+		{
 			"x": 201.60000610351562,
 			"y": 253.8000030517578,
 			"rotation": 0,
@@ -1253,6 +1984,50 @@
 			},
 			"parentId": "page:PyOCZQ7QrTxd_ausmk3R3",
 			"index": "a4xE8PiV",
+			"typeName": "shape"
+		},
+		{
+			"x": 6014.489040847755,
+			"y": 1393.107665678197,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:yIfePTgfeDz4WzTXUsINQ",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 230.33287269007144,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 1288.3511071785579,
+					"y": -33.2972642022346
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0IqEeI3V",
 			"typeName": "shape"
 		},
 		{
@@ -1403,6 +2178,24 @@
 				"normalizedAnchor": {
 					"x": 0.49469955882320205,
 					"y": 0.9544669196173367
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
+		},
+		{
+			"meta": {},
+			"id": "binding:8MrTOy3KJmzU_9hGY9c3x",
+			"type": "arrow",
+			"fromId": "shape:tnA8XZOrmAdUAcsAcR4N1",
+			"toId": "shape:oUoUUoKEAwMGS4m8K5YFj",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.4918371952927176,
+					"y": 0.006818000753545218
 				},
 				"snap": "none",
 				"terminal": "start"
@@ -1656,6 +2449,50 @@
 			"typeName": "binding"
 		},
 		{
+			"x": 3747.3750708591724,
+			"y": 71.95758029653706,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:knSf37MfrNbq0kbRcN-3W",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 7.826563266942685,
+					"y": 293.49504023558535
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0Aykz4RM",
+			"typeName": "shape"
+		},
+		{
 			"x": -34.66269661071567,
 			"y": 178.74938543986116,
 			"rotation": 0,
@@ -1737,6 +2574,24 @@
 			"parentId": "page:N5o-hrvuq3zEdrSqXBeFo",
 			"index": "a1f7QlPV",
 			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:-IkDJ_gnZ7W4E4KyAB3jy",
+			"type": "arrow",
+			"fromId": "shape:vwmGawQGwoayZnVhU8AMe",
+			"toId": "shape:pixq-0acD950AhBhcLUpp",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5100857277215743,
+					"y": 0.9714045515537851
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
 		},
 		{
 			"x": 112.2344493745803,
@@ -1854,6 +2709,120 @@
 			"typeName": "instance_page_state"
 		},
 		{
+			"x": 7260.221098434598,
+			"y": 749.7428329312613,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:tnA8XZOrmAdUAcsAcR4N1",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 2.2517755186263457,
+					"y": -5.8759042703436535
+				},
+				"end": {
+					"x": -9.235958589658367,
+					"y": -301.7049467264802
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "ajziYz06",
+			"typeName": "shape"
+		},
+		{
+			"x": 1296.7729240308,
+			"y": 1075.611454299963,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:HAR9o8XPFkDDi08Cd-cxs",
+			"type": "geo",
+			"props": {
+				"w": 705.9980238565859,
+				"h": 368.2939847952015,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Contact Page "
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Map show for mobile"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Add watsapp"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0ErGlrWV",
+			"typeName": "shape"
+		},
+		{
 			"meta": {},
 			"id": "binding:iqB8hjZO6hRILGW2Jk7Kb",
 			"type": "arrow",
@@ -1964,6 +2933,45 @@
 			"typeName": "binding"
 		},
 		{
+			"x": 1316.0603166093524,
+			"y": -971.1585331054063,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:u3DNKbPk5UqvcHB6ydc1o",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 117.9124984741211,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 3.451260087621205,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Currently"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0Kre9dbV",
+			"typeName": "shape"
+		},
+		{
 			"x": -36.59017708485794,
 			"y": -59.48718351745623,
 			"rotation": 0,
@@ -2022,6 +3030,50 @@
 			"meta": {},
 			"id": "camera:page:kV40JkLHuu3AUzLSUIRKf",
 			"typeName": "camera"
+		},
+		{
+			"x": 1586.312968460526,
+			"y": -845.6305747724684,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:MrMzrwWW6rNk73JjlVZ9S",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 20.369495917598897,
+					"y": 643.6761176181992
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0JNt4zal",
+			"typeName": "shape"
 		},
 		{
 			"meta": {},
@@ -2385,6 +3437,14 @@
 			"typeName": "shape"
 		},
 		{
+			"x": -1077.0955857664994,
+			"y": -884.6858918442201,
+			"z": 0.9637967311809106,
+			"meta": {},
+			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
+			"typeName": "camera"
+		},
+		{
 			"x": -449.83895112713594,
 			"y": 576.8574588231293,
 			"rotation": 0,
@@ -2480,6 +3540,50 @@
 			},
 			"parentId": "page:Y044GnciL1N3D2S6MS_ck",
 			"index": "a59WRzpG",
+			"typeName": "shape"
+		},
+		{
+			"x": 2775.864457006814,
+			"y": 793.6994976857903,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:HFjgs7CGcWrmvrUUZWGOs",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 21.733148609206182,
+					"y": 7.244463472395637
+				},
+				"end": {
+					"x": 11.507288705995506,
+					"y": -314.52938767004684
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b08uoDdPl",
 			"typeName": "shape"
 		},
 		{
@@ -2956,6 +4060,196 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 5614.031964851399,
+			"y": -374.41989510608096,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:EXGZiGk0LXh2kReyPD0v5",
+			"type": "geo",
+			"props": {
+				"w": 690.801753124871,
+				"h": 418.1000061035156,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Products Page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add breadcrumb"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add cursor-pointer in the action"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Change the color of the menu of the action"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Redesign the detail modal"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Add search"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Add filter"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Add sorting"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) Show product quantity"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Show most sold product"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Show least stock product"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) Show graph"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Analytics"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aEHDl4qV",
+			"typeName": "shape"
+		},
+		{
 			"x": 552,
 			"y": 411.6659773936036,
 			"rotation": 0,
@@ -3100,6 +4394,123 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 6866.92276942513,
+			"y": -612.043153727076,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:sYLimS9TnlSHVMIz_hhjK",
+			"type": "geo",
+			"props": {
+				"w": 730,
+				"h": 351.45545550027447,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"marks": [
+										{
+											"type": "bold"
+										}
+									],
+									"text": "Functionalities"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Redirect to auth/sigin after logout"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Sent mail after order confirmation"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Sent mail after product recieved"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Design each mail template accordinhg to the theme"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Create server action for product sales and analytics for daily, monthly and yearly"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b07ciySbV",
+			"typeName": "shape"
+		},
+		{
 			"meta": {},
 			"id": "binding:cGSh2qB7EtHAAEWYWPD-z",
 			"type": "arrow",
@@ -3211,9 +4622,9 @@
 			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:3UVhy1s3RPyhpjs5iWVOi"
+				"shape:NqLUZWU4J3VgmTYu6QiSU"
 			],
-			"hoveredShapeId": "shape:3UVhy1s3RPyhpjs5iWVOi",
+			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -3432,6 +4843,50 @@
 			"id": "instance_page_state:page:sChW4FNDAuKAdZZS4QUyf",
 			"pageId": "page:sChW4FNDAuKAdZZS4QUyf",
 			"typeName": "instance_page_state"
+		},
+		{
+			"x": 4812.331669626687,
+			"y": 358.8525356968023,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:MjuZEfT8EVHogVAFf5R4f",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 18.519965019306596
+				},
+				"end": {
+					"x": -18.701523236222783,
+					"y": -261.82025520145044
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aDuBNBU4",
+			"typeName": "shape"
 		},
 		{
 			"x": 336.8000183105469,
@@ -3669,6 +5124,50 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 2750.929102178069,
+			"y": -188.79341430871114,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:_95aKkMZ6ObEPOUhL8FiR",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": -270.68210035789053,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 988.6882173332551,
+					"y": 4.57727562451646
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b09egexRG",
+			"typeName": "shape"
+		},
+		{
 			"x": -935.1503004385952,
 			"y": 251.13258910439612,
 			"rotation": 0,
@@ -3810,6 +5309,136 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "afdCUBkG",
+			"typeName": "shape"
+		},
+		{
+			"x": 5615.8979526796975,
+			"y": 381.8256193604725,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:fQJxD-u9zStr-KTEH2Tgl",
+			"type": "geo",
+			"props": {
+				"w": 737.2609819225324,
+				"h": 269.6000061035156,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Printing"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add breadcrumb"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2)  Add search"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Add filter"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Add sorting"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Add cursor-pointer at the update status"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) make rounded the select for update status"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) "
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aA7SvekV",
 			"typeName": "shape"
 		},
 		{
@@ -4060,6 +5689,50 @@
 			},
 			"parentId": "page:N5o-hrvuq3zEdrSqXBeFo",
 			"index": "aCtcVckV",
+			"typeName": "shape"
+		},
+		{
+			"x": 5164.716805040523,
+			"y": -177.28140241350707,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:uHRuuCc_56w8ClUPhn8Wo",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 444.5367277843843,
+					"y": -5.292022189790032
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0HglpLvV",
 			"typeName": "shape"
 		},
 		{
@@ -4438,6 +6111,24 @@
 			"typeName": "shape"
 		},
 		{
+			"meta": {},
+			"id": "binding:oFOsJxy-Xmgovp0tg1JrK",
+			"type": "arrow",
+			"fromId": "shape:sFNEN4k06yo9j0oT0Rcrn",
+			"toId": "shape:rDYtsFXSVNOI7_wfEFMo0",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5096615960229745,
+					"y": 0.9287610856933379
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
 			"x": 306.9345349032286,
 			"y": 2047.7096225902283,
 			"z": 0.6949084855990193,
@@ -4701,6 +6392,50 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "a1r9lgpV",
+			"typeName": "shape"
+		},
+		{
+			"x": 7215.462333767921,
+			"y": -42.89276865885847,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:tbU_YOHTSUNhVZp8X4Vg5",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 1.3038660340234856,
+					"y": -216.44509418094975
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b07ws3gth",
 			"typeName": "shape"
 		},
 		{
@@ -5065,6 +6800,220 @@
 			"typeName": "page"
 		},
 		{
+			"x": 4518.717018618432,
+			"y": 916.3372325270866,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:h8BIzHhdi0e3_6SMvRbJ1",
+			"type": "geo",
+			"props": {
+				"w": 680.7499270008686,
+				"h": 507.20001220703125,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Profil Pag"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add edit button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Remove default edit"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Add cursor-pointer in the edit button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) add text white in edit button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) make rounded-full th edit button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Add your orders"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Show status"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) Show product"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Order invoice"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Download invoice"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) gap between text and input in the form"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Add verify now button if not verified"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13) heading text in the center"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aSDdyucV",
+			"typeName": "shape"
+		},
+		{
 			"x": 611.279242888168,
 			"y": 115.07252011380547,
 			"z": 0.5225422529625726,
@@ -5257,6 +7206,106 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 3398.6427072292527,
+			"y": -184.19065640063116,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:MMalSjbqE_QzYcpnBk0pl",
+			"type": "geo",
+			"props": {
+				"w": 701.9715085090716,
+				"h": 259.7322556375785,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Shop Page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Change the heading text"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add cursor-pointer at the filter button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Add sorting"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Advance sorting and filters"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b09AiCGEV",
+			"typeName": "shape"
+		},
+		{
 			"x": 377.27689875899983,
 			"y": 39.19999694824219,
 			"rotation": 0,
@@ -5331,6 +7380,24 @@
 			"parentId": "page:sChW4FNDAuKAdZZS4QUyf",
 			"index": "a37dcDnV",
 			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:OAersTjNm9MLq2Xc8cVL_",
+			"type": "arrow",
+			"fromId": "shape:tbU_YOHTSUNhVZp8X4Vg5",
+			"toId": "shape:sYLimS9TnlSHVMIz_hhjK",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.47923757585864996,
+					"y": 0.9961362203969196
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
 		},
 		{
 			"x": -87.58669112511376,
@@ -5487,9 +7554,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -1140.1164326303312,
-			"y": -804.1998882582508,
-			"z": 0.5944413218164812,
+			"x": 105.57882737143629,
+			"y": 772.285687464421,
+			"z": 0.23448287851947816,
 			"meta": {},
 			"id": "camera:page:L9l4gH4g0ftg5tGHj-Whj",
 			"typeName": "camera"
@@ -5583,6 +7650,24 @@
 			"parentId": "page:Y044GnciL1N3D2S6MS_ck",
 			"index": "a21qUiIl",
 			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:5ReIn8mI_unfdBvI6-UNZ",
+			"type": "arrow",
+			"fromId": "shape:ucO3aRBAAB7jVkMWGff3v",
+			"toId": "shape:mfh63rnHrLN7_G0BPG8lY",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5138811816504342,
+					"y": 0.9870890036102615
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
 		},
 		{
 			"x": -106.99746645861637,
@@ -6015,6 +8100,112 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 4495.0631861266875,
+			"y": 378.5797756635677,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:rDYtsFXSVNOI7_wfEFMo0",
+			"type": "geo",
+			"props": {
+				"w": 698.3175914072718,
+				"h": 248.1322711693881,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Contact Page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add breadcrumb"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add cursor-pointer in the action pointers"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Add cursor-pointer at the filter and subject"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Add sorting"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Add reply and send through mail"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b02bpJzAG",
+			"typeName": "shape"
+		},
+		{
 			"x": 291.20001220703125,
 			"y": 220.08477974804694,
 			"rotation": 0,
@@ -6142,6 +8333,24 @@
 			"typeName": "page"
 		},
 		{
+			"meta": {},
+			"id": "binding:IpwAJCFkbJ2nu8JskoaSZ",
+			"type": "arrow",
+			"fromId": "shape:MjuZEfT8EVHogVAFf5R4f",
+			"toId": "shape:-2Nr6iIkZxhfrzSXlGy4T",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.48947204961804364,
+					"y": 0.9975407527096494
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
 			"x": -3.4375188118214055,
 			"y": 943.1881532489118,
 			"rotation": 0,
@@ -6184,6 +8393,24 @@
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "a8SuzwxZ",
 			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:PU-iZg7VvhTefS3oAfp_r",
+			"type": "arrow",
+			"fromId": "shape:_95aKkMZ6ObEPOUhL8FiR",
+			"toId": "shape:MMalSjbqE_QzYcpnBk0pl",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5052997142115238,
+					"y": 0.03514783056468823
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
 		},
 		{
 			"x": 410.3999938964844,
@@ -6322,6 +8549,24 @@
 			"parentId": "page:AVoeqc-WQmawv51ek9uMr",
 			"index": "aA0xyltV",
 			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:enOKbYpcsDY7zyK3nMjHg",
+			"type": "arrow",
+			"fromId": "shape:SeSmGt5ku0elmLB3WBa-b",
+			"toId": "shape:-woi_Y1cRmYyI-pawfZgM",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.46935686108364644,
+					"y": 0.9863163300539217
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
 		},
 		{
 			"x": -120.1868882013091,
@@ -6491,6 +8736,13 @@
 		},
 		{
 			"meta": {},
+			"id": "page:rLFftkeea7MdYYK-XjLmo",
+			"name": "Page 12",
+			"index": "aCwahBsV",
+			"typeName": "page"
+		},
+		{
+			"meta": {},
 			"id": "binding:t-WxsWJgOLH-KYABsgYJ7",
 			"type": "arrow",
 			"fromId": "shape:rtTb4esJ2Z6kfXr3h_b_k",
@@ -6633,6 +8885,50 @@
 			},
 			"parentId": "page:AVoeqc-WQmawv51ek9uMr",
 			"index": "aDLIrtfV",
+			"typeName": "shape"
+		},
+		{
+			"x": 1612.1409857812703,
+			"y": 710.2116626901575,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:SeSmGt5ku0elmLB3WBa-b",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 3.002261597507186,
+					"y": 351.2699897684729
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0DxJXrnS",
 			"typeName": "shape"
 		},
 		{
@@ -7184,6 +9480,118 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 5633.6830875958085,
+			"y": 954.9310505852432,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:JhZ1crAyPxvBnyET9Lfbe",
+			"type": "geo",
+			"props": {
+				"w": 763,
+				"h": 427.4758164612353,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Create Product"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add breadcrumb"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add more fields and make it according to the products"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Add upload image option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) In the product specifications, add option to select the product type then add specifications according to the product"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Add dynamic fields according to the need"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aFGaNzxG",
+			"typeName": "shape"
+		},
+		{
 			"x": 339.5998878479004,
 			"y": -182.40269955202723,
 			"rotation": 0,
@@ -7449,6 +9857,42 @@
 			"parentId": "page:mcGrMFSiVbzbdGcPpKzzm",
 			"index": "a4tt3N7V",
 			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:CJjhbUE74LacP2JCOk_iN",
+			"type": "arrow",
+			"fromId": "shape:t_Vrz4mQ4fUFl5FYiCnFN",
+			"toId": "shape:JhZ1crAyPxvBnyET9Lfbe",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.470022375509762,
+					"y": 0.007543782473110861
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
+			"meta": {},
+			"id": "binding:4R9AG7ufYw2FqtzidN8k1",
+			"type": "arrow",
+			"fromId": "shape:t_Vrz4mQ4fUFl5FYiCnFN",
+			"toId": "shape:fQJxD-u9zStr-KTEH2Tgl",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5088336508566581,
+					"y": 0.9992379443847601
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
 		},
 		{
 			"x": -798.8576111325333,
@@ -8089,6 +10533,24 @@
 			"typeName": "shape"
 		},
 		{
+			"meta": {},
+			"id": "binding:uP1LSk63hKxDAGk7g-w2X",
+			"type": "arrow",
+			"fromId": "shape:UzG5OktlSS9ETN-IOHvDD",
+			"toId": "shape:pixq-0acD950AhBhcLUpp",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5118632015662461,
+					"y": 0.008975595050978096
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
 			"x": 235.07143700066104,
 			"y": -513.0092052758139,
 			"rotation": 0,
@@ -8479,6 +10941,50 @@
 			"typeName": "binding"
 		},
 		{
+			"x": 4856.3878587339805,
+			"y": 896.236627037472,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:sFNEN4k06yo9j0oT0Rcrn",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 18.966137110572845
+				},
+				"end": {
+					"x": -10.83782216522286,
+					"y": -268.2351166964967
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b02qMtGpp",
+			"typeName": "shape"
+		},
+		{
 			"x": 1426.9324103747958,
 			"y": 288.05738276183524,
 			"rotation": 0,
@@ -8704,6 +11210,148 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 3424.7149505454954,
+			"y": 370.82800271230025,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:hb85idA54kmAIMoDK1vJ4",
+			"type": "geo",
+			"props": {
+				"w": 699.489665940866,
+				"h": 356.71301121181153,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Add to Cart"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Change the heading text and style"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add product image"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) change the color of the button to yellow gradient"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Add payment option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Calculate the amount"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Show success message"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Remove Shpping cart tag from the top"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) add cursor-pointer in the remove and clear"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0AnQEqsV",
+			"typeName": "shape"
+		},
+		{
 			"x": 2175.084914842379,
 			"y": -52.85208842185091,
 			"rotation": 0,
@@ -8766,6 +11414,128 @@
 				"terminal": "start"
 			},
 			"typeName": "binding"
+		},
+		{
+			"x": 1294.8972374488822,
+			"y": 430.29956379664765,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:-woi_Y1cRmYyI-pawfZgM",
+			"type": "geo",
+			"props": {
+				"w": 700.2733269250043,
+				"h": 279.15833059201634,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": " Home page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add some more things"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0DiFphVV",
+			"typeName": "shape"
+		},
+		{
+			"x": 1272.1866687567397,
+			"y": -168.12956723645357,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:mfh63rnHrLN7_G0BPG8lY",
+			"type": "geo",
+			"props": {
+				"w": 683.4149993847454,
+				"h": 267.7982914334392,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Header"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Search functionality with suggestions"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0Bqyhy4V",
+			"typeName": "shape"
 		},
 		{
 			"x": -347.3000530453314,
@@ -9079,6 +11849,69 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "aWpWXVv8",
+			"typeName": "shape"
+		},
+		{
+			"meta": {},
+			"id": "binding:jc38LgykGuP60Lwkkqlzp",
+			"type": "arrow",
+			"fromId": "shape:knSf37MfrNbq0kbRcN-3W",
+			"toId": "shape:hb85idA54kmAIMoDK1vJ4",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.4702702401734487,
+					"y": 0.021308004901630477
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
+			"x": 3996.730277628666,
+			"y": -1262.8302593652766,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:ONpupqUmSBtPtDyORaiUZ",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 123.1875,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 7.723052134354405,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "WorkFlow"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0Fl18MoV",
 			"typeName": "shape"
 		},
 		{
@@ -9672,6 +12505,50 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 1661.278667754238,
+			"y": 1450.8763594453935,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:4gE-xjLbbkWKW3kuJ4Ijd",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 227.71475614214822,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 1088.3815191760877,
+					"y": 8.356049159096756
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0GySLLVV",
+			"typeName": "shape"
+		},
+		{
 			"x": -1316.003736082101,
 			"y": 581.9043993272359,
 			"rotation": 0,
@@ -9869,7 +12746,7 @@
 				"x": 0,
 				"y": 0,
 				"w": 1188,
-				"h": 448
+				"h": 580
 			},
 			"insets": [
 				false,
@@ -9893,7 +12770,7 @@
 			"meta": {},
 			"duplicateProps": null,
 			"id": "instance:instance",
-			"currentPageId": "page:L9l4gH4g0ftg5tGHj-Whj",
+			"currentPageId": "page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "instance"
 		},
 		{
@@ -10132,6 +13009,50 @@
 			"typeName": "binding"
 		},
 		{
+			"x": 3765.247048775167,
+			"y": 720.7760025161112,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:UzG5OktlSS9ETN-IOHvDD",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 11.428439856058503,
+					"y": 18.962061786412505
+				},
+				"end": {
+					"x": 24.03211292021024,
+					"y": 350.1819104740157
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b06vmK2FS",
+			"typeName": "shape"
+		},
+		{
 			"x": 350.3999938964844,
 			"y": -1079.33516253501,
 			"rotation": 0,
@@ -10277,6 +13198,24 @@
 			"typeName": "shape"
 		},
 		{
+			"meta": {},
+			"id": "binding:TzFZJ4JHHypHzCO--9Fjr",
+			"type": "arrow",
+			"fromId": "shape:6WxWY7OwJ2cfPA6yqI5jJ",
+			"toId": "shape:fQJxD-u9zStr-KTEH2Tgl",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.4885757020384524,
+					"y": 0.013755968151158385
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
 			"x": -1122.2770705603214,
 			"y": 780.6780645922948,
 			"rotation": 0,
@@ -10364,6 +13303,50 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "b0897pzoG",
+			"typeName": "shape"
+		},
+		{
+			"x": 1606.8518312773367,
+			"y": 98.89258573832603,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:ucO3aRBAAB7jVkMWGff3v",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 16.60167665073368,
+					"y": 327.2899124886241
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b0Bx7ZCqn",
 			"typeName": "shape"
 		},
 		{
@@ -11287,6 +14270,488 @@
 			"typeName": "binding"
 		},
 		{
+			"x": 4477.751859848654,
+			"y": -442.87453481044395,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:-2Nr6iIkZxhfrzSXlGy4T",
+			"type": "geo",
+			"props": {
+				"w": 685,
+				"h": 536.8999938964844,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Create order schema"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Add server action for create order, update order status, delete order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Show order data in the admin order page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Add update order status option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Sent order confirmation mail"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Create server actions for different analytics for order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Add razorpay payment gateway"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) Track Amount"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Add filter based on status"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Add search functionality"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) make refresh button working"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Add sorting"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13 Add filters"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "14) Add breadcrumb"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aDH6IwJV",
+			"typeName": "shape"
+		},
+		{
+			"x": 6891.483358408073,
+			"y": 745.8957145733002,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:oUoUUoKEAwMGS4m8K5YFj",
+			"type": "geo",
+			"props": {
+				"w": 754.2933293696025,
+				"h": 605.5093533277534,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Dashbaord"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Show total order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Pending orders"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Total revenue"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) Low stocks"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Graph for daily, weekly,monthly and yearly order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Graph for revenue"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Graph for each product stock available"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) Daaily orders/Recent order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Most sale products"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Recent Printing request"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) Total Printing "
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Printing graph"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13) Black & white printing info"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "14) color printing info"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "15) binding info"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "16) Lamination info"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "17) Photo info"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "18) Add sidebar"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "ajgRzz48",
+			"typeName": "shape"
+		},
+		{
 			"x": 253.80001831054688,
 			"y": -18.800003051757812,
 			"rotation": 0,
@@ -11547,6 +15012,160 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 3446.3308166459924,
+			"y": 1071.1714697967432,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:pixq-0acD950AhBhcLUpp",
+			"type": "geo",
+			"props": {
+				"w": 670,
+				"h": 358.70001220703125,
+				"geo": "rectangle",
+				"dash": "draw",
+				"growY": 0,
+				"url": "",
+				"scale": 1,
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Auth"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1) Add cursor-pointer in signin button"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2) Disable button until all the inputs are filled in signin"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3) Change the text of signup"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4) add cursor-pointer at eye icon in signup"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) Add google signin"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) Add role"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) Add role based acccess"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) make rounded-full in the reset password at the back to sigin "
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Check signin before making order"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "b06odKFaV",
+			"typeName": "shape"
+		},
+		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
@@ -11640,6 +15259,50 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 5987.9683008317315,
+			"y": 649.8909068859155,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:t_Vrz4mQ4fUFl5FYiCnFN",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 19.538283938616587,
+					"y": 303.92315180569926
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aFxkfSzh",
+			"typeName": "shape"
+		},
+		{
 			"x": 240.8000030517578,
 			"y": 202.05296859301293,
 			"rotation": 0,
@@ -11718,6 +15381,50 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "b0EjpIt0V",
+			"typeName": "shape"
+		},
+		{
+			"x": 5947.349802367341,
+			"y": 34.71164524981589,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:6WxWY7OwJ2cfPA6yqI5jJ",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 0,
+				"start": {
+					"x": 26.461124812103662,
+					"y": 9.836891384042701
+				},
+				"end": {
+					"x": 34.507274203162524,
+					"y": 345.0714805362268
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
+			"index": "aAlIc1Gl",
 			"typeName": "shape"
 		},
 		{

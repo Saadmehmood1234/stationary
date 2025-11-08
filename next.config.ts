@@ -2,31 +2,38 @@
 const nextConfig = {
   images: {
     domains: [
-      'images.unsplash.com',
-      'via.placeholder.com',
-      'picsum.photos',
-      'example.com',
-      'your-domain.com',
-      // Add any other domains you use for product images
+      "images.unsplash.com",
+      "via.placeholder.com",
+      "picsum.photos",
+      "example.com",
+      "pixabay.com",
+      "img.cdnx.in" // ✅ Add this line
     ],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**.unsplash.com',
+        protocol: "https",
+        hostname: "**.unsplash.com",
       },
       {
-        protocol: 'https',
-        hostname: 'via.placeholder.com',
+        protocol: "https",
+        hostname: "via.placeholder.com",
       },
       {
-        protocol: 'https',
-        hostname: 'picsum.photos',
+        protocol: "https",
+        hostname: "picsum.photos",
       },
       {
-        protocol: 'https',
-        hostname: '**.example.com',
+        protocol: "https",
+        hostname: "**.example.com",
       },
-      // Add patterns for your actual image hosting domains
+      {
+        protocol: "https",
+        hostname: "pixabay.com",
+      },
+      {
+        protocol: "https",
+        hostname: "img.cdnx.in",
+      },
     ],
   },
 };

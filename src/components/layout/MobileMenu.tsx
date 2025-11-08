@@ -136,12 +136,6 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
             </Link>
           </div>
 
-          <div className="p-6 border-t border-white/10">
-            <div className="flex items-center justify-between p-3">
-              <span className="text-white font-medium">Theme</span>
-              <ThemeToggle />
-            </div>
-          </div>
 
           {!user ? (
             <div className="p-6 border-t border-white/10 space-y-3">

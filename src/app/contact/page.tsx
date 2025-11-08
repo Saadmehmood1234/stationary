@@ -1,5 +1,13 @@
 "use client";
-import { Phone, MapPin, Mail, Clock, Send, MessageCircle } from "lucide-react";
+import {
+  Phone,
+  MapPin,
+  Mail,
+  Clock,
+  Send,
+  MessageCircle,
+  PhoneCall,
+} from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,11 +68,11 @@ export default function ContactPage() {
       icon: MapPin,
       title: "Address",
       content: "Ali Book, Tayyab Mosque\nShaheen Bagh Okhla New Delhi 110025",
-      link: "#",
+      link: "#location",
       color: "from-blue-500 to-[#D5D502]",
     },
     {
-      icon: Phone,
+      icon: PhoneCall,
       title: "Phone",
       content: "+91-99115 23323",
       link: "tel:+919911523323",
@@ -147,18 +155,6 @@ export default function ContactPage() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.div
-            className="inline-flex items-center gap-3 mb-4 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
-            <span className="text-[#D5D502] text-sm font-medium">
-              Get In Touch
-            </span>
-          </motion.div>
-
           <motion.h1
             className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -187,7 +183,7 @@ export default function ContactPage() {
           >
             <div className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-4 sm:p-8 ">
               <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-[#D5D502]/20 rounded-2xl">
+                <div className="p-3 bg-[#D5D502]/20 rounded-full">
                   <MessageCircle className="text-[#D5D502]" size={24} />
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-white">
@@ -325,9 +321,8 @@ export default function ContactPage() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative w-full cursor-pointer bg-gradient-to-r from-[#D5D502] to-primary  hover:from-[#D5D502] hover:to-primary text-white py-4 px-6 rounded-full font-semibold disabled:bg-gray-600 disabled:cursor-not-allowed transition-all duration-200 overflow-hidden"
+                className="group relative w-full cursor-pointer bg-gradient-to-r from-yellow-500 to-[#D5D502]  hover:shadow-lg hover:shadow-[#D5D502]/25  py-4 px-6 rounded-full font-semibold disabled:bg-gray-600 disabled:cursor-not-allowed transition-all duration-200 overflow-hidden"
               >
-                
                 {isSubmitting ? (
                   <span className="relative flex items-center justify-center">
                     <svg
@@ -374,33 +369,86 @@ export default function ContactPage() {
               Get In Touch
             </h2>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {contactInfo.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
                 className="group h-full"
               >
                 <Link href={item.link} className="block h-full">
-                  <div className="relative bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 h-full transition-all duration-500 group-hover:border-[#D5D502]/30 group-hover:bg-white/10 group-hover:shadow-2xl group-hover:shadow-[#D5D502]/10 flex flex-col">
-                    <div className="relative z-10 flex-1 flex flex-col">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="p-3 bg-white/10 rounded-xl group-hover:bg-white/20 transition-colors duration-300 flex-shrink-0">
-                          <item.icon size={20} className="text-[#D5D502]" />
-                        </div>
-                        <h3 className="font-bold text-lg text-white group-hover:text-[#D5D502] transition-colors">
-                          {item.title}
-                        </h3>
+                  <div className="relative  backdrop-blur-lg rounded-2xl border border-white/10 p-6 h-full transition-all duration-500 group-hover:border-white/20 group-hover:shadow-xl group-hover:shadow-black/20 overflow-hidden">
+                    <div className="flex flex-col items-center text-center h-full justify-center transition-all duration-300 group-hover:opacity-0 group-hover:scale-90 group-hover:-translate-y-2">
+                      <div
+                        className={`p-4 bg-gradient-to-br ${item.color} rounded-full mb-4 shadow-lg`}
+                      >
+                        <item.icon size={24} className="text-white" />
                       </div>
-                      <div className="text-gray-300 leading-relaxed whitespace-pre-line flex-1">
-                        {item.content}
+                      <h3 className="font-bold text-white text-lg mb-2">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                      <div
+                        className={`p-3 bg-gradient-to-br ${item.color} rounded-full mb-4 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100 shadow-lg`}
+                      >
+                        {item.title === "Phone" && (
+                          <PhoneCall size={20} className="text-white" />
+                        )}
+                        {item.title === "Email" && (
+                          <Send size={20} className="text-white" />
+                        )}
+                        {item.title === "Address" && (
+                          <MapPin size={20} className="text-white" />
+                        )}
+                        {item.title === "Business Hours" && (
+                          <Clock size={20} className="text-white" />
+                        )}
                       </div>
-                    </div>\
-                    <div className="absolute bottom-4 left-6 w-8 h-0.5 bg-[#D5D502] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+
+                      {/* Content */}
+                      <div className="text-white font-semibold text-sm mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150 leading-tight">
+                        {item.content.split("\n").map((line, i) => (
+                          <div key={i}>{line}</div>
+                        ))}
+                      </div>
+
+                      {/* Action Text */}
+                      <div className="text-white/80 text-xs font-medium flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-200">
+                        {item.title === "Phone" && (
+                          <>
+                            Tap to call <Phone size={12} />
+                          </>
+                        )}
+                        {item.title === "Email" && (
+                          <>
+                            Send email <Mail size={12} />
+                          </>
+                        )}
+                        {item.title === "Address" && (
+                          <>
+                            View location <MapPin size={12} />
+                          </>
+                        )}
+                        {item.title === "Business Hours" && (
+                          <>
+                            Open hours <Clock size={12} />
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Background Glow Effect */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}
+                    ></div>
+
+                    {/* Border Animation */}
+                    <div
+                      className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-white/30 transition-all duration-500`}
+                    ></div>
                   </div>
                 </Link>
               </motion.div>
@@ -409,13 +457,14 @@ export default function ContactPage() {
         </motion.div>
 
         <motion.div
+          id="location"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-8 shadow-2xl"
+          className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 sm:p-8 p-4 shadow-2xl"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-[#D5D502]/20 rounded-2xl">
+            <div className="p-3 bg-[#D5D502]/20 rounded-full">
               <MapPin className="text-[#D5D502]" size={24} />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-white">
@@ -432,7 +481,9 @@ export default function ContactPage() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-full"
+              className="w-full h-full min-h-[300px]"
+              title="Ali Book Store Location"
+              aria-label="Map showing Ali Book Store location at Masjid Tayyab, Shaheen Bagh"
             />
           </div>
         </motion.div>

@@ -8,6 +8,7 @@ import {
   MapPin,
   Clock,
 } from "lucide-react";
+import Image from "next/image";
 export function Footer() {
   const social = [
     {
@@ -57,23 +58,19 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <Link href="/" className="flex items-center space-x-3 mb-6">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-[#D5D502]  rounded-full flex items-center justify-center">
-                  <span className="text-gray-900 font-bold text-lg">AB</span>
-                </div>
-                <div className="absolute -inset-1 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 rounded-xl blur-sm opacity-50"></div>
+            <Link href="/" className="flex items-center space-x-3 mb-4">
+              <div className="relative w-14 h-14 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full">
+                <Image
+                  src="/logo1.png"
+                  alt="Ali Books Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
-                Ali Books
-              </span>
+              <span className="sr-only">Ali Books</span> {/* Accessible name */}
             </Link>
 
-            <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
-              Your premier destination for premium stationery and professional
-              printing services. Empowering students and professionals with
-              quality products and reliable solutions.
-            </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-300">
                 <MapPin size={18} className="text-[#D5D502] flex-shrink-0" />

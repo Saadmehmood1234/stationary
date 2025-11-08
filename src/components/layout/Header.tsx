@@ -82,22 +82,23 @@ export function Header() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/" className="flex items-center group">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-[#D5D502]  rounded-full flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
-                  <span className="text-gray-900 font-bold text-sm">AB</span>
-                </div>
-                <div className="absolute -inset-1 hover:shadow-lg hover:shadow-[#D5D502]/25  rounded-xl blur-sm opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+            <Link href="/" className="flex items-center space-x-3">
+              <div className="relative w-14 h-14 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full">
+                <Image
+                  src="/logo1.png"
+                  alt="Ali Books Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="ml-3 text-xl max-sm:hidden font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent group-hover:from-[#D5D502] group-hover:to-white transition-all duration-300">
-                Ali Books
-              </span>
+              <span className="sr-only">Ali Books</span> {/* Accessible name */}
             </Link>
           </motion.div>
 
@@ -140,7 +141,7 @@ export function Header() {
           <div className="flex justify-end max-lg:w-[60%] max-sm:w-[40%] mx-2">
             <Link href="/shop">
               <Button
-                className={`px-8 max-md:px-4 py-3 font-semibold text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] 
+                className={`px-8 max-md:px-4 py-5 font-semibold text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] 
       hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300
       rounded-full shadow-lg focus:ring-2 
       focus:ring-[#D5D402]/50 cursor-pointer`}
@@ -197,7 +198,7 @@ export function Header() {
               <MenubarMenu>
                 <MenubarTrigger className="text-gray-300 hover:text-white hover:bg-white/10 data-[state=open]:bg-white/10 p-2 rounded-full transition-all duration-300">
                   <div className="flex items-center">
-                    <Menu className="h-5 w-5" />
+                    <Menu className="h-5 w-5 cursor-pointer" />
                     <span className="sr-only">Menu</span>
                   </div>
                 </MenubarTrigger>

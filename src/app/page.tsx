@@ -101,7 +101,7 @@ export default function HomePage() {
               Featured Stationery
             </motion.h2>
             <motion.p
-              className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+              className="sm:text-xl text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -146,62 +146,34 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{
-                  y: -5,
-                  transition: { duration: 0.3 },
-                }}
-                className="group"
+                className="group cursor-pointer relative h-80 rounded-3xl overflow-hidden"
               >
-                <div
-                  className={`relative bg-white/5 backdrop-blur-lg rounded-3xl border ${feature.border} overflow-hidden md:h-72 h-auto transition-all duration-500 group-hover:shadow-xl group-hover:shadow-[#D5D502]/10`}
-                >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                  ></div>
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-transparent group-hover:bg-black/80 transition-all duration-500"></div>
 
-                  <div className="flex flex-col md:flex-row h-full">
-                    <div className="md:w-1/2 w-full h-48 md:h-auto relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/10 to-blue-500/10">
-                        <img
-                          src={feature.image}
-                          alt={feature.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                      </div>
-                      <div className="absolute inset-0 md:bg-gradient-to-r bg-gradient-to-b from-black/20 to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
-
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                      <div className="absolute top-3 left-3 md:top-4 md:left-4">
-                        <span className="bg-[#D5D502]/20 text-[#D5D502] px-2 py-1 rounded-full text-xs md:text-sm font-medium border border-[#D5D502]/30 backdrop-blur-sm">
-                          {index + 1}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="md:w-1/2 w-full flex flex-col justify-center p-6 md:p-8 relative z-10">
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white group-hover:text-[#D5D502] transition-colors">
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                        {feature.description}
-                      </p>
-                      <div className="flex items-center gap-2 mt-4 md:mt-6">
-                        <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
-                        <span className="text-[#D5D502] text-xs md:text-sm font-medium">
-                          Premium Service
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 md:bg-gradient-to-t bg-gradient-to-b from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-3 left-3 w-7 h-7 bg-[#D5D502] rounded-full flex items-center justify-center text-black text-xs font-bold">
+                  {index + 1}
+                </div>
+                <div className="absolute inset-0 p-5 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <h3 className="text-lg font-bold text-white mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-200 text-sm mb-4 line-clamp-3">
+                    {feature.description}
+                  </p>
+                  <div className="w-8 h-1 bg-[#D5D502] rounded-full"></div>
                 </div>
               </motion.div>
             ))}
@@ -215,9 +187,9 @@ export default function HomePage() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 p-12 max-w-4xl mx-auto"
+            className="relative backdrop-blur-lg rounded-3xl border border-white/20 p-6 sm:p-12 max-w-7xl mx-auto"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/10 to-blue-600/10 rounded-3xl"></div>
+            <div className="absolute inset-0  rounded-3xl"></div>
 
             <div className="relative z-10">
               <motion.h2
@@ -230,7 +202,7 @@ export default function HomePage() {
               </motion.h2>
 
               <motion.p
-                className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+                className="sm:text-xl text-md text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -246,7 +218,7 @@ export default function HomePage() {
               >
                 <Link
                   href="/printing"
-                  className="relative inline-flex items-center justify-center px-12 py-3 overflow-hidden font-medium text-gray-900 transition duration-300 ease-out rounded-full group"
+                  className="relative inline-flex items-center justify-center px-6 sm:px-12 py-3 overflow-hidden font-medium text-gray-900 transition duration-300 ease-out rounded-full group"
                 >
                   <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-500 to-primary text-white rounded-full hover:from-yellow-600 hover:to-primary"></span>
                   <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-pink-300 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
