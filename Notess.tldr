@@ -283,8 +283,8 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 2412.0747962096407,
-			"y": 806.270050353161,
+			"x": 2321.6638948188083,
+			"y": 1265.2133221913318,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -292,8 +292,8 @@
 			"id": "shape:A11GcwRZiAkeJ2veLeFzQ",
 			"type": "geo",
 			"props": {
-				"w": 708,
-				"h": 642.2584972378538,
+				"w": 887.2453712642847,
+				"h": 188.1719302471447,
 				"geo": "rectangle",
 				"dash": "draw",
 				"growY": 0,
@@ -329,159 +329,9 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Design better Printing Service text"
+									"text": "1) Add payment option"
 								}
 							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Make send your file card to look clickable"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Make background consistent"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) make circle steps in the how it works"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) redesign pricing table"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Recolor the form"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) make uploading animation correctly with 100% progress in the form"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) make form responsive for small screens"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) add cursor-pointer in the button of the form"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) Redesign the estimate cost section"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) make cursor-pointer at cut form and circle"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Add payment option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "13) Show success message after payment"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
 						}
 					]
 				}
@@ -599,18 +449,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 1855.6830203748534,
-			"y": 1214.2159637239722,
-			"lastActivityTimestamp": 1762611086201,
+			"x": 2721.8539566074005,
+			"y": 190.96869562607702,
+			"lastActivityTimestamp": 1762636869744,
 			"meta": {}
 		},
 		{
-			"editingShapeId": "shape:HAR9o8XPFkDDi08Cd-cxs",
+			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:HAR9o8XPFkDDi08Cd-cxs"
+				"shape:_95aKkMZ6ObEPOUhL8FiR"
 			],
-			"hoveredShapeId": "shape:HAR9o8XPFkDDi08Cd-cxs",
+			"hoveredShapeId": "shape:I5A-wfpLSvMh95woMVKE1",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -665,7 +515,7 @@
 		},
 		{
 			"x": 2408.1460850032954,
-			"y": -176.84954256385458,
+			"y": 190.07909502595805,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -673,8 +523,8 @@
 			"id": "shape:I5A-wfpLSvMh95woMVKE1",
 			"type": "geo",
 			"props": {
-				"w": 717.4154418645803,
-				"h": 651.4814477597531,
+				"w": 721.732347200832,
+				"h": 284.55281016994047,
 				"geo": "rectangle",
 				"dash": "draw",
 				"growY": 0,
@@ -710,7 +560,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Add cursor-pointer in the change image"
+									"text": "1) Show only available data"
 								}
 							]
 						},
@@ -722,7 +572,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "2) Add cursor-pointer in the tab"
+									"text": "2) Add purcchange button instead of Add to cart"
 								}
 							]
 						},
@@ -734,7 +584,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "3) Show only available data"
+									"text": "3) remove some text"
 								}
 							]
 						},
@@ -746,7 +596,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "4) Add cursor-pointer to add to whislist and"
+									"text": "4) Add payment option"
 								}
 							]
 						},
@@ -758,7 +608,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "5) Make the add to wishlist working"
+									"text": "5) Calculate amount "
 								}
 							]
 						},
@@ -770,139 +620,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "6) Add purcchange button instead of Add to cart"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) change the name of wishlist to add to cart"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) Add cursor-pointer at share"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Make the share url correct"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) remove some text"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) highlight the product company name"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Add payment option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "13) Calculate amount "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "14) Show success after success"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "15) Add cursor-pointer in the increment/decrement button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "16) Add icons in share button and add to cart button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "17) round circle discount"
+									"text": "1) Show success after success"
 								}
 							]
 						}
@@ -2799,19 +2517,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "3) Map show for mobile"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Add watsapp"
+									"text": "1) Add watsapp"
 								}
 							]
 						}
@@ -3437,9 +3143,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -1077.0955857664994,
-			"y": -884.6858918442201,
-			"z": 0.9637967311809106,
+			"x": -1709.5627918270156,
+			"y": 372.37456508464544,
+			"z": 0.37064436128752576,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -3561,8 +3267,8 @@
 				"labelColor": "black",
 				"bend": 0,
 				"start": {
-					"x": 21.733148609206182,
-					"y": 7.244463472395637
+					"x": 17.749992422193827,
+					"y": 469.2976467324677
 				},
 				"end": {
 					"x": 11.507288705995506,
@@ -3583,7 +3289,7 @@
 				"scale": 1
 			},
 			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b08uoDdPl",
+			"index": "b0CzpPOAp",
 			"typeName": "shape"
 		},
 		{
@@ -5142,8 +4848,8 @@
 				"labelColor": "black",
 				"bend": -270.68210035789053,
 				"start": {
-					"x": 0,
-					"y": 0
+					"x": -17.267209662255482,
+					"y": 373.4038515052272
 				},
 				"end": {
 					"x": 988.6882173332551,
@@ -9242,6 +8948,24 @@
 		},
 		{
 			"meta": {},
+			"id": "binding:6zLPo9GqmFhg40agcVBFT",
+			"type": "arrow",
+			"fromId": "shape:HFjgs7CGcWrmvrUUZWGOs",
+			"toId": "shape:A11GcwRZiAkeJ2veLeFzQ",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.5319278858989045,
+					"y": 0.030558280224013645
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
+		},
+		{
+			"meta": {},
 			"id": "binding:gkqG2sD47D1_rzp7barbk",
 			"type": "arrow",
 			"fromId": "shape:6RPOTSKewXbPMwrx2wUqa",
@@ -12746,7 +12470,7 @@
 				"x": 0,
 				"y": 0,
 				"w": 1188,
-				"h": 580
+				"h": 422.3999938964844
 			},
 			"insets": [
 				false,

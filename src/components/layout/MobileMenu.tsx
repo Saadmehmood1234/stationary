@@ -145,7 +145,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
                   Sign In
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="w-full border-white/20 text-gray-900 rounded-full hover:bg-white/10">
+              <Button asChild variant="outline" className="w-full border-white/20 text-gray-900 rounded-full bg-white hover:bg-white/80">
                 <Link href="/auth/signup" onClick={() => setOpen(false)} className="flex items-center gap-2">
                   <UserPlus className="h-4 w-4" />
                   Sign Up

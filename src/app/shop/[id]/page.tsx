@@ -269,7 +269,7 @@ export default function ProductDetailPage() {
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      className={`aspect-square bg-white/5 rounded-xl overflow-hidden border-2 transition-all ${
+                      className={`aspect-square cursor-pointer bg-white/5 rounded-xl overflow-hidden border-2 transition-all ${
                         selectedImage === index
                           ? "border-[#D5D502] scale-105"
                           : "border-transparent hover:border-white/30"
@@ -290,7 +290,7 @@ export default function ProductDetailPage() {
                 <span className="bg-[#D5D502]/20 text-[#D5D502] text-sm font-medium px-3 py-1 rounded-full capitalize border border-[#D5D502]/30">
                   {product.category.replace(/-/g, " ")}
                 </span>
-                <span className="text-gray-400 text-sm font-medium">
+                <span className="bg-[#6d8a7e]/20 px-4 py-1 rounded-full border border-gray-400 text-gray-400 text-sm font-medium">
                   {product.brand}
                 </span>
                 {product.isFeatured && (
@@ -355,7 +355,7 @@ export default function ProductDetailPage() {
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       disabled={quantity <= 1}
-                      className="px-4 py-2 text-gray-400 hover:text-[#D5D502] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 cursor-pointer text-gray-400 hover:text-[#D5D502] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       -
                     </button>
@@ -367,7 +367,7 @@ export default function ProductDetailPage() {
                       disabled={
                         product.trackQuantity && quantity >= product.stock
                       }
-                      className="px-4 py-2 text-gray-400 hover:text-[#D5D502] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 cursor-pointer text-gray-400 hover:text-[#D5D502] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       +
                     </button>
@@ -376,28 +376,32 @@ export default function ProductDetailPage() {
                   <button
                     onClick={handleAddToCart}
                     disabled={product.status !== "active" || isAddingToCart}
-                    className={`flex-1 py-3 px-6 rounded-lg font-semibold text-lg transition-all ${
+                    className={`flex-1 cursor-pointer py-3 px-6 rounded-lg font-semibold text-lg transition-all ${
                       product.status !== "active"
                         ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                        : isAddingToCart
-                        ? "bg-green-500 text-white scale-105"
-                        : "bg-gradient-to-r from-yellow-500 to-[#D5D502] text-white hover:shadow-lg hover:shadow-[#D5D502]/20"
+                        : "bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 hover:shadow-lg hover:shadow-[#D5D502]/20"
                     }`}
                   >
-                    {product.status !== "active"
-                      ? "Not Available"
-                      : isAddingToCart
-                      ? "Added to Cart!"
-                      : "Add to Cart"}
+                    {product.status !== "active" ? "Not Available" : "Buy Now"}
                   </button>
                 </div>
                 <div className="flex space-x-3">
-                  <button className="flex-1 border border-white/20 text-gray-300 py-2 px-4 rounded-lg font-medium hover:border-[#D5D502] hover:text-[#D5D502] transition-colors bg-white/5">
-                    Add to Wishlist
+                  <button
+                    onClick={handleAddToCart}
+                    className={`flex-1 cursor-pointer border border-white/20 py-2 px-4 rounded-full font-medium transition-all duration-300 
+    ${
+      isAddingToCart
+        ? "bg-green-500 text-white scale-105 shadow-md shadow-green-500/30"
+        : "bg-white/5 text-gray-300 hover:border-[#D5D502] hover:text-[#D5D502]"
+    }
+  `}
+                  >
+                    {isAddingToCart ? "Added!" : "Add to Cart"}
                   </button>
+
                   <button
                     onClick={handleShare}
-                    className="flex-1 border border-white/20 text-gray-300 py-2 px-4 rounded-lg font-medium hover:border-[#D5D502] hover:text-[#D5D502] transition-colors bg-white/5"
+                    className="flex-1 cursor-pointer  border border-white/20 text-gray-300 py-2 px-4 rounded-full font-medium hover:border-[#D5D502] hover:text-[#D5D502] transition-colors bg-white/5"
                   >
                     Share
                   </button>
@@ -479,7 +483,7 @@ export default function ProductDetailPage() {
               <div className="flex space-x-8 border-b border-white/20 overflow-x-auto">
                 <button
                   onClick={() => setActiveTab("description")}
-                  className={`py-4 px-2 border-b-2 whitespace-nowrap transition-colors ${
+                  className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
                     activeTab === "description"
                       ? "border-[#D5D502] text-[#D5D502] font-medium"
                       : "border-transparent text-gray-400 hover:text-[#D5D502]"
@@ -489,7 +493,7 @@ export default function ProductDetailPage() {
                 </button>
                 <button
                   onClick={() => setActiveTab("specifications")}
-                  className={`py-4 px-2 border-b-2 whitespace-nowrap transition-colors ${
+                  className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
                     activeTab === "specifications"
                       ? "border-[#D5D502] text-[#D5D502] font-medium"
                       : "border-transparent text-gray-400 hover:text-[#D5D502]"
@@ -499,7 +503,7 @@ export default function ProductDetailPage() {
                 </button>
                 <button
                   onClick={() => setActiveTab("details")}
-                  className={`py-4 px-2 border-b-2 whitespace-nowrap transition-colors ${
+                  className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
                     activeTab === "details"
                       ? "border-[#D5D502] text-[#D5D502] font-medium"
                       : "border-transparent text-gray-400 hover:text-[#D5D502]"

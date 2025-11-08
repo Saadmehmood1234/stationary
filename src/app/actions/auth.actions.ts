@@ -238,7 +238,7 @@ export const loginUser = async (formData: {
 
 export const logoutUser = async () => {
   await deleteSession();
-  redirect("/auth/login");
+  redirect("/auth/signin");
 };
 
 export const verifyEmail = async (token: string) => {
