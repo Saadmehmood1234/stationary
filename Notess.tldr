@@ -215,8 +215,8 @@
 					"y": 0
 				},
 				"end": {
-					"x": 1057.127381672985,
-					"y": 12.584849781821504
+					"x": 1074.1522238273342,
+					"y": -181.98456277548667
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -449,18 +449,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 2721.8539566074005,
-			"y": 190.96869562607702,
-			"lastActivityTimestamp": 1762636869744,
+			"x": 4848.322263931459,
+			"y": 1233.1255082850478,
+			"lastActivityTimestamp": 1762712988260,
 			"meta": {}
 		},
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:_95aKkMZ6ObEPOUhL8FiR"
+				"shape:vwmGawQGwoayZnVhU8AMe"
 			],
-			"hoveredShapeId": "shape:I5A-wfpLSvMh95woMVKE1",
+			"hoveredShapeId": "shape:vwmGawQGwoayZnVhU8AMe",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -3143,9 +3143,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -1709.5627918270156,
-			"y": 372.37456508464544,
-			"z": 0.37064436128752576,
+			"x": -3398.7800847127583,
+			"y": -386.7485822163428,
+			"z": 0.3289314551491981,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -3800,7 +3800,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Products Page"
+									"text": "Products Page admin"
 								}
 							]
 						},
@@ -5052,7 +5052,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Printing"
+									"text": "Printing admin"
 								}
 							]
 						},
@@ -6516,7 +6516,7 @@
 			"type": "geo",
 			"props": {
 				"w": 680.7499270008686,
-				"h": 507.20001220703125,
+				"h": 299.3000183105469,
 				"geo": "rectangle",
 				"dash": "draw",
 				"growY": 0,
@@ -6541,78 +6541,6 @@
 								{
 									"type": "text",
 									"text": "Profil Pag"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add edit button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Remove default edit"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Add cursor-pointer in the edit button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) add text white in edit button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) make rounded-full th edit button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Add your orders"
 								}
 							]
 						},
@@ -6685,18 +6613,6 @@
 								{
 									"type": "text",
 									"text": "12) Add verify now button if not verified"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "13) heading text in the center"
 								}
 							]
 						},
@@ -6958,7 +6874,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Change the heading text"
+									"text": "1) Add sorting"
 								}
 							]
 						},
@@ -6970,31 +6886,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "2) Add cursor-pointer at the filter button"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Add sorting"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Advance sorting and filters"
+									"text": "2) Advance sorting and filters"
 								}
 							]
 						},
@@ -7840,7 +7732,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Contact Page"
+									"text": "Contact Page admin"
 								}
 							]
 						},
@@ -9238,7 +9130,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Create Product"
+									"text": "Create Product admin"
 								}
 							]
 						},
@@ -10980,7 +10872,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Change the heading text and style"
+									"text": "1) Add payment option"
 								}
 							]
 						},
@@ -10992,7 +10884,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "2) Add product image"
+									"text": "2) Calculate the amount"
 								}
 							]
 						},
@@ -11004,7 +10896,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "3) change the color of the button to yellow gradient"
+									"text": "3) Show success message"
 								}
 							]
 						},
@@ -11012,61 +10904,7 @@
 							"type": "paragraph",
 							"attrs": {
 								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Add payment option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Calculate the amount"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Show success message"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Remove Shpping cart tag from the top"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) add cursor-pointer in the remove and clear"
-								}
-							]
+							}
 						}
 					]
 				}
@@ -12459,7 +12297,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "default",
+				"type": "grabbing",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -14028,7 +13866,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Order"
+									"text": "Order page admin"
 								}
 							]
 						},
@@ -14248,7 +14086,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Dashbaord"
+									"text": "Dashbaord admi "
 								}
 							]
 						},
@@ -14745,8 +14583,8 @@
 			"id": "shape:pixq-0acD950AhBhcLUpp",
 			"type": "geo",
 			"props": {
-				"w": 670,
-				"h": 358.70001220703125,
+				"w": 634.4104295398029,
+				"h": 216.34195663825543,
 				"geo": "rectangle",
 				"dash": "draw",
 				"growY": 0,
@@ -14782,7 +14620,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Add cursor-pointer in signin button"
+									"text": "1) Add google signin"
 								}
 							]
 						},
@@ -14794,7 +14632,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "2) Disable button until all the inputs are filled in signin"
+									"text": "2) Add role"
 								}
 							]
 						},
@@ -14806,7 +14644,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "3) Change the text of signup"
+									"text": "3) Add role based acccess"
 								}
 							]
 						},
@@ -14818,67 +14656,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "4) add cursor-pointer at eye icon in signup"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Add google signin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Add role"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Add role based acccess"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) make rounded-full in the reset password at the back to sigin "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Check signin before making order"
+									"text": "4) Check signin before making order"
 								}
 							]
 						}

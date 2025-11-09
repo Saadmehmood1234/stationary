@@ -49,7 +49,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/10 overflow-hidden">
+    <footer className="relative z-[10] border-t border-white/10 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D5D502] rounded-full blur-[80px] opacity-10"></div>
         <div className="absolute bottom-0 right-0 w-48 h-48 bg-purple-500 rounded-full blur-[60px] opacity-10"></div>

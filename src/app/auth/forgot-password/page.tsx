@@ -134,7 +134,7 @@ export default function ForgotPasswordPage() {
           </form>
 
           <div className="pt-4 border-t border-white/20 text-center">
-            <Button asChild variant="ghost" className="text-[#D5D502] hover:text-yellow-400 hover:bg-white/5">
+            <Button asChild variant="ghost" className="text-[#D5D502] hover:text-yellow-400 hover:rounded-full hover:bg-white/5">
               <Link href="/auth/signin" className="flex items-center justify-center">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Sign In

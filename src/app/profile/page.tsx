@@ -15,9 +15,107 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2, Save, User, Mail, Phone, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Loader2,
+  Save,
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Package,
+  Calendar,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Truck,
+  Edit,
+  Eye,
+  X,
+  CreditCard,
+  ShoppingBag,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
+interface OrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+interface Order {
+  id: string;
+  date: string;
+  status: string;
+  total: number;
+  items: OrderItem[];
+}
+
+const mockOrders = [
+  {
+    id: "ORD-001",
+    date: "2024-01-15",
+    status: "delivered",
+    total: 1250.75,
+    items: [
+      { name: "Premium Notebook Set", quantity: 2, price: 299.99 },
+      { name: "Artistic Pens", quantity: 1, price: 150.99 },
+      { name: "A4 Printing Paper", quantity: 1, price: 499.99 },
+    ],
+  },
+  {
+    id: "ORD-002",
+    date: "2024-01-10",
+    status: "processing",
+    total: 899.5,
+    items: [{ name: "Custom Business Cards", quantity: 1, price: 899.5 }],
+  },
+  {
+    id: "ORD-003",
+    date: "2024-01-05",
+    status: "cancelled",
+    total: 450.25,
+    items: [{ name: "Sticky Notes Pack", quantity: 3, price: 150.25 }],
+  },
+];
+
+const getStatusTextColor = (status: string) => {
+  switch (status) {
+    case "delivered":
+      return "text-green-400";
+    case "processing":
+      return "text-blue-400";
+    case "cancelled":
+      return "text-red-400";
+    default:
+      return "text-gray-400";
+  }
+};
+
+const getStatusIcon = (status: string) => {
+  switch (status) {
+    case "delivered":
+      return <CheckCircle className="h-5 w-5 text-green-500" />;
+    case "processing":
+      return <Clock className="h-5 w-5 text-blue-500" />;
+    case "cancelled":
+      return <XCircle className="h-5 w-5 text-red-500" />;
+    default:
+      return <Package className="h-5 w-5 text-gray-500" />;
+  }
+};
+
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "delivered":
+      return "bg-green-500/20 text-green-400 border-green-500/30";
+    case "processing":
+      return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+    case "cancelled":
+      return "bg-red-500/20 text-red-400 border-red-500/30";
+    default:
+      return "bg-gray-500/20 text-gray-400 border-gray-500/30";
+  }
+};
 export default function ProfilePage() {
   const router = useRouter();
   const { user: authUser, refreshUser } = useAuth();
@@ -26,6 +124,9 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [user, setUser] = useState<any>(null);
+  const [tab, setTab] = useState("profile");
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -121,6 +222,32 @@ export default function ProfilePage() {
     }
   };
 
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "delivered":
+        return <CheckCircle className="h-5 w-5 text-green-500" />;
+      case "processing":
+        return <Clock className="h-5 w-5 text-blue-500" />;
+      case "cancelled":
+        return <XCircle className="h-5 w-5 text-red-500" />;
+      default:
+        return <Package className="h-5 w-5 text-gray-500" />;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "delivered":
+        return "bg-green-500/20 text-green-400 border-green-500/30";
+      case "processing":
+        return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+      case "cancelled":
+        return "bg-red-500/20 text-red-400 border-red-500/30";
+      default:
+        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
@@ -143,7 +270,6 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute w-64 h-64 bg-[#D5D502] rounded-full blur-3xl opacity-10"
@@ -191,266 +317,950 @@ export default function ProfilePage() {
           />
         ))}
       </div>
+      {!selectedOrder && (
+        <div className="w-full mt-12 flex justify-center items-center px-4">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-md"
+          >
+            <div className="relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-full p-1.5">
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setTab("profile")}
+                  className={`flex-1 py-3 px-6 cursor-pointer rounded-full text-sm font-semibold transition-all duration-300 ${
+                    tab === "profile"
+                      ? "bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 rounded-full shadow-lg focus:ring-2 focus:ring-[#D5D402]/50 cursor-pointer"
+                      : "text-gray-300 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <User className="h-4 w-4" />
+                    Profile
+                  </div>
+                </button>
+                <button
+                  onClick={() => setTab("orders")}
+                  className={`flex-1 py-3 px-6 cursor-pointer rounded-full text-sm font-semibold transition-all duration-300 ${
+                    tab === "orders"
+                      ? "bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 rounded-full shadow-lg focus:ring-2 focus:ring-[#D5D402]/50 cursor-pointer"
+                      : "text-gray-300 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <Package className="h-4 w-4" />
+                    My Orders
+                  </div>
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
-      <div className="container mx-auto p-6 max-w-4xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
-            Profile Settings
-          </h1>
-          <p className="text-gray-400 mt-3 text-lg">
-            Manage your account information and preferences
-          </p>
-        </motion.div>
+      {tab === "profile" && (
+        <div className="container mx-auto p-6 max-w-4xl relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+              Profile Settings
+            </h1>
+            <p className="text-gray-400 text-center mt-3 text-lg">
+              Manage your account information and preferences
+            </p>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-xl">
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-3 text-white text-2xl">
-                <div className="p-2 bg-[#D5D502]/20 rounded-lg border border-[#D5D502]/30">
-                  <User className="h-6 w-6 text-[#D5D502]" />
-                </div>
-                Personal Information
-              </CardTitle>
-              <CardDescription className="text-gray-400 text-base">
-                Update your personal details and contact information
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl backdrop-blur-sm"
-                  >
-                    {error}
-                  </motion.div>
-                )}
-
-                {success && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="p-4 text-sm text-green-400 bg-green-500/10 border border-green-500/20 rounded-xl backdrop-blur-sm"
-                  >
-                    {success}
-                  </motion.div>
-                )}
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-semibold text-white flex items-center gap-3">
-                      <div className="p-1.5 bg-white/10 rounded-lg border border-white/20">
-                        <User className="h-4 w-4 text-[#D5D502]" />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-xl">
+              <CardHeader className="pb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex items-start sm:items-center gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="p-3 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 shadow-lg">
+                        <User className="h-6 w-6 sm:h-7 sm:w-7 text-[#D5D502]" />
                       </div>
-                      Basic Info
-                    </h3>
-
-                    <div className="space-y-3">
-                      <label htmlFor="name" className="text-sm font-medium text-gray-300">
-                        Full Name *
-                      </label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        placeholder="Your full name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        disabled={saving}
-                        className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                      />
                     </div>
+                    <div className="space-y-2 min-w-0 flex-1">
+                      <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+                        Personal Information
+                      </CardTitle>
+                      <CardDescription className="text-gray-300 text-sm sm:text-base">
+                        {isEditing
+                          ? "Update your personal details and contact information"
+                          : "View your personal details and contact information"}
+                      </CardDescription>
+                    </div>
+                  </div>
 
-                    <div className="space-y-3">
-                      <label
-                        htmlFor="email"
-                        className="text-sm font-medium text-gray-300 flex items-center gap-2"
-                      >
-                        <Mail className="h-4 w-4 text-[#D5D502]" />
-                        Email Address *
-                      </label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        disabled={saving}
-                        className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                      />
-                      {!user.verified && (
-                        <p className="text-xs text-amber-400 bg-amber-500/10 p-2 rounded-lg border border-amber-500/20">
-                          Your email is not verified. Please check your inbox for verification link.
-                        </p>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-shrink-0"
+                  >
+                    <Button
+                      type="button"
+                      onClick={() => setIsEditing(!isEditing)}
+                      className="w-full sm:w-auto cursor-pointer bg-gradient-to-r from-[#D5D502] to-[#c4c400] hover:from-[#c4c400] hover:to-[#b3b300] text-slate-900 hover:shadow-xl hover:shadow-[#D5D502]/30 transition-all duration-300 px-6 py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg shadow-[#D5D502]/20"
+                    >
+                      {isEditing ? (
+                        <div className="flex items-center gap-2">
+                          <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="whitespace-nowrap">Cancel Edit</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Edit className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="whitespace-nowrap">
+                            Edit Profile
+                          </span>
+                        </div>
                       )}
-                    </div>
-
-                    <div className="space-y-3">
-                      <label
-                        htmlFor="phone"
-                        className="text-sm font-medium text-gray-300 flex items-center gap-2"
-                      >
-                        <Phone className="h-4 w-4 text-[#D5D502]" />
-                        Phone Number
-                      </label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        placeholder="+1 (555) 123-4567"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        disabled={saving}
-                        className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-semibold text-white flex items-center gap-3">
-                      <div className="p-1.5 bg-white/10 rounded-lg border border-white/20">
-                        <MapPin className="h-4 w-4 text-[#D5D502]" />
-                      </div>
-                      Address
-                    </h3>
-
-                    <div className="space-y-3">
-                      <label
-                        htmlFor="address.street"
-                        className="text-sm font-medium text-gray-300"
-                      >
-                        Street Address
-                      </label>
-                      <Input
-                        id="address.street"
-                        name="address.street"
-                        type="text"
-                        placeholder="123 Main St"
-                        value={formData.address.street}
-                        onChange={handleChange}
-                        disabled={saving}
-                        className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-3">
-                        <label
-                          htmlFor="address.city"
-                          className="text-sm font-medium text-gray-300"
-                        >
-                          City
-                        </label>
-                        <Input
-                          id="address.city"
-                          name="address.city"
-                          type="text"
-                          placeholder="City"
-                          value={formData.address.city}
-                          onChange={handleChange}
-                          disabled={saving}
-                          className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                        />
-                      </div>
-
-                      <div className="space-y-3">
-                        <label
-                          htmlFor="address.state"
-                          className="text-sm font-medium text-gray-300"
-                        >
-                          State
-                        </label>
-                        <Input
-                          id="address.state"
-                          name="address.state"
-                          type="text"
-                          placeholder="State"
-                          value={formData.address.state}
-                          onChange={handleChange}
-                          disabled={saving}
-                          className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-3">
-                        <label
-                          htmlFor="address.zipCode"
-                          className="text-sm font-medium text-gray-300"
-                        >
-                          ZIP Code
-                        </label>
-                        <Input
-                          id="address.zipCode"
-                          name="address.zipCode"
-                          type="text"
-                          placeholder="12345"
-                          value={formData.address.zipCode}
-                          onChange={handleChange}
-                          disabled={saving}
-                          className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                        />
-                      </div>
-
-                      <div className="space-y-3">
-                        <label
-                          htmlFor="address.country"
-                          className="text-sm font-medium text-gray-300"
-                        >
-                          Country
-                        </label>
-                        <Input
-                          id="address.country"
-                          name="address.country"
-                          type="text"
-                          placeholder="Country"
-                          value={formData.address.country}
-                          onChange={handleChange}
-                          disabled={saving}
-                          className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                    </Button>
+                  </motion.div>
                 </div>
-
-                <div className="flex justify-end pt-6 border-t border-white/20">
-                  <Button
-                    type="submit"
-                    disabled={saving}
-                    className="relative overflow-hidden bg-gradient-to-r from-yellow-500 to-[#D5D502] text-white border-0 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 px-8 py-2.5 rounded-xl font-semibold"
+                {isEditing && (
+                  <motion.div
+                    initial={{ opacity: 0, scaleX: 0 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    className="mt-4 pt-4 border-t border-white/10"
                   >
-                    {saving ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        <Save className="mr-2 h-4 w-4" />
-                        Save Changes
-                      </>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
+                        <span className="text-sm text-[#D5D502] font-medium">
+                          Editing Mode
+                        </span>
+                      </div>
+                      <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-[#D5D502] to-[#c4c400]"
+                          animate={{
+                            x: [-100, 100],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </CardHeader>
+              <CardContent className="pt-6">
+                {isEditing ? (
+                  <form onSubmit={handleSubmit} className="space-y-8">
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl backdrop-blur-sm"
+                      >
+                        {error}
+                      </motion.div>
                     )}
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
+
+                    {success && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="p-4 text-sm text-green-400 bg-green-500/10 border border-green-500/20 rounded-xl backdrop-blur-sm"
+                      >
+                        {success}
+                      </motion.div>
+                    )}
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-white flex items-center gap-3">
+                          <div className="p-1.5 bg-white/10 rounded-full border border-white/20">
+                            <User className="h-4 w-4 text-[#D5D502]" />
+                          </div>
+                          Basic Info
+                        </h3>
+
+                        <div className="space-y-3">
+                          <label
+                            htmlFor="name"
+                            className="text-sm font-medium text-gray-300"
+                          >
+                            Full Name *
+                          </label>
+                          <Input
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="Your full name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                            disabled={saving}
+                            className="bg-white/5 mt-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          <label
+                            htmlFor="email"
+                            className="text-sm font-medium text-gray-300 flex items-center gap-2"
+                          >
+                            <Mail className="h-4 w-4 text-[#D5D502]" />
+                            Email Address *
+                          </label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="your.email@example.com"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                            disabled={saving}
+                            className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                          />
+                          {!user.verified && (
+                            <p className="text-xs text-amber-400 bg-amber-500/10 p-2 rounded-lg border border-amber-500/20">
+                              Your email is not verified. Please check your
+                              inbox for verification link.
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="space-y-3">
+                          <label
+                            htmlFor="phone"
+                            className="text-sm font-medium text-gray-300 flex items-center gap-2"
+                          >
+                            <Phone className="h-4 w-4 text-[#D5D502]" />
+                            Phone Number
+                          </label>
+                          <Input
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            placeholder="+1 (555) 123-4567"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            disabled={saving}
+                            className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-white flex items-center gap-3">
+                          <div className="p-1.5 bg-white/10 rounded-full border border-white/20">
+                            <MapPin className="h-4 w-4 text-[#D5D502]" />
+                          </div>
+                          Address
+                        </h3>
+
+                        <div className="space-y-3">
+                          <label
+                            htmlFor="address.street"
+                            className="text-sm font-medium text-gray-300"
+                          >
+                            Street Address
+                          </label>
+                          <Input
+                            id="address.street"
+                            name="address.street"
+                            type="text"
+                            placeholder="123 Main St"
+                            value={formData.address.street}
+                            onChange={handleChange}
+                            disabled={saving}
+                            className="bg-white/5 mt-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-3">
+                            <label
+                              htmlFor="address.city"
+                              className="text-sm font-medium text-gray-300"
+                            >
+                              City
+                            </label>
+                            <Input
+                              id="address.city"
+                              name="address.city"
+                              type="text"
+                              placeholder="City"
+                              value={formData.address.city}
+                              onChange={handleChange}
+                              disabled={saving}
+                              className="bg-white/5 mt-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                            />
+                          </div>
+
+                          <div className="space-y-3">
+                            <label
+                              htmlFor="address.state"
+                              className="text-sm font-medium text-gray-300"
+                            >
+                              State
+                            </label>
+                            <Input
+                              id="address.state"
+                              name="address.state"
+                              type="text"
+                              placeholder="State"
+                              value={formData.address.state}
+                              onChange={handleChange}
+                              disabled={saving}
+                              className="bg-white/5 mt-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-3">
+                            <label
+                              htmlFor="address.zipCode"
+                              className="text-sm font-medium text-gray-300"
+                            >
+                              ZIP Code
+                            </label>
+                            <Input
+                              id="address.zipCode"
+                              name="address.zipCode"
+                              type="text"
+                              placeholder="12345"
+                              value={formData.address.zipCode}
+                              onChange={handleChange}
+                              disabled={saving}
+                              className="bg-white/5 mt-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                            />
+                          </div>
+
+                          <div className="space-y-3">
+                            <label
+                              htmlFor="address.country"
+                              className="text-sm font-medium text-gray-300"
+                            >
+                              Country
+                            </label>
+                            <Input
+                              id="address.country"
+                              name="address.country"
+                              type="text"
+                              placeholder="Country"
+                              value={formData.address.country}
+                              onChange={handleChange}
+                              disabled={saving}
+                              className="bg-white/5 mt-2 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end pt-6 border-t border-white/20 gap-4">
+                      <Button
+                        type="button"
+                        onClick={() => setIsEditing(false)}
+                        variant="outline"
+                        className="border-gray-400 bg-gray-700 text-gray-400 cursor-pointer hover:bg-gray-800 hover:text-white transition-all duration-300 px-6 py-2.5 rounded-full font-semibold"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        disabled={saving}
+                        className="relative cursor-pointer overflow-hidden bg-gradient-to-r from-yellow-500 to-[#D5D502] text-slate-900 border-0 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 px-8 py-2.5 rounded-full font-semibold"
+                      >
+                        {saving ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            <Save className="mr-2 h-4 w-4" />
+                            Save Changes
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="space-y-6"
+                      >
+                        <div className="flex items-center gap-4 p-2 ">
+                          <div className="p-3 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30">
+                            <User className="h-5 w-5 sm:h-6 sm:w-6 text-[#D5D502]" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg sm:text-xl font-bold text-white">
+                              Basic Info
+                            </h3>
+                            <p className="text-gray-400 text-sm">
+                              Personal identification details
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-5 p-4 sm:p-6 rounded-2xl border border-white/10 ">
+                          <div className="grid grid-cols-1  gap-4 sm:gap-5">
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-[#D5D502] rounded-full"></div>
+                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                  Full Name
+                                </label>
+                              </div>
+                              <div className="p-3">
+                                <p className="text-white font-medium text-base sm:text-lg">
+                                  {user.name || (
+                                    <span className="text-gray-500 italic">
+                                      Not provided
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <Mail className="h-3 w-3 text-[#D5D502]" />
+                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                  Email Address
+                                </label>
+                              </div>
+                              <div className="p-3">
+                                <p className="text-white font-medium text-base sm:text-lg break-all">
+                                  {user.email}
+                                </p>
+                                {!user.verified && (
+                                  <div className="flex items-center gap-2 mt-2 p-2 bg-amber-500/10 rounded-full border border-amber-500/20">
+                                    <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                                    <span className="text-xs  text-amber-400">
+                                      Email verification pending
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <Phone className="h-3 w-3 text-[#D5D502]" />
+                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                  Phone Number
+                                </label>
+                              </div>
+                              <div className="p-3">
+                                <p className="text-white font-medium text-base sm:text-lg">
+                                  {user.phone || (
+                                    <span className="text-gray-500 italic">
+                                      Not provided
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="space-y-6"
+                      >
+                        <div className="flex items-center gap-4 p-2 ">
+                          <div className="p-3 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30">
+                            <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-[#D5D502]" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg sm:text-xl font-bold text-white">
+                              Address
+                            </h3>
+                            <p className="text-gray-400 text-sm">
+                              Shipping and contact address
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-5 p-4 sm:p-6 rounded-2xl border border-white/10 ">
+                          <div className="grid grid-cols-1 gap-4 sm:gap-5">
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-[#D5D502] rounded-full"></div>
+                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                  Street Address
+                                </label>
+                              </div>
+                              <div className="p-3 ">
+                                <p className="text-white font-medium text-base sm:text-lg">
+                                  {user.address?.street || (
+                                    <span className="text-gray-500 italic">
+                                      Not provided
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1.5 h-1.5 bg-[#D5D502]/70 rounded-full"></div>
+                                  <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                    City
+                                  </label>
+                                </div>
+                                <div className="p-3 ">
+                                  <p className="text-white font-medium text-base sm:text-lg">
+                                    {user.address?.city || (
+                                      <span className="text-gray-500 italic">
+                                        Not provided
+                                      </span>
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1.5 h-1.5 bg-[#D5D502]/70 rounded-full"></div>
+                                  <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                    State
+                                  </label>
+                                </div>
+                                <div className="p-3 ">
+                                  <p className="text-white font-medium text-base sm:text-lg">
+                                    {user.address?.state || (
+                                      <span className="text-gray-500 italic">
+                                        Not provided
+                                      </span>
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1.5 h-1.5 bg-[#D5D502]/70 rounded-full"></div>
+                                  <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                    ZIP Code
+                                  </label>
+                                </div>
+                                <div className="p-3 ">
+                                  <p className="text-white font-medium text-base sm:text-lg">
+                                    {user.address?.zipCode || (
+                                      <span className="text-gray-500 italic">
+                                        Not provided
+                                      </span>
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1.5 h-1.5 bg-[#D5D502]/70 rounded-full"></div>
+                                  <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                                    Country
+                                  </label>
+                                </div>
+                                <div className="p-3 ">
+                                  <p className="text-white font-medium text-base sm:text-lg">
+                                    {user.address?.country || (
+                                      <span className="text-gray-500 italic">
+                                        Not provided
+                                      </span>
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      )}
+
+      {tab === "orders" && !selectedOrder && (
+        <div className="container mx-auto p-4 sm:p-6 max-w-6xl relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+              My Orders
+            </h1>
+            <p className="text-gray-400 text-center mt-3 text-base sm:text-lg">
+              Track and manage your orders
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          >
+            <div className=" rounded-2xl p-4 text-center border border-white/10">
+              <div className="text-2xl font-bold text-white">
+                {mockOrders.length}
+              </div>
+              <div className="text-gray-400 text-sm">Total Orders</div>
+            </div>
+            <div className=" rounded-2xl p-4 text-center border border-white/10">
+              <div className="text-2xl font-bold text-green-400">
+                {
+                  mockOrders.filter((order) => order.status === "delivered")
+                    .length
+                }
+              </div>
+              <div className="text-gray-400 text-sm">Delivered</div>
+            </div>
+            <div className=" rounded-2xl p-4 text-center border border-white/10">
+              <div className="text-2xl font-bold text-blue-400">
+                {
+                  mockOrders.filter((order) => order.status === "processing")
+                    .length
+                }
+              </div>
+              <div className="text-gray-400 text-sm">Processing</div>
+            </div>
+            <div className=" rounded-2xl p-4 text-center border border-white/10">
+              <div className="text-2xl font-bold text-[#D5D502]">
+                ₹
+                {mockOrders
+                  .reduce((total, order) => total + order.total, 0)
+                  .toFixed(2)}
+              </div>
+              <div className="text-gray-400 text-sm">Total Spent</div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-6"
+          >
+            {mockOrders.map((order, index) => (
+              <OrderCard
+                key={order.id}
+                order={order}
+                index={index}
+                onViewDetails={(order: any) => setSelectedOrder(order)}
+              />
+            ))}
+
+            {mockOrders.length === 0 && <EmptyOrders />}
+          </motion.div>
+        </div>
+      )}
+      <AnimatePresence>
+        {selectedOrder && tab === "orders" && (
+          <OrderDetailsModal
+            order={selectedOrder}
+            onClose={() => setSelectedOrder(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+
+const OrderCard = ({
+  order,
+  index,
+  onViewDetails,
+}: {
+  order: Order;
+  index: number;
+  onViewDetails: (order: Order) => void;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ delay: index * 0.1 }}
+  >
+    <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-xl hover:border-[#D5D502]/30 transition-all duration-300 group">
+      <CardContent className="p-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <div className="flex-shrink-0">
+              <div className="p-3 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30">
+                {getStatusIcon(order.status)}
+              </div>
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-lg sm:text-xl font-bold text-white truncate">
+                {order.id}
+              </h3>
+              <div className="flex items-center gap-2 text-gray-400 text-sm mt-1">
+                <Calendar className="h-4 w-4 flex-shrink-0" />
+                {new Date(order.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <span
+              className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold border ${getStatusColor(
+                order.status
+              )}`}
+            >
+              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+            </span>
+            <span className="text-xl sm:text-2xl font-bold text-[#D5D502]">
+              ₹{order.total.toFixed(2)}
+            </span>
+          </div>
+        </div>
+        <div className="border-t border-white/10 pt-4">
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-base sm:text-lg font-semibold text-white">
+              Order Items ({order.items.length})
+            </h4>
+            <span className="text-sm text-gray-400">
+              {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            {order.items.slice(0, 2).map((item, itemIndex) => (
+              <div
+                key={itemIndex}
+                className="flex justify-between items-center py-2 px-3 bg-white/5 rounded-xl border border-white/10"
+              >
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="w-2 h-2 bg-[#D5D502] rounded-full flex-shrink-0"></div>
+                  <span className="text-white text-sm sm:text-base truncate">
+                    {item.name}
+                  </span>
+                </div>
+                <div className="text-gray-400 text-sm sm:text-base whitespace-nowrap ml-4">
+                  {item.quantity} × ₹{item.price.toFixed(2)}
+                </div>
+              </div>
+            ))}
+
+            {order.items.length > 2 && (
+              <div className="text-center py-2">
+                <span className="text-gray-400 text-sm">
+                  +{order.items.length - 2} more items
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3 justify-between items-center pt-6 border-t border-white/10 mt-4">
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <Package className="h-4 w-4" />
+            <span>
+              Order placed {new Date(order.date).toLocaleDateString()}
+            </span>
+          </div>
+
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              onClick={() => onViewDetails(order)}
+              className="cursor-pointer bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 px-6 py-2.5 rounded-full font-semibold text-sm sm:text-base"
+            >
+              <Eye className="h-4 w-4 mr-2" />
+              View Details
+            </Button>
+          </motion.div>
+        </div>
+      </CardContent>
+    </Card>
+  </motion.div>
+);
+
+const EmptyOrders = () => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    className="text-center py-12"
+  >
+    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+      <Package className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400" />
+    </div>
+    <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
+      No Orders Yet
+    </h3>
+    <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
+      Start exploring our products and make your first order to see them here
+    </p>
+    <Button className="rounded-full cursor-pointer bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25 px-8 py-3">
+      <ShoppingBag className="h-4 w-4 mr-2" />
+      Start Shopping
+    </Button>
+  </motion.div>
+);
+
+const OrderDetailsModal = ({
+  order,
+  onClose,
+}: {
+  order: Order;
+  onClose: () => void;
+}) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className=" inset-0 bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 backdrop-blur-sm z-[50] flex items-center justify-center p-4"
+    onClick={onClose}
+  >
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9, y: 20 }}
+      className="z-100 bg-gradient-to-br from-[#171E21] to-slate-900 rounded-3xl border border-white/20 shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="p-6 border-b border-white/10">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-white">Order Details</h2>
+          <Button
+            onClick={onClose}
+            variant="ghost"
+            className="h-8 cursor-pointer rounded-full hover:bg-gray-800 hover:text-red-400 w-8 p-0 text-gray-400 "
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        <p className="text-gray-400 mt-1">{order.id}</p>
+      </div>
+
+      <div className="p-6 z-[100] overflow-y-auto max-h-[calc(90vh-200px)]">
+        <OrderDetailsContent order={order} />
+      </div>
+    </motion.div>
+  </motion.div>
+);
+
+const OrderDetailsContent = ({ order }: any) => (
+  <div className="space-y-6 z-100">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <Calendar className="h-5 w-5 text-[#D5D502]" />
+          Order Information
+        </h3>
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-gray-400">Order Date:</span>
+            <span className="text-white">
+              {new Date(order.date).toLocaleDateString()}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">Status:</span>
+            <span
+              className={`font-semibold ${getStatusTextColor(order.status)}`}
+            >
+              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">Items:</span>
+            <span className="text-white">{order.items.length}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <CreditCard className="h-5 w-5 text-[#D5D502]" />
+          Payment Summary
+        </h3>
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-gray-400">Subtotal:</span>
+            <span className="text-white">₹{order.total.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">Shipping:</span>
+            <span className="text-green-400">Free</span>
+          </div>
+          <div className="flex justify-between border-t border-white/10 pt-2">
+            <span className="text-gray-400 font-semibold">Total:</span>
+            <span className="text-[#D5D502] font-bold text-lg">
+              ₹{order.total.toFixed(2)}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold text-white">Order Items</h3>
+      <div className="space-y-3">
+        {order.items.map((item: any, index: any) => (
+          <div
+            key={index}
+            className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10"
+          >
+            <div className="flex items-center gap-4 flex-1">
+              <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                <Package className="h-6 w-6 text-[#D5D502]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-white font-medium truncate">{item.name}</h4>
+                <p className="text-gray-400 text-sm">
+                  Quantity: {item.quantity}
+                </p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-white font-semibold">
+                ₹{(item.price * item.quantity).toFixed(2)}
+              </p>
+              <p className="text-gray-400 text-sm">
+                ₹{item.price.toFixed(2)} each
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+      <Button className="flex-1 cursor-pointer rounded-full bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25">
+        Track Order
+      </Button>
+      <Button
+        variant="outline"
+        className="flex-1 bg-gray-700 cursor-pointer rounded-full border-[#D5D502] text-[#D5D502] hover:bg-[#D5D502] hover:text-slate-900"
+      >
+        Download Invoice
+      </Button>
+    </div>
+  </div>
+);

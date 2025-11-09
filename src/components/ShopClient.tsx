@@ -197,7 +197,7 @@ export default function ShopClient({ initialProducts }: Props) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300 min-w-[160px] justify-between"
+                    className="flex cursor-pointer items-center gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300 min-w-[160px] justify-between"
                   >
                     <span className="truncate capitalize">
                       {selectedCategoryName.replace(/-/g, " ")}
@@ -218,7 +218,7 @@ export default function ShopClient({ initialProducts }: Props) {
                             <button
                               key={category._id}
                               onClick={() => handleCategorySelect(category._id)}
-                              className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 flex items-center justify-between group ${
+                              className={`w-full text-left px-3 py-2 cursor-pointer rounded-lg transition-all duration-200 flex items-center justify-between group ${
                                 selectedCategory === category._id
                                   ? "bg-[#D5D502]/30 text-[#D5D502]"
                                   : "text-gray-300 hover:bg-white/5"

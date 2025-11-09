@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Store,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function CartPage() {
   const { state, dispatch } = useCart();
@@ -103,14 +104,7 @@ export default function CartPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-4">
-            <div className="w-2 h-2 bg-[#D5D502] rounded-full animate-pulse"></div>
-            <span className="text-[#D5D502] text-sm font-medium">
-              Shopping Cart
-            </span>
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
             Your Shopping Cart
           </h1>
           <p className="text-gray-300 text-lg">
@@ -143,7 +137,7 @@ export default function CartPage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={clearCart}
-                    className="flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-semibold transition-colors"
+                    className="flex cursor-pointer items-center gap-2 text-red-400 hover:text-red-300 text-sm font-semibold transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                     Clear All
@@ -162,13 +156,19 @@ export default function CartPage() {
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       className="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] lg:grid-cols-[auto_1fr_auto_auto] gap-4 sm:gap-6 p-4 sm:p-6 bg-white/5 backdrop-blur-lg rounded-xl sm:rounded-2xl border border-white/10 hover:border-[#D5D502]/30 transition-all duration-300 mb-4 last:mb-0 group"
                     >
-                      {/* Product Image */}
                       <div className="flex items-center gap-4 sm:gap-6 sm:col-span-1">
                         <div className="flex-shrink-0 relative">
                           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-white/10 to-white/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
-                            <span className="text-gray-400 text-xs sm:text-sm font-medium">
-                              Image
-                            </span>
+                            <Image
+                              src={
+                                item.product.images?.[0] ||
+                                "/placeholder-product.jpg"
+                              }
+                              alt={item.product.name}
+                              width={80}
+                              height={80}
+                              className="w-full h-full object-cover rounded-xl sm:rounded-2xl"
+                            />
                           </div>
                           <div className="absolute -inset-1 bg-gradient-to-br from-[#D5D502] to-[#c4c400] rounded-xl sm:rounded-2xl blur-sm opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                         </div>
@@ -250,7 +250,7 @@ export default function CartPage() {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => removeItem(item.product._id!)}
-                          className="flex items-center gap-1 text-red-400 hover:text-red-300 text-sm font-medium transition-colors"
+                          className="flex cursor-pointer items-center gap-1 text-red-400 hover:text-red-300 text-sm font-medium transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                           Remove
@@ -326,7 +326,8 @@ export default function CartPage() {
                   >
                     <Link
                       href="/checkout"
-                      className="w-full bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 py-2 px-6 rounded-full font-semibold hover:from-[#c4c400] hover:to-[#b3b300] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                      className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] 
+      hover:shadow-lg hover:shadow-[#D5D502]/25 text-slate-900 py-2 px-6 rounded-full font-semibold  transition-all duration-300 shadow-lg flex items-center justify-center gap-3"
                     >
                       Proceed to Checkout
                       <ArrowRight className="w-5 h-5" />
@@ -339,7 +340,8 @@ export default function CartPage() {
                   >
                     <Link
                       href="/shop"
-                      className="w-full border-2 border-[#D5D502] text-[#D5D502] py-2 px-6 rounded-full font-semibold hover:bg-[#D5D502] hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-3"
+                      className="w-full border-2 border-[#D5D502] text-[#D5D502] py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-r hover:from-yellow-500 hover:to-[#D5D502] 
+      hover:shadow-lg hover:shadow-[#D5D502]/25 hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-3"
                     >
                       Continue Shopping
                     </Link>

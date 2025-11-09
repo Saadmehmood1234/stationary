@@ -125,7 +125,7 @@ function SigninContent() {
 
           <Button
             type="submit"
-            className="w-full rounded-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+            className="w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
             disabled={loading}
           >
             {loading ? (
