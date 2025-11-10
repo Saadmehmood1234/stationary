@@ -7,6 +7,7 @@ import { ClientProvider } from "@/components/providers/ClientProvider";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SearchProvider } from "@/components/context/SearchContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
         <ClientProvider>
+          <SearchProvider>
           <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900">
             <AuthProvider>
             <Header />
@@ -32,6 +34,7 @@ export default function RootLayout({
             <Footer />
             </AuthProvider>
           </div>
+          </SearchProvider>
         </ClientProvider>
         <Toaster
           position="top-center"
