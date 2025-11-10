@@ -643,7 +643,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
             {popularSearches.map((search, index) => (
               <button
                 key={index}
-                onClick={() => onQuickSearch(search.name)}
+                onClick={() => onQuickSearch(search.link)}
                 className="px-3 cursor-pointer py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm text-gray-300 hover:text-white transition-all duration-200"
               >
                 {search.name}

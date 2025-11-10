@@ -89,7 +89,7 @@ export function SearchResults({
           </div>
           {results.length > 5 && (
             <Link
-              href={`/shop?search=${encodeURIComponent(query)}`}
+              href={`${query}`}
               onClick={onClose}
               className="block text-center mt-3 p-2 text-[#D5D502] text-sm font-medium hover:bg-white/5 rounded-lg transition-colors"
             >
