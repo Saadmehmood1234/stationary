@@ -33,9 +33,12 @@ import {
   X,
   CreditCard,
   ShoppingBag,
+  User2Icon,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useProtectedRoute } from "@/hooks/useProtectedRoute"
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
+import { useSession } from "@/components/providers/SessionWrapper";
+import Image from "next/image";
 interface OrderItem {
   name: string;
   quantity: number;
@@ -118,8 +121,8 @@ const getStatusColor = (status: string) => {
 };
 export default function ProfilePage() {
   const { session, loading } = useProtectedRoute();
+  const { refreshSession } = useSession();
   const router = useRouter();
-  const { user: authUser, refreshUser } = useAuth();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -132,6 +135,7 @@ export default function ProfilePage() {
     name: "",
     email: "",
     phone: "",
+    profilePic: "",
     address: {
       street: "",
       city: "",
@@ -142,23 +146,23 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    if (!authUser) {
+    if (!session) {
       router.push("/auth/signin");
       return;
     }
     loadUserProfile();
-  }, [authUser, router]);
+  }, [session, router]);
 
   const loadUserProfile = async () => {
- 
     try {
       const result = await getUserProfile();
       if (result.success && result.data) {
-        setUser(result.data);
+        setUser(result.data || []);
         setFormData({
           name: result.data.name || "",
           email: result.data.email || "",
           phone: result.data.phone || "",
+          profilePic: result.data.profilePic || "",
           address: {
             street: result.data.address?.street || "",
             city: result.data.address?.city || "",
@@ -172,7 +176,7 @@ export default function ProfilePage() {
       }
     } catch (err: any) {
       setError(err.message || "Failed to load profile");
-    } 
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,8 +212,9 @@ export default function ProfilePage() {
 
       if (result.success) {
         setSuccess("Profile updated successfully!");
-        await refreshUser();
+        await refreshSession();
         await loadUserProfile();
+        setIsEditing(false);
       } else {
         setError(result.message);
       }
@@ -245,7 +250,7 @@ export default function ProfilePage() {
         return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     }
   };
-
+  console.log("Session", session);
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
@@ -254,7 +259,7 @@ export default function ProfilePage() {
     );
   }
 
-  if (!user) {
+  if (!session) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
         <div className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 p-8 max-w-md w-full mx-4">
@@ -329,7 +334,7 @@ export default function ProfilePage() {
                   className={`flex-1 py-3 px-6 cursor-pointer rounded-full text-sm font-semibold transition-all duration-300 ${
                     tab === "profile"
                       ? "bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 rounded-full shadow-lg focus:ring-2 focus:ring-[#D5D402]/50 cursor-pointer"
-                      : "text-gray-800 hover:text-white hover:bg-white/5"
+                      : "text-gray-300 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   <div className="flex items-center justify-center gap-2">
@@ -381,8 +386,14 @@ export default function ProfilePage() {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex items-start sm:items-center gap-4">
                     <div className="flex-shrink-0">
-                      <div className="p-3 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 shadow-lg">
-                        <User className="h-6 w-6 sm:h-7 sm:w-7 text-[#D5D502]" />
+                      <div className="p-3  bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 shadow-lg">
+                        <Image
+                          src={session.profilePic}
+                          alt="Profile picture"
+                          width={60}
+                          height={60}
+                          className="rounded-full h-20 w-20 object-cover"
+                        />
                       </div>
                     </div>
                     <div className="space-y-2 min-w-0 flex-1">
@@ -524,7 +535,7 @@ export default function ProfilePage() {
                             disabled={saving}
                             className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
                           />
-                          {!user.verified && (
+                          {!session.verified && (
                             <p className="text-xs text-amber-400 bg-amber-500/10 p-2 rounded-lg border border-amber-500/20">
                               Your email is not verified. Please check your
                               inbox for verification link.
@@ -661,7 +672,25 @@ export default function ProfilePage() {
                         </div>
                       </div>
                     </div>
-
+                    <div className="space-y-3">
+                      <label
+                        htmlFor="phone"
+                        className="text-sm font-medium text-gray-300 flex items-center gap-2"
+                      >
+                        <User2Icon className="h-4 w-4 text-[#D5D502]" />
+                        Profile Pic
+                      </label>
+                      <Input
+                        id="profilePic"
+                        name="profilePic"
+                        type="tel"
+                        placeholder="Enter profile pic  url.."
+                        value={formData.profilePic}
+                        onChange={handleChange}
+                        disabled={saving}
+                        className="bg-white/5 border-white/20 text-white placeholder-gray-400 focus:border-[#D5D502] focus:ring-[#D5D502]/20"
+                      />
+                    </div>
                     <div className="flex justify-end pt-6 border-t border-white/20 gap-4">
                       <Button
                         type="button"
@@ -721,9 +750,10 @@ export default function ProfilePage() {
                                   Full Name
                                 </label>
                               </div>
+
                               <div className="p-3">
                                 <p className="text-white font-medium text-base sm:text-lg">
-                                  {user.name || (
+                                  {session.name || (
                                     <span className="text-gray-500 italic">
                                       Not provided
                                     </span>
@@ -741,9 +771,9 @@ export default function ProfilePage() {
                               </div>
                               <div className="p-3">
                                 <p className="text-white font-medium text-base sm:text-lg break-all">
-                                  {user.email}
+                                  {session.email}
                                 </p>
-                                {!user.verified && (
+                                {!session.verified && (
                                   <div className="flex items-center gap-2 mt-2 p-2 bg-amber-500/10 rounded-full border border-amber-500/20">
                                     <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
                                     <span className="text-xs  text-amber-400">
@@ -763,7 +793,7 @@ export default function ProfilePage() {
                               </div>
                               <div className="p-3">
                                 <p className="text-white font-medium text-base sm:text-lg">
-                                  {user.phone || (
+                                  {session.phone || (
                                     <span className="text-gray-500 italic">
                                       Not provided
                                     </span>
@@ -806,7 +836,7 @@ export default function ProfilePage() {
                               </div>
                               <div className="p-3 ">
                                 <p className="text-white font-medium text-base sm:text-lg">
-                                  {user.address?.street || (
+                                  {session.address?.street || (
                                     <span className="text-gray-500 italic">
                                       Not provided
                                     </span>
@@ -825,7 +855,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="p-3 ">
                                   <p className="text-white font-medium text-base sm:text-lg">
-                                    {user.address?.city || (
+                                    {session.address?.city || (
                                       <span className="text-gray-500 italic">
                                         Not provided
                                       </span>
@@ -843,7 +873,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="p-3 ">
                                   <p className="text-white font-medium text-base sm:text-lg">
-                                    {user.address?.state || (
+                                    {session.address?.state || (
                                       <span className="text-gray-500 italic">
                                         Not provided
                                       </span>
@@ -863,7 +893,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="p-3 ">
                                   <p className="text-white font-medium text-base sm:text-lg">
-                                    {user.address?.zipCode || (
+                                    {session.address?.zipCode || (
                                       <span className="text-gray-500 italic">
                                         Not provided
                                       </span>
@@ -881,7 +911,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="p-3 ">
                                   <p className="text-white font-medium text-base sm:text-lg">
-                                    {user.address?.country || (
+                                    {session.address?.country || (
                                       <span className="text-gray-500 italic">
                                         Not provided
                                       </span>

@@ -1,8 +1,6 @@
-
 export interface CartItem {
   product: Product;
-  quantity: 
-  number;
+  quantity: number;
 }
 
 export interface SessionUser {
@@ -16,9 +14,19 @@ export interface SessionPayload {
   userId: string;
   email: string;
   name: string;
+  profilePic: string;
   verified: boolean;
   iat?: number;
+  phone?: string;
   exp?: number;
+  address: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
+  lastLogin: Date;
 }
 
 export interface ContactFilters {
@@ -29,7 +37,7 @@ export interface ContactFilters {
   subject?: string;
 }
 export interface ContactFormData {
-  _id?:string
+  _id?: string;
   name: string;
   email: string;
   subject: string;
@@ -98,14 +106,14 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
-export interface CreateProductInput extends Omit<Product, '_id' | 'createdAt' | 'updatedAt'> {}
-export interface ProductFormData extends Omit<Product, '_id' | 'createdAt' | 'updatedAt'> {
+export interface CreateProductInput
+  extends Omit<Product, "_id" | "createdAt" | "updatedAt"> {}
+export interface ProductFormData
+  extends Omit<Product, "_id" | "createdAt" | "updatedAt"> {
   _id?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-
 
 export interface Category {
   _id?: string;
@@ -134,7 +142,6 @@ export interface Cart {
   updatedAt: Date;
 }
 
-
 export interface Order {
   _id?: string;
   orderNumber: string;
@@ -147,9 +154,9 @@ export interface Order {
   subtotal: number;
   tax: number;
   total: number;
-  status: 'pending' | 'confirmed' | 'ready' | 'completed' | 'cancelled';
-  paymentStatus: 'pending' | 'paid' | 'failed';
-  collectionMethod: 'pickup' | 'delivery';
+  status: "pending" | "confirmed" | "ready" | "completed" | "cancelled";
+  paymentStatus: "pending" | "paid" | "failed";
+  collectionMethod: "pickup" | "delivery";
   notes?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -168,13 +175,13 @@ export interface PrintOrder {
   name: string;
   email: string;
   phone: string;
-  paperSize: 'A4' | 'A3' | 'Letter' | 'Legal';
-  colorType: 'bw' | 'color';
+  paperSize: "A4" | "A3" | "Letter" | "Legal";
+  colorType: "bw" | "color";
   pageCount: number;
-  binding: 'none' | 'spiral' | 'stapler';
-  urgency: 'normal' | 'urgent' | 'express';
+  binding: "none" | "spiral" | "stapler";
+  urgency: "normal" | "urgent" | "express";
   specialInstructions?: string;
-  status: 'pending' | 'confirmed' | 'printing' | 'completed' | 'cancelled';
+  status: "pending" | "confirmed" | "printing" | "completed" | "cancelled";
   estimatedCost: number;
   finalCost?: number;
   fileUrl?: string;
@@ -186,7 +193,19 @@ export interface PrintOrder {
   updatedAt: string;
 }
 
-export type CreatePrintOrderInput = Omit<PrintOrder, '_id' | 'createdAt' | 'updatedAt' | 'status' | 'estimatedCost' | 'finalCost' | 'fileName' | 'fileSize' | 'fileType' | 'publicId'> & {
+export type CreatePrintOrderInput = Omit<
+  PrintOrder,
+  | "_id"
+  | "createdAt"
+  | "updatedAt"
+  | "status"
+  | "estimatedCost"
+  | "finalCost"
+  | "fileName"
+  | "fileSize"
+  | "fileType"
+  | "publicId"
+> & {
   file?: File;
 };
 

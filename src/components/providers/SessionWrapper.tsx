@@ -3,18 +3,10 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { getSession } from "@/app/actions/auth.actions";
-
-interface SessionUser {
-  userId: string;
-  email: string;
-  name: string;
-  verified: boolean;
-  iat?: number;
-  exp?: number;
-}
+import { SessionPayload } from "@/types";
 
 interface SessionContextType {
-  session: SessionUser | null;
+  session: SessionPayload | null;
   loading: boolean;
   refreshSession: () => Promise<void>;
 }
@@ -22,7 +14,7 @@ interface SessionContextType {
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export function SessionWrapper({ children }: { children: React.ReactNode }) {
-  const [session, setSession] = useState<SessionUser | null>(null);
+  const [session, setSession] = useState<SessionPayload | null>(null);
   const [loading, setLoading] = useState(true);
 
   const refreshSession = async (): Promise<void> => {
@@ -44,7 +36,6 @@ export function SessionWrapper({ children }: { children: React.ReactNode }) {
     initializeSession();
   }, []);
 
-  // Listen for storage events to sync session across tabs
   useEffect(() => {
     const handleStorageChange = async (event: StorageEvent) => {
       if (event.key === "session-update") {
@@ -56,7 +47,6 @@ export function SessionWrapper({ children }: { children: React.ReactNode }) {
       await refreshSession();
     };
 
-    // Only add event listeners in browser environment
     if (typeof window !== 'undefined') {
       window.addEventListener("storage", handleStorageChange);
       window.addEventListener("focus", handleFocus);

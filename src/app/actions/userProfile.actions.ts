@@ -79,6 +79,7 @@ export const updateUserProfile = async (
   updates: Partial<{
     name: string;
     email: string;
+    profilePic:string
     phone: string;
     address: {
       street?: string;

@@ -209,7 +209,7 @@ export default function CartPage() {
                                 item.quantity - 1
                               )
                             }
-                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white/10 flex items-center justify-center hover:border-[#D5D502] hover:bg-[#D5D502]/10 transition-all duration-200"
+                            className="w-8 h-8 cursor-pointer sm:w-10 sm:h-10 rounded-full border-2 border-white/10 flex items-center justify-center hover:border-[#D5D502] hover:bg-[#D5D502]/10 transition-all duration-200"
                           >
                             <Minus className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 hover:text-[#D5D502]" />
                           </motion.button>
@@ -227,13 +227,12 @@ export default function CartPage() {
                                 item.quantity + 1
                               )
                             }
-                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white/10 flex items-center justify-center hover:border-[#D5D502] hover:bg-[#D5D502]/10 transition-all duration-200"
+                            className="w-8 h-8 cursor-pointer sm:w-10 sm:h-10 rounded-full border-2 border-white/10 flex items-center justify-center hover:border-[#D5D502] hover:bg-[#D5D502]/10 transition-all duration-200"
                           >
                             <Plus className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 hover:text-[#D5D502]" />
                           </motion.button>
                         </div>
 
-                        {/* Mobile total price */}
                         <div className="sm:hidden flex flex-col items-end">
                           <p className="font-bold text-white text-base">
                             ₹{(item.product.price * item.quantity).toFixed(2)}

@@ -255,7 +255,7 @@ const { session, loading } = useSession();
                   </div>
                 </MenubarTrigger>
                 <MenubarContent className="min-w-[200px] bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 backdrop-blur-lg dark:bg-slate-900/95 border-white/20 dark:border-slate-700/50">
-                  {user ? (
+                  {session ? (
                     <MenubarItem
                       onClick={() => router.push("/profile")}
                       className="flex items-center text-white gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
@@ -298,32 +298,8 @@ const { session, loading } = useSession();
 
                   <MenubarSeparator className="bg-white/20" />
 
-                  <MenubarSub>
-                    <MenubarSubContent className="bg-white/95 backdrop-blur-lg dark:bg-slate-900/95 border-white/20 dark:border-slate-700/50">
-                      <MenubarItem
-                        onClick={() => setTheme("light")}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
-                      >
-                        <Sun className="h-4 w-4" />
-                        Light
-                        {theme === "light" && (
-                          <span className="ml-auto text-[#D5D502]">✓</span>
-                        )}
-                      </MenubarItem>
-                      <MenubarItem
-                        onClick={() => setTheme("dark")}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-[#D5D502]/10 dark:hover:bg-[#D5D502]/20 transition-colors"
-                      >
-                        <Moon className="h-4 w-4" />
-                        Dark
-                        {theme === "dark" && (
-                          <span className="ml-auto text-[#D5D502]">✓</span>
-                        )}
-                      </MenubarItem>
-                    </MenubarSubContent>
-                  </MenubarSub>
 
-                  {user && (
+                  {session && (
                     <>
                       <MenubarSeparator className="bg-white/20" />
                       <MenubarItem
@@ -340,7 +316,6 @@ const { session, loading } = useSession();
           </div>
         </div>
 
-        {/* Search Results Dropdown for Desktop */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -361,7 +336,7 @@ const { session, loading } = useSession();
           )}
         </AnimatePresence>
 
-        {/* Mobile Search */}
+ 
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -396,7 +371,7 @@ const { session, loading } = useSession();
                   </motion.button>
                 </form>
 
-                {/* Mobile Search Results */}
+      
                 <SearchResultsContent
                   query={query}
                   results={results}
@@ -462,7 +437,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
   ];
 
   const clearIndividualSearch = (searchToRemove: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent triggering the search
+    e.stopPropagation(); 
     const updatedSearches = recentSearches.filter(search => search !== searchToRemove);
     
     if (typeof window !== 'undefined') {
@@ -473,12 +448,9 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
   };
 
   const clearAllSearches = () => {
-    // Clear localStorage
     if (typeof window !== 'undefined') {
       localStorage.removeItem('recentSearches');
     }
-    
-    // Update global state
     dispatch({ type: 'CLEAR_RECENT_SEARCHES' });
   };
 
@@ -560,7 +532,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
         </div>
       )}
 
-      {/* Recent Searches with Clear Options */}
+
       {!query && recentSearches.length > 0 && (
         <div className={`${isMobile ? "" : "p-4 border-b border-white/10"}`}>
           <div className="flex items-center justify-between mb-3">
@@ -595,8 +567,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
                     {search}
                   </span>
                 </button>
-                
-                {/* Individual Clear Button */}
+
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -612,7 +583,6 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
         </div>
       )}
 
-      {/* Empty Recent Searches State */}
       {!query && recentSearches.length === 0 && (
         <div className={`${isMobile ? "" : "p-4 border-b border-white/10"}`}>
           <div className="flex items-center gap-2 mb-3">
@@ -631,7 +601,6 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
         </div>
       )}
 
-      {/* Popular Searches */}
       {!query && (
         <div className={`${isMobile ? "" : "p-4"}`}>
           <div className="flex items-center gap-2 mb-3">

@@ -7,7 +7,8 @@ const nextConfig = {
       "picsum.photos",
       "example.com",
       "pixabay.com",
-      "img.cdnx.in" // ✅ Add this line
+      "img.cdnx.in",
+      "res.cloudinary.com" // ✅ Add this line
     ],
     remotePatterns: [
       {
@@ -33,6 +34,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "img.cdnx.in",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com", // ✅ Add this line too
       },
     ],
   },

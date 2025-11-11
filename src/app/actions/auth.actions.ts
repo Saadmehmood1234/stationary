@@ -19,19 +19,18 @@ const JWT_SECRET = new TextEncoder().encode(
 
 const broadcastSessionUpdate = () => {
   // This will trigger the storage event in other tabs
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('session-update', Date.now().toString());
+  if (typeof window !== "undefined") {
+    localStorage.setItem("session-update", Date.now().toString());
     setTimeout(() => {
-      localStorage.removeItem('session-update');
+      localStorage.removeItem("session-update");
     }, 100);
   }
   revalidatePath("/", "layout");
   revalidatePath("/profile");
   revalidatePath("/admin", "page");
   revalidatePath("/auth/signin", "page");
-    revalidatePath("/auth/signup", "page");
+  revalidatePath("/auth/signup", "page");
 };
-
 
 export const createSession = async (user: any) => {
   let userId: string;
@@ -59,12 +58,18 @@ export const createSession = async (user: any) => {
     email: user.email || "",
     name: user.name || "",
     verified: user.verified || false,
+    profilePic: user.profilePic,
+    phone: user.phone || "",
+    iat: user.iat,
+    lastLogin: user.lastLogin,
+    exp: user.exp,
+    address: user.address,
   })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("15d")
     .setIssuedAt()
     .sign(JWT_SECRET);
-
+console.log(token)
   const cookieStore = await cookies();
   cookieStore.set("session", token, {
     httpOnly: true,
@@ -73,7 +78,7 @@ export const createSession = async (user: any) => {
     maxAge: 60 * 60 * 24 * 15,
     path: "/",
   });
- broadcastSessionUpdate();
+  broadcastSessionUpdate();
   return token;
 };
 
@@ -116,9 +121,13 @@ export const getSession = async (): Promise<SessionPayload | null> => {
       userId: userId,
       email: payload.email || "",
       name: payload.name || "",
+      profilePic: payload.profilePic,
+      phone: payload.phone || "",
       verified: payload.verified || false,
       iat: payload.iat,
+      lastLogin: payload.lastLogin,
       exp: payload.exp,
+      address: payload.address,
     };
   } catch (error) {
     console.error("Session verification error:", error);
@@ -200,7 +209,7 @@ export const loginUser = async (formData: {
         message: "Too many login attempts. Please try again later.",
       };
     }
-    
+
     const user = await Customer.findOne({
       email: formData.email.toLowerCase(),
     }).select("+password +loginAttempts +lockUntil");
@@ -211,14 +220,14 @@ export const loginUser = async (formData: {
         message: "Invalid email or password.",
       };
     }
-    
+
     if (user.isLocked()) {
       return {
         success: false,
         message: "Account temporarily locked due to too many failed attempts.",
       };
     }
-    
+
     const isPasswordValid = await user.comparePassword(formData.password);
     if (!isPasswordValid) {
       await user.incrementLoginAttempts();
@@ -227,7 +236,7 @@ export const loginUser = async (formData: {
         message: "Invalid email or password.",
       };
     }
-    
+
     // Reset login attempts and update last login
     await Customer.findByIdAndUpdate(user._id, {
       loginAttempts: 0,
@@ -246,19 +255,18 @@ export const loginUser = async (formData: {
         message: "User not found after login",
       };
     }
-    
+
     // Create session and wait for it to complete
     await createSession(fullUser);
-    
+
     // Broadcast session update to refresh the app state
     await broadcastSessionUpdate();
-    
+
     return {
       success: true,
       message: "Login successful!",
       data: sanitizeUser(fullUser), // Use fullUser instead of user
     };
-    
   } catch (error: any) {
     console.error("Login error:", error);
     return {
@@ -267,7 +275,7 @@ export const loginUser = async (formData: {
     };
   }
 };
-  
+
 export const logoutUser = async () => {
   await deleteSession();
   broadcastSessionUpdate(); // Add this line
