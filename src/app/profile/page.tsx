@@ -329,7 +329,7 @@ export default function ProfilePage() {
                   className={`flex-1 py-3 px-6 cursor-pointer rounded-full text-sm font-semibold transition-all duration-300 ${
                     tab === "profile"
                       ? "bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 rounded-full shadow-lg focus:ring-2 focus:ring-[#D5D402]/50 cursor-pointer"
-                      : "text-gray-300 hover:text-white hover:bg-white/5"
+                      : "text-gray-800 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   <div className="flex items-center justify-center gap-2">
