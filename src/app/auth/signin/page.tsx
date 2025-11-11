@@ -53,7 +53,7 @@ function SigninContent() {
   };
 
   return (
-    <Card className="w-full mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
+    <Card className="w-full mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl  ">
       <CardHeader className="text-center space-y-4">
         <div className="mx-auto w-16 h-16 bg-gradient-to-r from-yellow-500 to-[#D5D502] rounded-full flex items-center justify-center">
           <BookOpen className="h-8 w-8 text-gray-900" />

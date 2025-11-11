@@ -69,7 +69,7 @@ export const createSession = async (user: any) => {
     .setExpirationTime("15d")
     .setIssuedAt()
     .sign(JWT_SECRET);
-console.log(token)
+  console.log(token);
   const cookieStore = await cookies();
   cookieStore.set("session", token, {
     httpOnly: true,

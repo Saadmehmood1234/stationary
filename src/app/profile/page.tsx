@@ -386,14 +386,26 @@ export default function ProfilePage() {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex items-start sm:items-center gap-4">
                     <div className="flex-shrink-0">
-                      <div className="p-3  bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 shadow-lg">
-                        <Image
-                          src={session.profilePic}
-                          alt="Profile picture"
-                          width={60}
-                          height={60}
-                          className="rounded-full h-20 w-20 object-cover"
-                        />
+                      <div className="p-3 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 shadow-lg">
+                        {session.profilePic && session.profilePic !== "" ? (
+                          <Image
+                            src={session.profilePic}
+                            alt="Profile picture"
+                            width={60}
+                            height={60}
+                            className="rounded-full h-20 w-20 object-cover"
+                          />
+                        ) : (
+                          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#D5D502] to-[#c4c400] flex items-center justify-center text-white font-bold text-lg">
+                            <Image
+                              src="/avatar.svg"
+                              alt="Profile picture"
+                              width={60}
+                              height={60}
+                              className="rounded-full h-20 w-20 object-cover"
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="space-y-2 min-w-0 flex-1">

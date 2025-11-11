@@ -108,7 +108,7 @@ const LandingPage = () => {
                 </span>
                 <br />
                 <span className="bg-gradient-to-r from-[#D5D502] via-white to-purple-200 bg-clip-text text-transparent">
-                  Shop for 
+                  Shop for
                 </span>
                 <span className="bg-gradient-to-r ml-2 from-blue-200 via-[#D5D502] to-white bg-clip-text text-transparent">
                   Books & Stationery
@@ -154,14 +154,14 @@ const LandingPage = () => {
       <div className="relative w-full min-h-screen  overflow-hidden">
         <div className="relative z-10 min-h-screen flex items-center justify-center py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
+            <div className="grid grid-cols-4 md:grid-cols-12 gap-6 lg:gap-8 items-center">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="group md:col-span-4"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
                     <img
                       src="/stationary6.jpg"
@@ -173,13 +173,26 @@ const LandingPage = () => {
                 </div>
               </motion.div>
               <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+                className="group md:col-span-6"
+              >
+                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-full border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                  <img
+                    src="/stationary2.jpeg"
+                    alt="Stationery Collection"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+              </motion.div>
+              <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="group md:col-span-5"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/20 to-pink-500/20">
                     <img
                       src="/stationary5.jpg"
@@ -197,7 +210,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="group md:col-span-3"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-[#D5D502]/20">
                     <img
                       src="/stationary4.jpg"
@@ -211,14 +224,14 @@ const LandingPage = () => {
               </motion.div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8">
+            <div className="grid grid-cols-4 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="group md:col-span-3"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
                     src="/stationary3.jpg"
                     alt="Writing Instruments"
@@ -233,7 +246,7 @@ const LandingPage = () => {
                 transition={{ duration: 0.6, delay: 1.0 }}
                 className="group md:col-span-6"
               >
-                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg rounded-3xl border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-full border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
                     src="/stationary2.jpeg"
                     alt="Stationery Collection"
@@ -247,12 +260,29 @@ const LandingPage = () => {
                 transition={{ duration: 0.6, delay: 1.2 }}
                 className="group md:col-span-3"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
                     src="/stationary1.jpg"
                     alt="Desk Accessories"
                     className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
                   />
+                </div>
+              </motion.div>
+                            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="group md:col-span-4"
+              >
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
+                    <img
+                      src="/stationary6.jpg"
+                      alt="Luxury Pens Collection"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
               </motion.div>
             </div>

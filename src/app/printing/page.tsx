@@ -389,17 +389,6 @@ export default function ModernPrintingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 bg-[#D5D506]/10 px-4 py-2 rounded-full border border-[#D5D506]/20 mb-6"
-            >
-              <Printer className="w-4 h-4 text-[#D5D506]" />
-              <span className="text-[#D5D506] text-sm font-medium">
-                Premium Services
-              </span>
-            </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -496,7 +485,7 @@ export default function ModernPrintingPage() {
                           setSelectedService(service);
                           setIsServiceModalOpen(true);
                         }}
-                        className="w-full bg-white/10 hover:bg-[#D5D506] text-slate-300 hover:text-gray-900 font-semibold py-3 rounded-full cursor-pointer border border-white/10 hover:border-[#D5D506] transition-all duration-300 flex items-center justify-center gap-2"
+                        className="w-full max-lg:mb-4 bg-white/10 hover:bg-[#D5D506] text-slate-300 hover:text-gray-900 font-semibold py-3 rounded-full cursor-pointer border border-white/10 hover:border-[#D5D506] transition-all duration-300 flex items-center justify-center gap-2"
                       >
                         <span>Learn More</span>
                         <ArrowRight className="w-4 h-4" />

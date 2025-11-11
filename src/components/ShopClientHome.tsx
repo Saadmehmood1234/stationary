@@ -70,15 +70,13 @@ export default function ShopClientHome({ initialProducts }: Props) {
               layout
               className={
                 viewMode === "grid" 
-                  ? "grid  xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
+                  ? "grid  xs:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6"
                   : "flex flex-col gap-4 max-w-4xl mx-auto"
               }
             >
               {filteredProducts.map((product, index) => (
                 <motion.div
                   key={product._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   layout
                 >
@@ -91,8 +89,6 @@ export default function ShopClientHome({ initialProducts }: Props) {
             </motion.div>
           ) : (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="text-center py-20  rounded-3xl shadow-2xl shadow-[#D6D402]/10 border border-white/20 relative"
             >
@@ -144,7 +140,7 @@ export default function ShopClientHome({ initialProducts }: Props) {
                 {[...Array(5)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1 h-1 bg-[#D6D402] rounded-full opacity-40"
+                    className="absolute w-1 h-1 bg-[#D6D402] rounded-full opacity-100"
                     animate={{
                       y: [0, -30, 0],
                       opacity: [0.3, 0.8, 0.3],
