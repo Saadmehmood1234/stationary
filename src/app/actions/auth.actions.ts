@@ -12,9 +12,26 @@ import {
 } from "@/lib/email-service";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { SessionPayload } from "@/types";
+import { revalidatePath } from "next/cache";
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "fallback-secret"
 );
+
+const broadcastSessionUpdate = () => {
+  // This will trigger the storage event in other tabs
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('session-update', Date.now().toString());
+    setTimeout(() => {
+      localStorage.removeItem('session-update');
+    }, 100);
+  }
+  revalidatePath("/", "layout");
+  revalidatePath("/profile");
+  revalidatePath("/admin", "page");
+  revalidatePath("/auth/signin", "page");
+    revalidatePath("/auth/signup", "page");
+};
+
 
 export const createSession = async (user: any) => {
   let userId: string;
@@ -56,7 +73,7 @@ export const createSession = async (user: any) => {
     maxAge: 60 * 60 * 24 * 15,
     path: "/",
   });
-
+ broadcastSessionUpdate();
   return token;
 };
 
@@ -112,6 +129,7 @@ export const getSession = async (): Promise<SessionPayload | null> => {
 export const deleteSession = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("session");
+  broadcastSessionUpdate();
 };
 
 export const registerUser = async (formData: {
@@ -149,9 +167,10 @@ export const registerUser = async (formData: {
 
     await sendVerificationEmail(user.email, verifyToken);
 
-   const fullUser = await Customer.findById(user._id)
-  .select("-password -verifyToken -resetToken -loginAttempts -lockUntil")
-  
+    const fullUser = await Customer.findById(user._id).select(
+      "-password -verifyToken -resetToken -loginAttempts -lockUntil"
+    );
+
     await createSession(fullUser);
 
     return {
@@ -181,6 +200,7 @@ export const loginUser = async (formData: {
         message: "Too many login attempts. Please try again later.",
       };
     }
+    
     const user = await Customer.findOne({
       email: formData.email.toLowerCase(),
     }).select("+password +loginAttempts +lockUntil");
@@ -191,12 +211,14 @@ export const loginUser = async (formData: {
         message: "Invalid email or password.",
       };
     }
+    
     if (user.isLocked()) {
       return {
         success: false,
         message: "Account temporarily locked due to too many failed attempts.",
       };
     }
+    
     const isPasswordValid = await user.comparePassword(formData.password);
     if (!isPasswordValid) {
       await user.incrementLoginAttempts();
@@ -205,12 +227,15 @@ export const loginUser = async (formData: {
         message: "Invalid email or password.",
       };
     }
+    
+    // Reset login attempts and update last login
     await Customer.findByIdAndUpdate(user._id, {
       loginAttempts: 0,
       lockUntil: null,
       lastLogin: new Date(),
     });
 
+    // Get the updated user without sensitive fields
     const fullUser = await Customer.findById(user._id).select(
       "-password -verifyToken -resetToken -loginAttempts -lockUntil"
     );
@@ -221,12 +246,19 @@ export const loginUser = async (formData: {
         message: "User not found after login",
       };
     }
+    
+    // Create session and wait for it to complete
     await createSession(fullUser);
+    
+    // Broadcast session update to refresh the app state
+    await broadcastSessionUpdate();
+    
     return {
       success: true,
       message: "Login successful!",
-      data: sanitizeUser(user),
+      data: sanitizeUser(fullUser), // Use fullUser instead of user
     };
+    
   } catch (error: any) {
     console.error("Login error:", error);
     return {
@@ -235,12 +267,12 @@ export const loginUser = async (formData: {
     };
   }
 };
-
+  
 export const logoutUser = async () => {
   await deleteSession();
+  broadcastSessionUpdate(); // Add this line
   redirect("/auth/signin");
 };
-
 export const verifyEmail = async (token: string) => {
   try {
     await dbConnect();

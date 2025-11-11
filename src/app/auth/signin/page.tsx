@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Loader2, BookOpen } from "lucide-react";
-
+import { useSession } from "@/components/providers/SessionWrapper"; 
 function SigninContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
-  
+  const { refreshSession } = useSession(); 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,6 +40,7 @@ function SigninContent() {
 
       if (result.success) {
         router.push(callbackUrl);
+        await refreshSession();
         router.refresh();
       } else {
         setError(result.message);

@@ -35,7 +35,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { useProtectedRoute } from "@/hooks/useProtectedRoute"
 interface OrderItem {
   name: string;
   quantity: number;
@@ -117,9 +117,9 @@ const getStatusColor = (status: string) => {
   }
 };
 export default function ProfilePage() {
+  const { session, loading } = useProtectedRoute();
   const router = useRouter();
   const { user: authUser, refreshUser } = useAuth();
-  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -150,7 +150,7 @@ export default function ProfilePage() {
   }, [authUser, router]);
 
   const loadUserProfile = async () => {
-    setLoading(true);
+ 
     try {
       const result = await getUserProfile();
       if (result.success && result.data) {
@@ -172,9 +172,7 @@ export default function ProfilePage() {
       }
     } catch (err: any) {
       setError(err.message || "Failed to load profile");
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

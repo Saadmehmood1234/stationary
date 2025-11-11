@@ -449,18 +449,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 3027.431401315943,
-			"y": 1469.002105141762,
-			"lastActivityTimestamp": 1762806769371,
+			"x": 3962.927616009729,
+			"y": 1239.7644031490383,
+			"lastActivityTimestamp": 1762881831552,
 			"meta": {}
 		},
 		{
-			"editingShapeId": null,
+			"editingShapeId": "shape:pixq-0acD950AhBhcLUpp",
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:ucO3aRBAAB7jVkMWGff3v"
+				"shape:pixq-0acD950AhBhcLUpp"
 			],
-			"hoveredShapeId": "shape:ucO3aRBAAB7jVkMWGff3v",
+			"hoveredShapeId": "shape:pixq-0acD950AhBhcLUpp",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -3080,9 +3080,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 76.6985381214022,
-			"y": -349.7077826072659,
-			"z": 0.23014501272570914,
+			"x": -2811.6940441068,
+			"y": -876.6907425429458,
+			"z": 0.7998376787005391,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -6557,7 +6557,13 @@
 							"type": "paragraph",
 							"attrs": {
 								"dir": "auto"
-							}
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13) Session issue fix"
+								}
+							]
 						},
 						{
 							"type": "paragraph",
@@ -12126,7 +12132,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "grabbing",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -14486,6 +14492,18 @@
 								{
 									"type": "text",
 									"text": "4) Check signin before making order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "5) fix sigin button after login"
 								}
 							]
 						}

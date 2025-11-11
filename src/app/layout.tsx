@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SearchProvider } from "@/components/context/SearchContext";
+import { SessionWrapper } from "@/components/providers/SessionWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
         <ThemeProvider>
         <ClientProvider>
           <SearchProvider>
+            <SessionWrapper>
           <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900">
             <AuthProvider>
             <Header />
@@ -34,6 +36,7 @@ export default function RootLayout({
             <Footer />
             </AuthProvider>
           </div>
+          </SessionWrapper>
           </SearchProvider>
         </ClientProvider>
         <Toaster

@@ -40,12 +40,13 @@ import { Button } from "../ui/button";
 import { useSearchOperations } from "@/hooks/useSearchOperations";
 import { Product } from "@/types";
 import { useSearch } from "../context/SearchContext";
+import { useSession } from "@/components/providers/SessionWrapper";
 export function Header() {
   const { state } = useCart();
   const { user, logout } = useAuth();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-
+const { session, loading } = useSession();
   const {
     query,
     results,

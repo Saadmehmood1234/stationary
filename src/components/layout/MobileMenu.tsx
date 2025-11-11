@@ -160,7 +160,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
                   setOpen(false);
                 }}
                 variant="outline" 
-                className="w-full text-gray-900 hover:bg-red-500/10 hover:text-red-300"
+                className="w-full bg-white text-gray-900 hover:bg-red-500/10 hover:text-red-300"
               >
                 Logout
               </Button>
