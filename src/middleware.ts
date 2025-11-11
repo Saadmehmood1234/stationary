@@ -40,7 +40,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect to home if accessing auth routes with valid session
   if (isAuthRoute && session) {
     console.log('Redirecting to home - session exists for auth route');
     return NextResponse.redirect(new URL("/", request.url));
