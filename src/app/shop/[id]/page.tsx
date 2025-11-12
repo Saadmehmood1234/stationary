@@ -56,7 +56,11 @@ export default function ProductDetailPage() {
   }, [dispatch, product]);
 
   const hasDiscount =
-    product?.comparePrice && product.comparePrice > product.price;
+    product?.comparePrice &&
+    product.comparePrice > 0 &&
+    product.price > 0 &&
+    product.comparePrice > product.price;
+
   const discountPercentage = hasDiscount
     ? Math.round(
         ((product.comparePrice! - product.price) / product.comparePrice!) * 100
@@ -370,22 +374,19 @@ export default function ProductDetailPage() {
                     <span className="text-3xl font-bold text-[#D5D502]">
                       ₹{product.price.toFixed(2)}
                     </span>
-                    {hasDiscount &&
-                      product.comparePrice &&
-                      product.comparePrice !== 0 && (
-                        <>
-                          <span className="text-xl text-gray-400 line-through">
-                            ₹{product.comparePrice.toFixed(2)}
-                          </span>
-                          <span className="bg-red-500/20 text-red-400 text-sm font-bold px-2 py-1 rounded border border-red-500/30">
-                            Save {discountPercentage}%
-                          </span>
-                        </>
-                      )}
+                    {hasDiscount && (
+                      <>
+                        <span className="text-xl text-gray-400 line-through">
+                          ₹{product.comparePrice!.toFixed(2)}
+                        </span>
+                        <span className="bg-red-500/20 text-red-400 text-sm font-bold px-2 py-1 rounded border border-red-500/30">
+                          Save {discountPercentage}%
+                        </span>
+                      </>
+                    )}
                   </div>
                 )}
 
-              {/* Stock Status */}
               {(stockStatus ||
                 (product.trackQuantity && product.stock > 0)) && (
                 <div className="flex items-center space-x-2">
