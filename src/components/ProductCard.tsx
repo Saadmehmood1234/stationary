@@ -7,22 +7,15 @@ import { useState, useCallback, memo } from "react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingCart,
   Check,
   AlertCircle,
   Star,
-  Tag,
-  Zap,
-  Sparkles,
+  Eye,
+  Heart,
 } from "lucide-react";
 
 interface ProductCardProps {
@@ -39,9 +32,7 @@ function ProductCardComponent({
   const [imageError, setImageError] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  
-  console.log("Product", product);
-  
+
   const handleAddToCart = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
@@ -75,31 +66,9 @@ function ProductCardComponent({
       )
     : 0;
 
-  const getStockStatus = useCallback(() => {
-    if (product.status === "out_of_stock")
-      return {
-        text: "Out of Stock",
-        color: "text-red-400",
-        bg: "bg-red-500/50 border-red-400/50",
-        icon: AlertCircle,
-      };
-    if (product.stock <= (product.lowStockAlert || 10))
-      return {
-        text: "Low Stock",
-        color: "text-amber-400",
-        bg: "bg-amber-500/50 border-amber-400/50",
-        icon: Zap,
-      };
-    return {
-      text: "In Stock",
-      color: "text-gray-800",
-      bg: "bg-green-500/50 border-green-400/50",
-      icon: Check,
-    };
-  }, [product.status, product.stock, product.lowStockAlert]);
-
-  const stockStatus = getStockStatus();
-  const StockIcon = stockStatus.icon;
+  const isOutOfStock = product.status === "out_of_stock";
+  const isLowStock =
+    !isOutOfStock && product.stock <= (product.lowStockAlert || 10);
 
   const productImage = imageError
     ? "/school-tools-with-calculator.jpg"
@@ -107,221 +76,214 @@ function ProductCardComponent({
       product.images?.[0] ||
       "/school-tools-with-calculator.jpg";
 
-  const getButtonStyle = () => {
-    if (product.status === "out_of_stock") {
-      return "bg-gray-600/60 text-gray-300 border-gray-500/50 cursor-not-allowed";
-    }
-    if (isAdding) {
-      return "bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-500 scale-105";
-    }
-    return "bg-gradient-to-r from-[#D5D502] to-[#D5D508] hover:from-[#D5D502] hover:to-[#D5D508] text-gray-900 border-[#D5D502] hover:scale-105";
-  };
-
   return (
-    <Link href={`/shop/${product._id}`} className="block group h-full">
+    <Link href={`/shop/${product._id}`} className="block group">
       <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        whileHover={{
-          y: -8,
-          scale: 1.02,
-          transition: { duration: 0.3 },
-        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.3 }}
+        className="relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-[#D5D502]/40 transition-all duration-500 overflow-hidden"
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
-        className="h-full"
       >
-        <Card className="bg-gray-700/5 backdrop-blur-xl border border-white/40 hover:border-[#D5D502]/60 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#D5D502]/20 h-full flex flex-col overflow-hidden relative w-full max-w-sm mx-auto">
-
-          {isHovered && (
-            <>
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-[#D5D502] rounded-full"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{
-                    opacity: [0, 0.8, 0],
-                    scale: [0, 1, 0],
-                    y: [0, -30, -60],
-                    x: Math.sin(i) * 20,
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    delay: i * 0.2,
-                    repeat: Infinity,
-                    repeatDelay: 2,
-                  }}
-                  style={{
-                    left: `${20 + i * 30}%`,
-                    bottom: "10%",
-                  }}
-                />
-              ))}
-            </>
+        {/* Image Container */}
+        <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+          {!imageLoaded && (
+            <Skeleton className="absolute inset-0 w-full h-full bg-gray-700/50" />
           )}
-          
-          <CardHeader className="p-0 relative">
-            <div className="aspect-[4/3] bg-gradient-to-br from-[#D5D502]/20 to-[#D5D508]/20 relative overflow-hidden">
-              {!imageLoaded && (
-                <Skeleton className="absolute inset-0 w-full h-full bg-white/20" />
-              )}
-              <Image
-                src={productImage}
-                alt={product.name}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                className={`object-cover transition-all duration-700 group-hover:scale-110 ${
-                  imageLoaded ? "opacity-100" : "opacity-0"
-                }`}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                priority={false}
-              />
-              
-              {/* Badges */}
-              <div className="absolute top-3 left-3 flex flex-col space-y-2">
-                {hasDiscount && (
-                  <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    className="relative"
-                  >
-                    <Badge className="bg-gradient-to-r from-red-500 to-pink-600 border-0 text-white font-bold shadow-lg text-xs px-2 py-1">
-                      <Sparkles className="w-3 h-3 mr-1" />-
-                      {discountPercentage}%
-                    </Badge>
-                  </motion.div>
-                )}
-                {product.isFeatured && (
-                  <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <Badge className="bg-gradient-to-r from-amber-500 to-orange-600 border-0 text-white font-bold shadow-lg text-xs px-2 py-1">
-                      <Star className="w-3 h-3 mr-1 fill-white" />
-                      Featured
-                    </Badge>
-                  </motion.div>
-                )}
-              </div>
-              
-              <Badge
-                variant="outline"
-                className={`absolute top-3 right-3 ${stockStatus.bg} ${stockStatus.color} border backdrop-blur-sm text-xs px-2 py-1`}
-              >
-                <StockIcon className="w-3 h-3 mr-1" />
-                {stockStatus.text}
-              </Badge>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+          {productImage && productImage !== "" && (
+            <Image
+              src={productImage}
+              alt={product.name || "Product image"}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 25vw"
+              className={`object-cover transition-transform duration-700 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              } ${isHovered ? "scale-110" : "scale-100"}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              priority={false}
+            />
+          )}
+
+          {/* Top Left Badges */}
+          {(hasDiscount || product.isFeatured) && (
+            <div className="absolute top-3 left-3 flex flex-col gap-2">
+              {hasDiscount && discountPercentage > 0 && (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  className="transform transition-all duration-300"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="px-2 py-1 bg-gradient-to-r from-red-500 to-pink-600 rounded-full text-white text-xs font-bold shadow-lg"
+                >
+                  -{discountPercentage}%
+                </motion.div>
+              )}
+              {product.isFeatured && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="px-2 py-1 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full text-white text-xs font-bold shadow-lg flex items-center gap-1"
+                >
+                  <Star className="w-3 h-3 fill-white" />
+                  Featured
+                </motion.div>
+              )}
+            </div>
+          )}
+
+          {/* Top Right Stock Status */}
+          {(isOutOfStock || isLowStock) && (
+            <div className="absolute top-3 right-3">
+              {isOutOfStock ? (
+                <div className="px-2 py-1 bg-red-500/90 backdrop-blur-sm rounded-full text-white text-xs flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" />
+                  <span className="hidden sm:inline">Out of Stock</span>
+                </div>
+              ) : isLowStock ? (
+                <div className="px-2 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full text-white text-xs">
+                  Low Stock
+                </div>
+              ) : null}
+            </div>
+          )}
+
+          {/* Hover Overlay Actions */}
+          <AnimatePresence>
+            {isHovered && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center gap-2"
+              >
+                <motion.div
+                  initial={{ scale: 0, y: 20 }}
+                  animate={{ scale: 1, y: 0 }}
+                  className="flex gap-2"
                 >
                   <Button
                     onClick={handleAddToCart}
-                    disabled={product.status === "out_of_stock" || isAdding}
-                    size="default"
-                    className={`gap-2 border-2 shadow-xl transition-all duration-300 text-sm font-semibold ${getButtonStyle()} backdrop-blur-sm px-6 py-2`}
+                    disabled={isOutOfStock || isAdding}
+                    size="sm"
+                    className="rounded-full cursor-pointer text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 font-semibold shadow-lg"
                   >
                     {isAdding ? (
-                      <>
-                        <Check className="w-4 h-4" />
-                        Added!
-                      </>
+                      <Check className="w-4 h-4" />
                     ) : (
-                      <>
-                        <ShoppingCart className="w-4 h-4" />
-                        Quick Add
-                      </>
+                      <ShoppingCart className="w-4 h-4" />
                     )}
                   </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-full cursor-pointer bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </Button>
                 </motion.div>
-              </div>
-            </div>
-          </CardHeader>
-          
-          <CardContent className="p-4 flex-1 flex flex-col relative z-10">
-            <div className="mb-2">
-              <Badge
-                variant="outline"
-                className="bg-[#D5D502]/20 border-[#D5D502]/40 text-[#D5D502] font-medium text-xs px-2 py-1"
-              >
-                <Tag className="w-3 h-3 mr-1" />
-                {product.category}
-              </Badge>
-            </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-            <h3 className="font-bold text-white group-hover:text-[#D5D502] transition-colors line-clamp-2 leading-tight mb-2 flex-1 text-base">
-              {product.name}
-            </h3>
-
-            <p className="text-gray-200 text-sm mb-3 line-clamp-2 leading-relaxed">
-              {product.shortDescription ||
-                product.description?.substring(0, 100)}
-            </p>
-
-            {product.specifications?.color && (
-              <div className="mb-2">
-                <Badge
-                  variant="secondary"
-                  className="bg-white/20 text-[#D5D502] border-white/30 font-medium text-xs px-2 py-1"
-                >
-                  Color: {product.specifications.color}
-                </Badge>
+        {/* Content Area */}
+        {(product.category && product.category !== "") ||
+        (product.name && product.name !== "") ||
+        (product.price !== undefined &&
+          product.price !== null &&
+          product.price !== 0) ? (
+          <div className="p-4 space-y-3">
+            {/* Category - Only show if category exists and is not empty */}
+            {product.category && product.category !== "" && (
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-medium text-[#D5D502] bg-[#D5D502]/10 px-2 py-1 rounded-full">
+                  {product.category}
+                </span>
               </div>
             )}
-          </CardContent>
-          
-          <CardFooter className="p-4 pt-0 relative z-10">
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center space-x-2">
-                <span className="text-xl font-bold bg-gradient-to-r from-[#D5D502] to-[#D5D508] bg-clip-text text-transparent">
-                  ₹{product.price?.toFixed(2) || "0.00"}
-                </span>
-                {hasDiscount && (
-                  <span className="text-sm text-gray-300 line-through">
-                    ₹{product.comparePrice!.toFixed(2)}
-                  </span>
-                )}
-              </div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={product.status === "out_of_stock" || isAdding}
-                  size="default"
-                  variant="outline"
-                  className={`gap-2 cursor-pointer rounded-full border-2 text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 text-sm h-10 px-4 font-medium ${
-                    isAdding
-                      ? "bg-green-500/30 text-green-200 border-green-400/50"
-                      : "border-white/40"
-                  }`}
-                >
-                  {isAdding ? (
-                    <Check className="w-4 h-4" />
-                  ) : product.status === "out_of_stock" ? (
-                    <AlertCircle className="w-4 h-4 text-red-400" />
-                  ) : (
-                    <ShoppingCart className="w-4 h-4" />
-                  )}
-                  <span className="hidden sm:inline">
-                    {product.status === "out_of_stock"
-                      ? "Out of Stock"
-                      : isAdding
-                      ? "Added"
-                      : "Add to Cart"}
-                  </span>
-                </Button>
-              </motion.div>
-            </div>
-          </CardFooter>
-        </Card>
+
+            {/* Product Name - Only show if name exists and is not empty */}
+            {product.name && product.name !== "" && (
+              <h3 className="font-semibold text-white line-clamp-2 leading-tight text-sm sm:text-base group-hover:text-[#D5D502] transition-colors">
+                {product.name}
+              </h3>
+            )}
+
+            {/* Price and Action Row - Only show if price exists and is not empty/zero */}
+            {product.price !== undefined &&
+              product.price !== null &&
+              product.price !== 0 && (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-lg sm:text-xl font-bold text-[#D5D502]">
+                      ₹{product.price.toFixed(2)}
+                    </span>
+                    {hasDiscount &&
+                      product.comparePrice &&
+                      product.comparePrice !== 0 && (
+                        <span className="text-sm text-gray-400 line-through">
+                          ₹{product.comparePrice.toFixed(2)}
+                        </span>
+                      )}
+                  </div>
+
+                  {/* Add to Cart Button - Visible on mobile, hidden on desktop hover */}
+                  <div className="sm:hidden">
+                    <Button
+                      onClick={handleAddToCart}
+                      disabled={isOutOfStock || isAdding}
+                      size="sm"
+                      className="rounded-full cursor-pointer text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 font-semibold shadow-lg min-w-[40px] h-9"
+                    >
+                      {isOutOfStock ? (
+                        <AlertCircle className="w-4 h-4" />
+                      ) : isAdding ? (
+                        <Check className="w-4 h-4" />
+                      ) : (
+                        <ShoppingCart className="w-4 h-4" />
+                      )}
+                    </Button>
+                  </div>
+                  <div className="hidden sm:block">
+                    <Button
+                      onClick={handleAddToCart}
+                      disabled={isOutOfStock || isAdding}
+                      size="sm"
+                      className="rounded-full cursor-pointer text-gray-900 bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 px-3"
+                    >
+                      {isOutOfStock ? (
+                        <>
+                          <AlertCircle className="w-4 h-4 mr-1" />
+                          <span className="text-xs">Out of Stock</span>
+                        </>
+                      ) : isAdding ? (
+                        <>
+                          <Check className="w-4 h-4 mr-1" />
+                          <span className="text-xs">Added</span>
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          <span className="text-xs">Add</span>
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              )}
+          </div>
+        ) : null}
+
+        {/* Elegant Accent Line */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#D5D502] to-transparent"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.5 }}
+        />
       </motion.div>
     </Link>
   );

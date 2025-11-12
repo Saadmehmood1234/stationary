@@ -106,51 +106,57 @@ export default function ProductDetailPage() {
     if (!product?.specifications) return null;
 
     const specs = product.specifications;
-    const hasSpecs = Object.values(specs).some(
-      (value) => value !== undefined && value !== null && value !== ""
-    );
+
+    // Check if there are any non-empty specifications
+    const hasSpecs = Object.values(specs).some((value) => {
+      if (value === undefined || value === null) return false;
+      if (typeof value === "string") return value !== "";
+      if (typeof value === "number") return value > 0;
+      if (typeof value === "object" && value !== null) {
+        // For dimensions object
+        return Object.values(value).some(
+          (dimValue) =>
+            dimValue !== undefined && dimValue !== null && dimValue !== ""
+        );
+      }
+      return true;
+    });
 
     if (!hasSpecs) return null;
 
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {specs.color && (
+        {specs.color && specs.color !== "" && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Color:</dt>
             <dd className="text-gray-200 capitalize">{specs.color}</dd>
           </div>
         )}
-        {specs.material && (
+        {specs.material && specs.material !== "" && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Material:</dt>
             <dd className="text-gray-200 capitalize">{specs.material}</dd>
           </div>
         )}
-        {specs.size && (
+        {specs.size && specs.size !== "" && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Size:</dt>
             <dd className="text-gray-200">{specs.size}</dd>
           </div>
         )}
-        {/* {specs.weight && (
-          <div className="flex">
-            <dt className="text-gray-400 font-medium w-32">Weight:</dt>
-            <dd className="text-gray-200">{specs.weight}</dd>
-          </div>
-        )} */}
         {specs.penType && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Pen Type:</dt>
             <dd className="text-gray-200 capitalize">{specs.penType}</dd>
           </div>
         )}
-        {specs.inkColor && (
+        {specs.inkColor && specs.inkColor !== "" && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Ink Color:</dt>
             <dd className="text-gray-200 capitalize">{specs.inkColor}</dd>
           </div>
         )}
-        {specs.pointSize && (
+        {specs.pointSize && specs.pointSize > 0 && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Point Size:</dt>
             <dd className="text-gray-200">{specs.pointSize}</dd>
@@ -162,7 +168,7 @@ export default function ProductDetailPage() {
             <dd className="text-gray-200 capitalize">{specs.paperType}</dd>
           </div>
         )}
-        {specs.pageCount && (
+        {specs.pageCount && specs.pageCount > 0 && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Page Count:</dt>
             <dd className="text-gray-200">{specs.pageCount}</dd>
@@ -174,15 +180,18 @@ export default function ProductDetailPage() {
             <dd className="text-gray-200 capitalize">{specs.binding}</dd>
           </div>
         )}
-        {specs.dimensions && (
-          <div className="flex md:col-span-2">
-            <dt className="text-gray-400 font-medium w-32">Dimensions:</dt>
-            <dd className="text-gray-200">
-              {specs.dimensions.length} × {specs.dimensions.width} ×{" "}
-              {specs.dimensions.height} cm
-            </dd>
-          </div>
-        )}
+        {specs.dimensions &&
+          specs.dimensions.length &&
+          specs.dimensions.width &&
+          specs.dimensions.height && (
+            <div className="flex md:col-span-2">
+              <dt className="text-gray-400 font-medium w-32">Dimensions:</dt>
+              <dd className="text-gray-200">
+                {specs.dimensions.length} × {specs.dimensions.width} ×{" "}
+                {specs.dimensions.height} cm
+              </dd>
+            </div>
+          )}
       </div>
     );
   };
@@ -237,17 +246,25 @@ export default function ProductDetailPage() {
             >
               Shop
             </Link>
-            <span className="text-gray-600">/</span>
-            <Link
-              href={`/shop?category=${product.category}`}
-              className="text-gray-400 hover:text-[#D5D502] transition-colors capitalize"
-            >
-              {product.category.replace(/-/g, " ")}
-            </Link>
-            <span className="text-gray-600">/</span>
-            <span className="text-white font-medium truncate max-w-xs">
-              {product.name}
-            </span>
+            {product.category && product.category !== "" && (
+              <>
+                <span className="text-gray-600">/</span>
+                <Link
+                  href={`/shop?category=${product.category}`}
+                  className="text-gray-400 hover:text-[#D5D502] transition-colors capitalize"
+                >
+                  {product.category.replace(/-/g, " ")}
+                </Link>
+              </>
+            )}
+            {product.name && product.name !== "" && (
+              <>
+                <span className="text-gray-600">/</span>
+                <span className="text-white font-medium truncate max-w-xs">
+                  {product.name}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -256,57 +273,80 @@ export default function ProductDetailPage() {
         <div className="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-2 sm:p-8">
             <div className="space-y-4">
-              <div className="aspect-square bg-white/5 rounded-2xl overflow-hidden border border-white/10">
-                <img
-                  src={displayImages[selectedImage]}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {displayImages.length > 1 && (
-                <div className="grid grid-cols-4 gap-3">
-                  {displayImages.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`aspect-square cursor-pointer bg-white/5 rounded-xl overflow-hidden border-2 transition-all ${
-                        selectedImage === index
-                          ? "border-[#D5D502] scale-105"
-                          : "border-transparent hover:border-white/30"
-                      }`}
-                    >
-                      <img
-                        src={image}
-                        alt={`${product.name} view ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
+              {displayImages.length > 0 && (
+                <>
+                  <div className="aspect-square bg-white/5 rounded-2xl overflow-hidden border border-white/10">
+                    <img
+                      src={displayImages[selectedImage]}
+                      alt={product.name || "Product image"}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {displayImages.length > 1 && (
+                    <div className="grid grid-cols-4 gap-3">
+                      {displayImages.map((image, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setSelectedImage(index)}
+                          className={`aspect-square cursor-pointer bg-white/5 rounded-xl overflow-hidden border-2 transition-all ${
+                            selectedImage === index
+                              ? "border-[#D5D502] scale-105"
+                              : "border-transparent hover:border-white/30"
+                          }`}
+                        >
+                          <img
+                            src={image}
+                            alt={`${product.name || "Product"} view ${
+                              index + 1
+                            }`}
+                            className="w-full h-full object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
+
             <div className="space-y-6">
-              <div className="flex flex-wrap items-center space-x-4">
-                <span className="bg-[#D5D502]/20 text-[#D5D502] text-sm font-medium px-3 py-1 rounded-full capitalize border border-[#D5D502]/30">
-                  {product.category.replace(/-/g, " ")}
-                </span>
-                <span className="bg-[#6d8a7e]/20 px-4 py-1 rounded-full border border-gray-400 text-gray-400 text-sm font-medium">
-                  {product.brand}
-                </span>
-                {product.isFeatured && (
-                  <span className="bg-yellow-500/20 text-yellow-400 text-sm font-medium px-3 py-1 rounded-full border border-yellow-500/30">
-                    Featured
-                  </span>
-                )}
-                {product.isBestSeller && (
-                  <span className="bg-green-500/20 text-green-400 text-sm font-medium px-3 py-1 rounded-full border border-green-500/30">
-                    Best Seller
-                  </span>
-                )}
-              </div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
-                {product.name}
-              </h1>
+              {/* Badges */}
+              {(product.category ||
+                product.brand ||
+                product.isFeatured ||
+                product.isBestSeller) && (
+                <div className="flex flex-wrap items-center gap-2">
+                  {product.category && product.category !== "" && (
+                    <span className="bg-[#D5D502]/20 text-[#D5D502] text-sm font-medium px-3 py-1 rounded-full capitalize border border-[#D5D502]/30">
+                      {product.category.replace(/-/g, " ")}
+                    </span>
+                  )}
+                  {product.brand && product.brand !== "" && (
+                    <span className="bg-[#6d8a7e]/20 px-4 py-1 rounded-full border border-gray-400 text-gray-400 text-sm font-medium">
+                      {product.brand}
+                    </span>
+                  )}
+                  {product.isFeatured && (
+                    <span className="bg-yellow-500/20 text-yellow-400 text-sm font-medium px-3 py-1 rounded-full border border-yellow-500/30">
+                      Featured
+                    </span>
+                  )}
+                  {product.isBestSeller && (
+                    <span className="bg-green-500/20 text-green-400 text-sm font-medium px-3 py-1 rounded-full border border-green-500/30">
+                      Best Seller
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* Product Name */}
+              {product.name && product.name !== "" && (
+                <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
+                  {product.name}
+                </h1>
+              )}
+
+              {/* Rating */}
               <div className="flex flex-wrap items-center space-x-4 text-sm text-gray-400">
                 <div className="flex flex-wrap items-center space-x-1">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -321,34 +361,55 @@ export default function ProductDetailPage() {
                   <span className="ml-1 text-white">4.8</span>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 items-center space-x-3">
-                <span className="text-3xl font-bold text-[#D5D502]">
-                  ₹{product.price.toFixed(2)}
-                </span>
-                {hasDiscount && (
-                  <>
-                    <span className="text-xl text-gray-400 line-through">
-                      ₹{product.comparePrice!.toFixed(2)}
+
+              {/* Price */}
+              {product.price !== undefined &&
+                product.price !== null &&
+                product.price !== 0 && (
+                  <div className="flex flex-wrap gap-2 items-center space-x-3">
+                    <span className="text-3xl font-bold text-[#D5D502]">
+                      ₹{product.price.toFixed(2)}
                     </span>
-                    <span className="bg-red-500/20 text-red-400 text-sm font-bold px-2 py-1 rounded border border-red-500/30">
-                      Save {discountPercentage}%
+                    {hasDiscount &&
+                      product.comparePrice &&
+                      product.comparePrice !== 0 && (
+                        <>
+                          <span className="text-xl text-gray-400 line-through">
+                            ₹{product.comparePrice.toFixed(2)}
+                          </span>
+                          <span className="bg-red-500/20 text-red-400 text-sm font-bold px-2 py-1 rounded border border-red-500/30">
+                            Save {discountPercentage}%
+                          </span>
+                        </>
+                      )}
+                  </div>
+                )}
+
+              {/* Stock Status */}
+              {(stockStatus ||
+                (product.trackQuantity && product.stock > 0)) && (
+                <div className="flex items-center space-x-2">
+                  {stockStatus && (
+                    <span className={`font-medium ${stockStatus.color}`}>
+                      {stockStatus.text}
                     </span>
-                  </>
-                )}
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className={`font-medium ${stockStatus.color}`}>
-                  {stockStatus.text}
-                </span>
-                {product.trackQuantity && product.stock > 0 && (
-                  <span className="text-gray-400 text-sm">
-                    ({product.stock} units available)
-                  </span>
-                )}
-              </div>
-              <p className="text-gray-300 leading-relaxed text-lg">
-                {product.shortDescription}
-              </p>
+                  )}
+                  {product.trackQuantity && product.stock > 0 && (
+                    <span className="text-gray-400 text-sm">
+                      ({product.stock} units available)
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* Short Description */}
+              {product.shortDescription && product.shortDescription !== "" && (
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  {product.shortDescription}
+                </p>
+              )}
+
+              {/* Action Buttons */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center border border-white/20 rounded-lg bg-white/5">
@@ -407,6 +468,8 @@ export default function ProductDetailPage() {
                   </button>
                 </div>
               </div>
+
+              {/* Features */}
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div className="flex items-center space-x-2">
                   <svg
@@ -478,130 +541,154 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          <div className="border-t border-white/20 mt-8">
-            <div className="px-8">
-              <div className="flex space-x-8 border-b border-white/20 overflow-x-auto">
-                <button
-                  onClick={() => setActiveTab("description")}
-                  className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
-                    activeTab === "description"
-                      ? "border-[#D5D502] text-[#D5D502] font-medium"
-                      : "border-transparent text-gray-400 hover:text-[#D5D502]"
-                  }`}
-                >
-                  Description
-                </button>
-                <button
-                  onClick={() => setActiveTab("specifications")}
-                  className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
-                    activeTab === "specifications"
-                      ? "border-[#D5D502] text-[#D5D502] font-medium"
-                      : "border-transparent text-gray-400 hover:text-[#D5D502]"
-                  }`}
-                >
-                  Specifications
-                </button>
-                <button
-                  onClick={() => setActiveTab("details")}
-                  className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
-                    activeTab === "details"
-                      ? "border-[#D5D502] text-[#D5D502] font-medium"
-                      : "border-transparent text-gray-400 hover:text-[#D5D502]"
-                  }`}
-                >
-                  Product Details
-                </button>
-              </div>
+          {/* Tabs Section */}
+          {(product.description ||
+            product.specifications ||
+            product.sku ||
+            product.brand ||
+            product.tags?.length > 0) && (
+            <div className="border-t border-white/20 mt-8">
+              <div className="px-8">
+                <div className="flex space-x-8 border-b border-white/20 overflow-x-auto">
+                  {product.description && product.description !== "" && (
+                    <button
+                      onClick={() => setActiveTab("description")}
+                      className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
+                        activeTab === "description"
+                          ? "border-[#D5D502] text-[#D5D502] font-medium"
+                          : "border-transparent text-gray-400 hover:text-[#D5D502]"
+                      }`}
+                    >
+                      Description
+                    </button>
+                  )}
+                  {product.specifications && (
+                    <button
+                      onClick={() => setActiveTab("specifications")}
+                      className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
+                        activeTab === "specifications"
+                          ? "border-[#D5D502] text-[#D5D502] font-medium"
+                          : "border-transparent text-gray-400 hover:text-[#D5D502]"
+                      }`}
+                    >
+                      Specifications
+                    </button>
+                  )}
+                  {(product.sku ||
+                    product.brand ||
+                    product.tags?.length > 0) && (
+                    <button
+                      onClick={() => setActiveTab("details")}
+                      className={`py-4 cursor-pointer px-2 border-b-2 whitespace-nowrap transition-colors ${
+                        activeTab === "details"
+                          ? "border-[#D5D502] text-[#D5D502] font-medium"
+                          : "border-transparent text-gray-400 hover:text-[#D5D502]"
+                      }`}
+                    >
+                      Product Details
+                    </button>
+                  )}
+                </div>
 
-              <div className="py-8">
-                {activeTab === "description" && (
-                  <div className="prose max-w-none">
-                    <h3 className="text-xl font-bold text-white mb-4">
-                      Product Description
-                    </h3>
-                    <p className="text-gray-300 leading-relaxed mb-6">
-                      {product.description}
-                    </p>
-                  </div>
-                )}
-
-                {activeTab === "specifications" && (
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-6">
-                      Product Specifications
-                    </h3>
-                    {renderSpecifications()}
-                    {!product.specifications && (
-                      <p className="text-gray-500 italic">
-                        No specifications available for this product.
-                      </p>
+                <div className="py-8">
+                  {activeTab === "description" &&
+                    product.description &&
+                    product.description !== "" && (
+                      <div className="prose max-w-none">
+                        <h3 className="text-xl font-bold text-white mb-4">
+                          Product Description
+                        </h3>
+                        <p className="text-gray-300 leading-relaxed mb-6">
+                          {product.description}
+                        </p>
+                      </div>
                     )}
-                  </div>
-                )}
 
-                {activeTab === "details" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {activeTab === "specifications" && (
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-4">
-                        Product Information
-                      </h4>
-                      <dl className="space-y-3">
-                        <div className="flex">
-                          <dt className="text-gray-400 font-medium w-32">
-                            SKU:
-                          </dt>
-                          <dd className="text-white font-mono">
-                            {product.sku}
-                          </dd>
-                        </div>
-                        <div className="flex">
-                          <dt className="text-gray-400 font-medium w-32">
-                            Category:
-                          </dt>
-                          <dd className="text-white capitalize">
-                            {product.category.replace(/-/g, " ")}
-                          </dd>
-                        </div>
-                        {product.subcategory && (
-                          <div className="flex">
-                            <dt className="text-gray-400 font-medium w-32">
-                              Subcategory:
-                            </dt>
-                            <dd className="text-white capitalize">
-                              {product.subcategory.replace(/-/g, " ")}
-                            </dd>
-                          </div>
-                        )}
-                        <div className="flex">
-                          <dt className="text-gray-400 font-medium w-32">
-                            Brand:
-                          </dt>
-                          <dd className="text-white">{product.brand}</dd>
-                        </div>
-                        {product.tags.length > 0 && (
-                          <div className="flex">
-                            <dt className="text-gray-400 font-medium w-32">
-                              Tags:
-                            </dt>
-                            <dd className="text-white">
-                              {product.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="inline-block bg-white/10 text-gray-300 px-3 py-1 rounded-full text-sm mr-2 mb-1 capitalize border border-white/20"
-                                >
-                                  {tag.replace(/-/g, " ")}
-                                </span>
-                              ))}
-                            </dd>
-                          </div>
-                        )}
-                      </dl>
+                      <h3 className="text-xl font-bold text-white mb-6">
+                        Product Specifications
+                      </h3>
+                      {renderSpecifications()}
+                      {!product.specifications && (
+                        <p className="text-gray-500 italic">
+                          No specifications available for this product.
+                        </p>
+                      )}
                     </div>
-                  </div>
-                )}
+                  )}
+
+                  {activeTab === "details" && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-lg font-semibold text-white mb-4">
+                          Product Information
+                        </h4>
+                        <dl className="space-y-3">
+                          {product.sku && product.sku !== "" && (
+                            <div className="flex">
+                              <dt className="text-gray-400 font-medium w-32">
+                                SKU:
+                              </dt>
+                              <dd className="text-white font-mono">
+                                {product.sku}
+                              </dd>
+                            </div>
+                          )}
+                          {product.category && product.category !== "" && (
+                            <div className="flex">
+                              <dt className="text-gray-400 font-medium w-32">
+                                Category:
+                              </dt>
+                              <dd className="text-white capitalize">
+                                {product.category.replace(/-/g, " ")}
+                              </dd>
+                            </div>
+                          )}
+                          {product.subcategory &&
+                            product.subcategory !== "" && (
+                              <div className="flex">
+                                <dt className="text-gray-400 font-medium w-32">
+                                  Subcategory:
+                                </dt>
+                                <dd className="text-white capitalize">
+                                  {product.subcategory.replace(/-/g, " ")}
+                                </dd>
+                              </div>
+                            )}
+                          {product.brand && product.brand !== "" && (
+                            <div className="flex">
+                              <dt className="text-gray-400 font-medium w-32">
+                                Brand:
+                              </dt>
+                              <dd className="text-white">{product.brand}</dd>
+                            </div>
+                          )}
+                          {product.tags && product.tags.length > 0 && (
+                            <div className="flex">
+                              <dt className="text-gray-400 font-medium w-32">
+                                Tags:
+                              </dt>
+                              <dd className="text-white">
+                                {product.tags.map((tag) => (
+                                  <span
+                                    key={tag}
+                                    className="inline-block bg-white/10 text-gray-300 px-3 py-1 rounded-full text-sm mr-2 mb-1 capitalize border border-white/20"
+                                  >
+                                    {tag.replace(/-/g, " ")}
+                                  </span>
+                                ))}
+                              </dd>
+                            </div>
+                          )}
+                        </dl>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       {showShareModal && (

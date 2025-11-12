@@ -159,12 +159,12 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="group md:col-span-4"
+                className="group md:col-span-4 col-span-2"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
                     <img
-                      src="/stationary6.jpg"
+                      src="/stationary1.jpg"
                       alt="Luxury Pens Collection"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
@@ -176,9 +176,9 @@ const LandingPage = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="group md:col-span-6"
+                className="group md:col-span-3 col-span-1"
               >
-                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-full border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
                     src="/stationary2.jpeg"
                     alt="Stationery Collection"
@@ -190,12 +190,12 @@ const LandingPage = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="group md:col-span-5"
+                className="group md:col-span-2 col-span-1"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/20 to-pink-500/20">
                     <img
-                      src="/stationary5.jpg"
+                      src="/stationary3.jpg"
                       alt="Artistic Notebooks"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
@@ -208,9 +208,9 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="group md:col-span-3"
+                className="group md:col-span-3 col-span-3"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-[#D5D502]/20">
                     <img
                       src="/stationary4.jpg"
@@ -222,33 +222,78 @@ const LandingPage = () => {
                   <div className="absolute inset-0 bg-[#D5D502]/0 group-hover:bg-[#D5D502]/10 transition-all duration-500 rounded-3xl"></div>
                 </div>
               </motion.div>
-            </div>
+              <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="group md:col-span-5 col-span-1"
+              >
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-[#D5D502]/20">
+                    <img
+                      src="/stationary10.jpg"
+                      alt="Office Essentials"
+                      className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
+                    />
+                  </div>
 
-            <div className="grid grid-cols-4 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8">
+                  <div className="absolute inset-0 bg-[#D5D502]/0 group-hover:bg-[#D5D502]/10 transition-all duration-500 rounded-3xl"></div>
+                </div>
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="group md:col-span-3"
+                className="group md:col-span-1 col-span-1"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
-                    src="/stationary3.jpg"
+                    src="/stationary5.jpg"
                     alt="Writing Instruments"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
               </motion.div>
+                            <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="group md:col-span-4  col-span-2"
+              >
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                  <img
+                    src="/stationary11.jpg"
+                    alt="Writing Instruments"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                </div>
+              </motion.div>
+                            <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="group md:col-span-2 col-span-1"
+              >
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                  <img
+                    src="/stationary12.jpg"
+                    alt="Writing Instruments"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                </div>
+              </motion.div>
+            </div>
 
+            <div className="grid grid-cols-4 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="group md:col-span-6"
+                className="group md:col-span-2 col-span-1"
               >
-                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-full border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
-                    src="/stationary2.jpeg"
+                    src="/stationary6.jpg"
                     alt="Stationery Collection"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -258,26 +303,43 @@ const LandingPage = () => {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
-                className="group md:col-span-3"
+                className="group md:col-span-1 col-span-3"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <img
-                    src="/stationary1.jpg"
+                    src="/stationary7.jpg"
                     alt="Desk Accessories"
                     className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
                   />
                 </div>
               </motion.div>
-                            <motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="group md:col-span-4"
+                className="group md:col-span-5 col-span-2"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-full border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
                     <img
-                      src="/stationary6.jpg"
+                      src="/stationary8.avif"
+                      alt="Luxury Pens Collection"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="group md:col-span-4 col-span-2"
+              >
+                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
+                    <img
+                      src="/stationary9.jpeg"
                       alt="Luxury Pens Collection"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
