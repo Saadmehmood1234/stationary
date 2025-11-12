@@ -116,7 +116,7 @@ export default function ProductDetailPage() {
         // For dimensions object
         return Object.values(value).some(
           (dimValue) =>
-            dimValue !== undefined && dimValue !== null && dimValue !== ""
+            dimValue !== undefined && dimValue !== null && dimValue !== 0
         );
       }
       return true;
@@ -156,7 +156,7 @@ export default function ProductDetailPage() {
             <dd className="text-gray-200 capitalize">{specs.inkColor}</dd>
           </div>
         )}
-        {specs.pointSize && specs.pointSize > 0 && (
+        {specs.pointSize && specs.pointSize !== "" && (
           <div className="flex">
             <dt className="text-gray-400 font-medium w-32">Point Size:</dt>
             <dd className="text-gray-200">{specs.pointSize}</dd>
