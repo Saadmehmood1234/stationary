@@ -40,6 +40,7 @@ export default function RootLayout({
           </SearchProvider>
         </ClientProvider>
         <Toaster
+        
           position="top-center"
           reverseOrder={false}
           gutter={8}
@@ -47,7 +48,7 @@ export default function RootLayout({
           containerStyle={{}}
           toasterId="default"
           toastOptions={{
-            className: "rounded-lg shadow-lg font-sans",
+            className: "rounded-full shadow-lg font-sans",
             duration: 5000,
             removeDelay: 1000,
             style: {
@@ -58,13 +59,13 @@ export default function RootLayout({
               duration: 3000,
               className: "border-l-4 border-l-green-500",
               iconTheme: {
-                primary: "#10B981",
-                secondary: "#FFFFFF",
+                primary: "#D9D000",
+                secondary: "#000000",
               },
               style: {
-                background: "#064E3B",
+                background: "#151C23",
                 color: "#ECFDF5",
-                border: "1px solid #047857",
+                border: "1px solid #D9D000",
               },
             },
             error: {
@@ -84,13 +85,13 @@ export default function RootLayout({
               duration: Infinity,
               className: "border-l-4 border-l-blue-500",
               iconTheme: {
-                primary: "#3B82F6",
+                primary: "#D9D000",
                 secondary: "#FFFFFF",
               },
               style: {
-                background: "#1E3A8A",
+                background: "#23292C",
                 color: "#EFF6FF",
-                border: "1px solid #2563EB",
+                border: "1px solid #D9D000",
               },
             },
             blank: {

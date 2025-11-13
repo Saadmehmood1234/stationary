@@ -18,6 +18,7 @@ export interface SessionPayload {
   verified: boolean;
   iat?: number;
   phone?: string;
+  role: "user" | "admin" | "employee" | "vendor";
   exp?: number;
   address: {
     street?: string;
@@ -113,6 +114,19 @@ export interface ProductFormData
   _id?: string;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface UploadedImage {
+  _id: string;
+  url: string;
+  fileName: string;
+  fileSize: number;
+  fileType: string;
+  publicId: string;
+  folder?: string;
+  tags?: string[];
+  uploadedAt: string; 
+  updatedAt: string;  
 }
 
 export interface Category {

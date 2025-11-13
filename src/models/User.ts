@@ -24,6 +24,7 @@ export interface ICustomer extends mongoose.Document {
     smsNotifications: boolean;
   };
   lastLogin: Date;
+  role: "user" | "admin" | "employee" | "vendor";
   loginAttempts: number;
   lockUntil?: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
@@ -53,6 +54,11 @@ const CustomerSchema = new Schema(
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters"],
       select: false,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin", "employee", "vendor"],
+      default: "user",
     },
     profilePic: {
       type: String,
@@ -113,19 +119,18 @@ const CustomerSchema = new Schema(
   }
 );
 
-// ❌ REMOVE THIS - it's duplicate because of `unique: true` above
-// CustomerSchema.index({ email: 1 });
 
-// ✅ Keep these - they're for fields that don't have unique in their definition
 CustomerSchema.index({ verifyToken: 1 });
 CustomerSchema.index({ resetToken: 1 });
 
-// Hash password before saving
+
 CustomerSchema.pre<ICustomer>("save", async function (next) {
   if (!this.isModified("password")) return next();
-  
+
   try {
-    const salt = await bcrypt.genSalt(Number(process.env.BCRYPT_SALT_ROUNDS) || 12);
+    const salt = await bcrypt.genSalt(
+      Number(process.env.BCRYPT_SALT_ROUNDS) || 12
+    );
     this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error: any) {
@@ -134,7 +139,9 @@ CustomerSchema.pre<ICustomer>("save", async function (next) {
 });
 
 // Compare password method
-CustomerSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+CustomerSchema.methods.comparePassword = async function (
+  candidatePassword: string
+): Promise<boolean> {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
@@ -150,29 +157,35 @@ CustomerSchema.methods.isVerifyTokenValid = function (): boolean {
 
 // Check if reset token is valid
 CustomerSchema.methods.isResetTokenValid = function (): boolean {
-  return !!(this.resetToken && this.resetTokenExpires && new Date() < this.resetTokenExpires);
+  return !!(
+    this.resetToken &&
+    this.resetTokenExpires &&
+    new Date() < this.resetTokenExpires
+  );
 };
 
 // Increment login attempts
-CustomerSchema.methods.incrementLoginAttempts = async function (): Promise<ICustomer> {
-  if (this.lockUntil && this.lockUntil < new Date()) {
-    return this.updateOne({
-      $set: { loginAttempts: 1 },
-      $unset: { lockUntil: 1 },
-    });
-  }
-  
-  let updates: any = { $inc: { loginAttempts: 1 } };
-  
-  if (this.loginAttempts + 1 >= 5 && !this.isLocked()) {
-    updates = {
-      $inc: { loginAttempts: 1 },
-      $set: { lockUntil: new Date(Date.now() + 2 * 60 * 60 * 1000) },
-    };
-  }
-  
-  return this.updateOne(updates);
-};
+CustomerSchema.methods.incrementLoginAttempts =
+  async function (): Promise<ICustomer> {
+    if (this.lockUntil && this.lockUntil < new Date()) {
+      return this.updateOne({
+        $set: { loginAttempts: 1 },
+        $unset: { lockUntil: 1 },
+      });
+    }
 
-export const Customer = models.Customer || model<ICustomer>("Customer", CustomerSchema);
+    let updates: any = { $inc: { loginAttempts: 1 } };
+
+    if (this.loginAttempts + 1 >= 5 && !this.isLocked()) {
+      updates = {
+        $inc: { loginAttempts: 1 },
+        $set: { lockUntil: new Date(Date.now() + 2 * 60 * 60 * 1000) },
+      };
+    }
+
+    return this.updateOne(updates);
+  };
+
+export const Customer =
+  models.Customer || model<ICustomer>("Customer", CustomerSchema);
 export default Customer;

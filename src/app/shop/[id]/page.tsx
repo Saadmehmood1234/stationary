@@ -6,7 +6,7 @@ import { Product, ProductFormData } from "@/types";
 import { useCart } from "@/components/providers/CartProvider";
 import Link from "next/link";
 import { getProductById } from "@/app/actions/product.actions";
-
+import toast from "react-hot-toast";
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -55,6 +55,9 @@ export default function ProductDetailPage() {
     setTimeout(() => setIsAddingToCart(false), 600);
   }, [dispatch, product]);
 
+  const handlePurchase = () => {
+    toast.success("We will add purchasing option soon........")
+  };
   const hasDiscount =
     product?.comparePrice &&
     product.comparePrice > 0 &&
@@ -66,7 +69,13 @@ export default function ProductDetailPage() {
         ((product.comparePrice! - product.price) / product.comparePrice!) * 100
       )
     : 0;
+  console.log(
+    "discountPercentage",
+    discountPercentage,
+    "hasDiscounth",
+    hasDiscount,product?.price,  product?.comparePrice
 
+  );
   const getStockStatus = () => {
     if (!product) return { text: "Loading...", color: "text-gray-600" };
     if (product.status === "out_of_stock")
@@ -111,13 +120,11 @@ export default function ProductDetailPage() {
 
     const specs = product.specifications;
 
-    // Check if there are any non-empty specifications
     const hasSpecs = Object.values(specs).some((value) => {
       if (value === undefined || value === null) return false;
       if (typeof value === "string") return value !== "";
       if (typeof value === "number") return value > 0;
       if (typeof value === "object" && value !== null) {
-        // For dimensions object
         return Object.values(value).some(
           (dimValue) =>
             dimValue !== undefined && dimValue !== null && dimValue !== 0
@@ -366,7 +373,6 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              {/* Price */}
               {product.price !== undefined &&
                 product.price !== null &&
                 product.price !== 0 && (
@@ -374,7 +380,7 @@ export default function ProductDetailPage() {
                     <span className="text-3xl font-bold text-[#D5D502]">
                       ₹{product.price.toFixed(2)}
                     </span>
-                    {hasDiscount && (
+                    {hasDiscount  && (
                       <>
                         <span className="text-xl text-gray-400 line-through">
                           ₹{product.comparePrice!.toFixed(2)}
@@ -436,7 +442,7 @@ export default function ProductDetailPage() {
                   </div>
 
                   <button
-                    onClick={handleAddToCart}
+                    onClick={handlePurchase}
                     disabled={product.status !== "active" || isAddingToCart}
                     className={`flex-1 cursor-pointer py-3 px-6 rounded-lg font-semibold text-lg transition-all ${
                       product.status !== "active"

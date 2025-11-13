@@ -2,7 +2,9 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "@/components/providers/SessionWrapper";
+import { useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Package,
@@ -14,6 +16,7 @@ import {
   X,
   Users,
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function AdminLayout({
   children,
@@ -21,6 +24,28 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { session } = useSession();
+  const router = useRouter();
+  const { logout } = useAuth();
+  useEffect(() => {
+    if (session !== undefined) {
+      setIsLoading(false);
+
+    }
+  }, [session, router]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!session || session.role !== "admin") {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900">
@@ -94,12 +119,14 @@ export default function AdminLayout({
               </Link>
             </nav>
 
-            {/* User Info and Logout */}
             <div className="flex items-center space-x-4">
               <span className="hidden sm:inline-block text-sm text-gray-300">
-                Admin User
+                Welcome, {session?.name || session?.email || "Admin"}
               </span>
-              <button className="flex items-center space-x-2 text-gray-300 hover:text-red-400 transition-colors p-2 rounded-full hover:bg-white/5">
+              <button
+                onClick={logout}
+                className="flex items-center space-x-2 text-gray-300 hover:text-red-400 transition-colors p-2 rounded-full hover:bg-white/5"
+              >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline-block text-sm">Logout</span>
               </button>

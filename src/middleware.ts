@@ -8,7 +8,7 @@ async function verifySessionToken(token: string) {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
     return payload;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -16,32 +16,39 @@ async function verifySessionToken(token: string) {
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("session")?.value;
   const session = token ? await verifySessionToken(token) : null;
-  
   const { pathname } = request.nextUrl;
 
-  const protectedRoutes = ["/profile", "/orders", "/checkout", "/admin"];
+  const protectedRoutes = ["/profile", "/orders", "/checkout"];
+  const adminRoutes = ["/admin"];
+
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+  const isAdminRoute = adminRoutes.some(route => pathname.startsWith(route));
 
   const authRoutes = ["/auth/signin", "/auth/signup", "/auth/login", "/auth/register"];
   const isAuthRoute = authRoutes.includes(pathname);
 
-  console.log('Middleware:', {
+  console.log("Middleware:", {
     pathname,
     hasToken: !!token,
     hasSession: !!session,
     isProtectedRoute,
-    isAuthRoute
+    isAdminRoute,
+    isAuthRoute,
+    role: session?.role,
   });
 
-  if (isProtectedRoute && !session) {
-    console.log('Redirecting to login - no session for protected route');
+  if ((isProtectedRoute || isAdminRoute) && !session) {
     const loginUrl = new URL("/auth/signin", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
+  if (isAdminRoute && session?.role !== "admin") {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+
   if (isAuthRoute && session) {
-    console.log('Redirecting to home - session exists for auth route');
     return NextResponse.redirect(new URL("/", request.url));
   }
 

@@ -449,16 +449,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 635,
-			"y": 1093,
-			"lastActivityTimestamp": 1762889130831,
+			"x": 3031.465846981381,
+			"y": 475.01329912995993,
+			"lastActivityTimestamp": 1763054151867,
 			"meta": {}
 		},
 		{
-			"editingShapeId": null,
+			"editingShapeId": "shape:I5A-wfpLSvMh95woMVKE1",
 			"croppingShapeId": null,
-			"selectedShapeIds": [],
-			"hoveredShapeId": null,
+			"selectedShapeIds": [
+				"shape:I5A-wfpLSvMh95woMVKE1"
+			],
+			"hoveredShapeId": "shape:I5A-wfpLSvMh95woMVKE1",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -546,43 +548,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "Shop Detail Page"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Show only available data"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Add purcchange button instead of Add to cart"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) remove some text"
+									"text": "Shop Detail Page-"
 								}
 							]
 						},
@@ -3070,9 +3036,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 0,
-			"y": -500,
-			"z": 1,
+			"x": -2504.465846981381,
+			"y": -207.51329912995996,
+			"z": 2,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -6512,18 +6478,6 @@
 								{
 									"type": "text",
 									"text": "10) Download invoice"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) gap between text and input in the form"
 								}
 							]
 						},
@@ -12118,7 +12072,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "grab",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -12129,7 +12083,7 @@
 				"x": 0,
 				"y": 0,
 				"w": 1572,
-				"h": 628
+				"h": 627
 			},
 			"insets": [
 				false,
@@ -12146,7 +12100,7 @@
 			"isFocused": true,
 			"devicePixelRatio": 1,
 			"isCoarsePointer": false,
-			"isHoveringCanvas": false,
+			"isHoveringCanvas": true,
 			"openMenus": [],
 			"isChangingStyle": false,
 			"isReadonly": false,
@@ -14393,8 +14347,8 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 3446.3308166459924,
-			"y": 1071.1714697967432,
+			"x": 3632.3308166459924,
+			"y": 1084.1714697967432,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,

@@ -57,6 +57,7 @@ export const createSession = async (user: any) => {
     userId: userId,
     email: user.email || "",
     name: user.name || "",
+    role: user.role,
     verified: user.verified || false,
     profilePic: user.profilePic,
     phone: user.phone || "",
@@ -120,6 +121,7 @@ export const getSession = async (): Promise<SessionPayload | null> => {
     return {
       userId: userId,
       email: payload.email || "",
+      role: payload.role,
       name: payload.name || "",
       profilePic: payload.profilePic,
       phone: payload.phone || "",
@@ -169,6 +171,7 @@ export const registerUser = async (formData: {
     const verifyToken = generateToken();
     const user = await Customer.create({
       ...formData,
+      role:"user",
       email: formData.email.toLowerCase(),
       verifyToken,
       verifyTokenExpires: new Date(Date.now() + 3 * 60 * 1000),
