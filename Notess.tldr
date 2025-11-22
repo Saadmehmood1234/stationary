@@ -429,38 +429,20 @@
 			"typeName": "shape"
 		},
 		{
-			"meta": {},
-			"id": "binding:bFYWAp8pwGhnml4Xw9a3k",
-			"type": "arrow",
-			"fromId": "shape:knSf37MfrNbq0kbRcN-3W",
-			"toId": "shape:MMalSjbqE_QzYcpnBk0pl",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.49678991156008306,
-					"y": 0.9862011018553996
-				},
-				"snap": "none",
-				"terminal": "start"
-			},
-			"typeName": "binding"
-		},
-		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 3031.465846981381,
-			"y": 475.01329912995993,
-			"lastActivityTimestamp": 1763054151867,
+			"x": 6059.481230091588,
+			"y": -248.30224057947146,
+			"lastActivityTimestamp": 1763815287986,
 			"meta": {}
 		},
 		{
-			"editingShapeId": "shape:I5A-wfpLSvMh95woMVKE1",
+			"editingShapeId": "shape:EXGZiGk0LXh2kReyPD0v5",
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:I5A-wfpLSvMh95woMVKE1"
+				"shape:EXGZiGk0LXh2kReyPD0v5"
 			],
-			"hoveredShapeId": "shape:I5A-wfpLSvMh95woMVKE1",
+			"hoveredShapeId": "shape:EXGZiGk0LXh2kReyPD0v5",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -2184,8 +2166,8 @@
 				"labelColor": "black",
 				"bend": 0,
 				"start": {
-					"x": 0,
-					"y": 0
+					"x": 0.07354713879749397,
+					"y": 3.5840189404102603
 				},
 				"end": {
 					"x": 7.826563266942685,
@@ -2661,9 +2643,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 1322.4406674884099,
-			"y": 2424.786794801569,
-			"z": 0.3833026230288042,
+			"x": 1633.6197611015823,
+			"y": 1464.509671061521,
+			"z": 0.25573951476380524,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -3036,9 +3018,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -2504.465846981381,
-			"y": -207.51329912995996,
-			"z": 2,
+			"x": -4672.45796421552,
+			"y": 653.8645990227661,
+			"z": 0.4931424128404752,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -3692,54 +3674,6 @@
 								{
 									"type": "text",
 									"text": "Products Page admin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add breadcrumb"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Add cursor-pointer in the action"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Change the color of the menu of the action"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Redesign the detail modal"
 								}
 							]
 						},
@@ -4735,14 +4669,14 @@
 				"fill": "none",
 				"color": "black",
 				"labelColor": "black",
-				"bend": -270.68210035789053,
+				"bend": -258.6793958427819,
 				"start": {
 					"x": -17.267209662255482,
 					"y": 373.4038515052272
 				},
 				"end": {
-					"x": 988.6882173332551,
-					"y": 4.57727562451646
+					"x": 976.9134867691184,
+					"y": -2.505035733022055
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -5704,24 +5638,6 @@
 			"parentId": "page:page",
 			"index": "aER70IPV",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:oFOsJxy-Xmgovp0tg1JrK",
-			"type": "arrow",
-			"fromId": "shape:sFNEN4k06yo9j0oT0Rcrn",
-			"toId": "shape:rDYtsFXSVNOI7_wfEFMo0",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.5096615960229745,
-					"y": 0.9287610856933379
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": 0,
@@ -6711,82 +6627,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 3398.6427072292527,
-			"y": -184.19065640063116,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:MMalSjbqE_QzYcpnBk0pl",
-			"type": "geo",
-			"props": {
-				"w": 701.9715085090716,
-				"h": 259.7322556375785,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Shop Page"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add sorting"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Advance sorting and filters"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b09AiCGEV",
-			"typeName": "shape"
-		},
-		{
 			"x": 377.27689875899983,
 			"y": 39.19999694824219,
 			"rotation": 0,
@@ -7563,112 +7403,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 4495.0631861266875,
-			"y": 378.5797756635677,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:rDYtsFXSVNOI7_wfEFMo0",
-			"type": "geo",
-			"props": {
-				"w": 698.3175914072718,
-				"h": 248.1322711693881,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Contact Page admin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add breadcrumb"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Add cursor-pointer in the action pointers"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Add cursor-pointer at the filter and subject"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Add sorting"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Add reply and send through mail"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b02bpJzAG",
-			"typeName": "shape"
-		},
-		{
 			"x": 291.20001220703125,
 			"y": 220.08477974804694,
 			"rotation": 0,
@@ -7856,24 +7590,6 @@
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "a8SuzwxZ",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:PU-iZg7VvhTefS3oAfp_r",
-			"type": "arrow",
-			"fromId": "shape:_95aKkMZ6ObEPOUhL8FiR",
-			"toId": "shape:MMalSjbqE_QzYcpnBk0pl",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.5052997142115238,
-					"y": 0.03514783056468823
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": 410.3999938964844,
@@ -10462,8 +10178,8 @@
 					"y": 18.966137110572845
 				},
 				"end": {
-					"x": -10.83782216522286,
-					"y": -268.2351166964967
+					"x": -4.867239844748859,
+					"y": -256.0266942995107
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -10861,8 +10577,8 @@
 			"typeName": "binding"
 		},
 		{
-			"x": 1294.8972374488822,
-			"y": 430.29956379664765,
+			"x": 1365.2973839332572,
+			"y": 327.89953938258515,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -12082,8 +11798,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1572,
-				"h": 627
+				"w": 1208,
+				"h": 477.6000061035156
 			},
 			"insets": [
 				false,
@@ -12098,7 +11814,7 @@
 			"isChatting": false,
 			"highlightedUserIds": [],
 			"isFocused": true,
-			"devicePixelRatio": 1,
+			"devicePixelRatio": 1.25,
 			"isCoarsePointer": false,
 			"isHoveringCanvas": true,
 			"openMenus": [],
@@ -13651,30 +13367,6 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Create order schema"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Add server action for create order, update order status, delete order"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
 									"text": "3) Show order data in the admin order page"
 								}
 							]
@@ -13796,18 +13488,6 @@
 								{
 									"type": "text",
 									"text": "13 Add filters"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "14) Add breadcrumb"
 								}
 							]
 						},
@@ -14417,31 +14097,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "3) Add role based acccess"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
 									"text": "4) Check signin before making order"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) fix sigin button after login"
 								}
 							]
 						}

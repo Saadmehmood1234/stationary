@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Loader2, ArrowLeft, Save, AlertCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
+import toast from 'react-hot-toast';
 interface EditProductFormProps {
   product: Product
 }
@@ -80,9 +81,11 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
       
       if (result.success) {
         router.push('/admin/products')
+        toast.success("Product Updated Successfully!")
         router.refresh()
       } else {
         setServerError(result.error || 'Failed to update product')
+        toast.success("Error in Updating the product")
       }
     } catch (error) {
       setServerError('An unexpected error occurred')
@@ -138,7 +141,7 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-[#D5D502] to-[#DACF00] bg-clip-text text-transparent">
             Edit Product
           </h1>
           <p className="text-gray-300 mt-1">Update product information and inventory details</p>
@@ -160,7 +163,7 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
           transition={{ delay: 0.1 }}
         >
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-blue-400"></div>
+            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-[#DACF00]"></div>
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-white">Basic Information</CardTitle>
               <CardDescription className="text-gray-300">
@@ -253,7 +256,7 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
           transition={{ delay: 0.2 }}
         >
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-blue-400 to-[#D5D502]"></div>
+            <div className="h-1 bg-gradient-to-r from-[#DACF00] to-[#D5D502]"></div>
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-white">Pricing & Inventory</CardTitle>
               <CardDescription className="text-gray-300">
@@ -359,14 +362,14 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
                     onValueChange={(value) => handleSelectChange('status', value)}
                     disabled={isLoading}
                   >
-                    <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-xl focus:ring-2 focus:ring-[#D5D502]/50">
+                    <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-xl cursor-pointer focus:ring-2 focus:ring-[#D5D502]/50">
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1f2937] border-white/20">
-                      <SelectItem value="active" className="focus:bg-white/10">Active</SelectItem>
-                      <SelectItem value="inactive" className="focus:bg-white/10">Inactive</SelectItem>
-                      <SelectItem value="out_of_stock" className="focus:bg-white/10">Out of Stock</SelectItem>
-                      <SelectItem value="discontinued" className="focus:bg-white/10">Discontinued</SelectItem>
+                    <SelectContent className="bg-[#1f2937] text-white cursor-pointer   border-white/20">
+                      <SelectItem value="active" className="focus:text-gray-900 cursor-pointer focus:bg-gradient-to-b focus:from-[#EFB200] focus:to-[#D8D200]">Active</SelectItem>
+                      <SelectItem value="inactive" className="focus:text-gray-900 cursor-pointer focus:bg-gradient-to-b focus:from-[#EFB200] focus:to-[#D8D200]">Inactive</SelectItem>
+                      <SelectItem value="out_of_stock" className="focus:text-gray-900 cursor-pointer focus:bg-gradient-to-b focus:from-[#EFB200] focus:to-[#D8D200]">Out of Stock</SelectItem>
+                      <SelectItem value="discontinued" className="focus:text-gray-900 cursor-pointer focus:bg-gradient-to-b focus:from-[#EFB200] focus:to-[#D8D200]">Discontinued</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -382,7 +385,7 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
           transition={{ delay: 0.3 }}
         >
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-purple-400"></div>
+            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-[#DACF00]"></div>
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-white">Category & Brand</CardTitle>
               <CardDescription className="text-gray-300">
@@ -442,14 +445,14 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
             variant="outline"
             onClick={() => router.back()}
             disabled={isLoading}
-            className="border-white/20 text-white hover:bg-white/10 rounded-xl"
+            className="border-white/20 bg-gray-700 hover:text-gray-200 text-white hover:bg-white/10 rounded-full cursor-pointer"
           >
             Cancel
           </Button>
           <Button 
             type="submit" 
             disabled={isLoading}
-            className="bg-gradient-to-r from-[#D5D502] to-blue-500 hover:from-[#c4c401] hover:to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#D5D502]/20 border-0 min-w-32"
+            className="bg-gradient-to-r from-[#D5D502] to-[#DACF00] hover:from-[#c4c401] hover:to-[#DACF00] text-gray-900 cursor-pointer font-semibold rounded-full transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#D5D502]/20 border-0 min-w-32"
           >
             {isLoading ? (
               <>

@@ -383,36 +383,7 @@ export default function ModernPrintingPage() {
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Header Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
-          >
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6"
-            >
-              Our <span className="text-[#D5D506]">Printing</span> Services
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-slate-300 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed"
-            >
-              From simple documents to complex projects, we handle all your
-              printing needs with
-              <span className="text-[#D5D506] font-semibold">
-                {" "}
-                precision and care
-              </span>
-            </motion.p>
-          </motion.div>
+         
 
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
@@ -438,7 +409,7 @@ export default function ModernPrintingPage() {
                   {/* Service Icon */}
                   <div className="relative z-10 mb-6">
                     <div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4`}
+                      className={`w-16 h-16 rounded-full bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4`}
                     >
                       {service.icon}
                     </div>

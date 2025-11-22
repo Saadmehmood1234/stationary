@@ -1,56 +1,56 @@
-"use client";
+'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Printer, RefreshCw } from 'lucide-react';
-
-const mockOrder = {
-  _id: '1',
-  orderNumber: 'ORD-001',
-  customer: {
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '+1-555-0123'
-  },
-  items: [
-    {
-      productId: 'prod-1',
-      name: 'Premium Gel Pen - Blue',
-      sku: 'PEN-GEL-BLUE-07',
-      quantity: 2,
-      price: 3.99,
-      total: 7.98
-    },
-    {
-      productId: 'prod-2',
-      name: 'A5 Lined Notebook',
-      sku: 'NB-A5-LIN-120',
-      quantity: 1,
-      price: 8.99,
-      total: 8.99
-    }
-  ],
-  subtotal: 16.97,
-  tax: 1.44,
-  total: 18.41,
-  status: 'pending',
-  paymentStatus: 'paid',
-  collectionMethod: 'pickup',
-  notes: 'Please pack carefully. Customer prefers blue ink pens.',
-  createdAt: new Date('2024-01-15T10:30:00'),
-  updatedAt: new Date('2024-01-15T10:30:00')
-};
+import { Order } from '@/types';
+import { getOrderById } from '@/app/actions/order.actions';
 
 export default function OrderDetailPage() {
-  const order = mockOrder;
+  const params = useParams();
+  const orderId = params.id as string;
+  
+  const [order, setOrder] = useState<Order | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!order) {
-    notFound();
-  }
+  const fetchOrder = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await getOrderById(orderId);
+      
+      if (result.success && result.data) {
+        setOrder(result.data);
+      } else {
+        setError(result.message || 'Failed to load order');
+      }
+    } catch (err) {
+      console.error('Error fetching order:', err);
+      setError('Failed to load order details');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (orderId) {
+      fetchOrder();
+    }
+  }, [orderId]);
+
+  const handleRefresh = () => {
+    fetchOrder();
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -71,6 +71,48 @@ export default function OrderDetailPage() {
       default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
     }
   };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+    }).format(amount);
+  };
+
+  if (loading) {
+    return (
+      <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
+        <div className="relative max-w-7xl mx-auto">
+          <div className="flex justify-center items-center min-h-96">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D5D502] mx-auto mb-4"></div>
+              <p className="text-gray-300">Loading order details...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !order) {
+    return (
+      <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
+        <div className="relative max-w-7xl mx-auto">
+          <div className="flex flex-col items-center justify-center min-h-96 text-center">
+            <div className="text-red-400 text-xl mb-4">⚠️</div>
+            <h2 className="text-2xl font-bold text-white mb-2">Order Not Found</h2>
+            <p className="text-gray-300 mb-6">{error || 'The order you are looking for does not exist.'}</p>
+            <Link
+              href="/admin/orders"
+              className="bg-gradient-to-r from-[#D5D502] to-yellow-500 hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 px-6 py-3 rounded-full font-medium transition-all duration-200"
+            >
+              Back to Orders
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
@@ -150,20 +192,29 @@ export default function OrderDetailPage() {
                 Placed on {new Date(order.createdAt).toLocaleDateString()} at{' '}
                 {new Date(order.createdAt).toLocaleTimeString()}
               </p>
+              <p className="text-gray-400 text-sm mt-1">
+                Last updated: {new Date(order.updatedAt).toLocaleDateString()} at{' '}
+                {new Date(order.updatedAt).toLocaleTimeString()}
+              </p>
             </div>
           </div>
           
           <div className="flex space-x-3">
             <Button 
               variant="outline"
+              onClick={handlePrint}
               className="border-white/20 text-white hover:text-white cursor-pointer hover:bg-gray-800/10 rounded-full bg-gray-800"
             >
               <Printer className="h-4 w-4 mr-2" />
               Print
             </Button>
-            <Button className="bg-gradient-to-r from-[#D5D502] to-[#D5D502] hover:from-[#c4c401] hover:to-[#D5D502]/90 text-gray-900 cursor-pointer border-0 rounded-full">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Update Status
+            <Button 
+              onClick={handleRefresh}
+              disabled={loading}
+              className="bg-gradient-to-r from-[#D5D502] to-yellow-500 hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 cursor-pointer border-0 rounded-full"
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+              {loading ? 'Refreshing...' : 'Refresh'}
             </Button>
           </div>
         </motion.div>
@@ -180,6 +231,9 @@ export default function OrderDetailPage() {
                 <div className="h-1 bg-gradient-to-r from-[#D5D502] to-[#D5D502]/70"></div>
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-white">Order Items</CardTitle>
+                  <CardDescription className="text-gray-300">
+                    {order.items.length} item{order.items.length !== 1 ? 's' : ''} in this order
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="p-6">
                   <div className="space-y-4">
@@ -194,10 +248,11 @@ export default function OrderDetailPage() {
                         <div className="flex-1">
                           <p className="font-medium text-white text-lg">{item.name}</p>
                           <p className="text-sm text-gray-400">SKU: {item.sku}</p>
+                          <p className="text-sm text-gray-400">Price: {formatCurrency(item.price)} each</p>
                         </div>
                         <div className="text-right">
                           <p className="text-gray-400">Qty: {item.quantity}</p>
-                          <p className="font-semibold text-white text-lg">₹{item.total.toFixed(2)}</p>
+                          <p className="font-semibold text-white text-lg">{formatCurrency(item.total)}</p>
                         </div>
                       </motion.div>
                     ))}
@@ -265,6 +320,7 @@ export default function OrderDetailPage() {
               </Card>
             </motion.div>
 
+            {/* Customer Information Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -283,16 +339,28 @@ export default function OrderDetailPage() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Email</p>
-                      <p className="text-white font-medium">{order.customer.email}</p>
+                      <a 
+                        href={`mailto:${order.customer.email}`}
+                        className="text-[#D5D502] font-medium hover:text-[#D5D502]/70 transition-colors"
+                      >
+                        {order.customer.email}
+                      </a>
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Phone</p>
-                      <p className="text-white font-medium">{order.customer.phone}</p>
+                      <a 
+                        href={`tel:${order.customer.phone}`}
+                        className="text-white font-medium hover:text-gray-300 transition-colors"
+                      >
+                        {order.customer.phone}
+                      </a>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
+
+            {/* Order Total Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -307,15 +375,15 @@ export default function OrderDetailPage() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-gray-300">Subtotal:</span>
-                      <span className="text-white">₹{order.subtotal.toFixed(2)}</span>
+                      <span className="text-white">{formatCurrency(order.subtotal)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-300">Tax:</span>
-                      <span className="text-white">₹{order.tax.toFixed(2)}</span>
+                      <span className="text-white">{formatCurrency(order.tax)}</span>
                     </div>
                     <div className="flex justify-between text-lg font-semibold border-t border-white/10 pt-3">
                       <span className="text-white">Total:</span>
-                      <span className="text-[#D5D502]">₹{order.total.toFixed(2)}</span>
+                      <span className="text-[#D5D502]">{formatCurrency(order.total)}</span>
                     </div>
                   </div>
                 </CardContent>

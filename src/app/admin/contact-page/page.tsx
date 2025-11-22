@@ -65,7 +65,13 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-
+import EditSubject from "@/components/EditSubject";
+import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
+import toast from "react-hot-toast";
+interface EditingData {
+  contactId: string;
+  subject: string;
+}
 export default function AdminContactsPage() {
   const [contacts, setContacts] = useState<ContactDocument[]>([]);
   const [pagination, setPagination] = useState<
@@ -79,7 +85,24 @@ export default function AdminContactsPage() {
   const [dateRange, setDateRange] = useState<
     { from: Date; to: Date } | undefined
   >();
-
+  const [editingModal, setEditingModal] = useState<{
+    isOpen: boolean;
+    contactId: string;
+    subject: string;
+  }>({
+    isOpen: false,
+    contactId: "",
+    subject: "",
+  });
+  const [deleteModal, setDeleteModal] = useState<{
+    isOpen: boolean;
+    contactId: string;
+    contactName: string;
+  }>({
+    isOpen: false,
+    contactId: "",
+    contactName: "",
+  });
   const debouncedSearch = useDebounce(search, 300);
 
   const fetchContacts = useCallback(
@@ -140,12 +163,12 @@ export default function AdminContactsPage() {
   }, [currentPage, debouncedSearch, filters, dateRange, fetchContacts]);
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this contact?")) return;
-
     try {
       const result = await deleteContact(id);
       if (result.success) {
         fetchContacts(currentPage, debouncedSearch, filters);
+        setDeleteModal({ isOpen: false, contactId: "", contactName: "" });
+        toast.success("Deleted Successfully!")
       } else {
         alert(result.message);
       }
@@ -163,6 +186,8 @@ export default function AdminContactsPage() {
       const result = await updateContact(id, updates);
       if (result.success) {
         fetchContacts(currentPage, debouncedSearch, filters);
+        setEditingModal({ isOpen: false, contactId: "", subject: "" });
+         toast.success("Updated Successfully!")
       } else {
         alert(result.message);
       }
@@ -171,7 +196,6 @@ export default function AdminContactsPage() {
       alert("Failed to update contact");
     }
   };
-
   const clearFilters = () => {
     setSearch("");
     setFilters({});
@@ -192,7 +216,20 @@ export default function AdminContactsPage() {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
-
+  const openDeleteModal = (contactId: string, contactName: string) => {
+    setDeleteModal({
+      isOpen: true,
+      contactId,
+      contactName,
+    });
+  };
+  const handleEditing = (subject: string, contactId: string) => {
+    setEditingModal({
+      isOpen: true,
+      contactId,
+      subject,
+    });
+  };
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
       {/* Animated Background Elements */}
@@ -223,7 +260,7 @@ export default function AdminContactsPage() {
           }}
           style={{ top: "60%", right: "10%" }}
         />
-        
+
         {/* Floating particles */}
         {[...Array(6)].map((_, i) => (
           <motion.div
@@ -253,13 +290,13 @@ export default function AdminContactsPage() {
           animate={{ opacity: 1, y: 0 }}
         >
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-[#D5D502]/80"></div>
             <CardHeader>
               <CardTitle className="text-3xl font-bold bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
                 Contact Submissions
               </CardTitle>
               <CardDescription className="text-gray-300 text-lg">
-                Manage and review all contact form submissions from your website.
+                Manage and review all contact form submissions from your
+                website.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -281,14 +318,14 @@ export default function AdminContactsPage() {
                     placeholder="Search contacts..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="pl-10 bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#D5D502]/50"
+                    className="pl-10 bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-full focus:ring-2 focus:ring-[#D5D502]/50"
                   />
                 </div>
 
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full sm:w-auto rounded-full border-white/20 text-white bg-gray-800 cursor-pointer hover:text-gray-100 hover:bg-gray-800/10"
                     >
                       <Filter className="h-4 w-4 mr-2" />
@@ -298,14 +335,16 @@ export default function AdminContactsPage() {
                   <PopoverContent className="w-80 bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20 text-white">
                     <div className="space-y-4">
                       <div>
-                        <label className="text-sm font-medium text-gray-200">Date Range</label>
+                        <label className="text-sm font-medium text-gray-200">
+                          Date Range
+                        </label>
                         <div className="grid gap-2">
                           <Popover>
                             <PopoverTrigger asChild>
                               <Button
                                 variant="outline"
                                 className={cn(
-                                  "w-full justify-start text-left font-normal bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl",
+                                  "w-full cursor-pointer justify-start text-left font-normal bg-white/10 border-white/20 text-white hover:text-white hover:bg-white/20 rounded-xl",
                                   !dateRange && "text-gray-400"
                                 )}
                               >
@@ -324,7 +363,10 @@ export default function AdminContactsPage() {
                                 )}
                               </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20" align="start">
+                            <PopoverContent
+                              className="w-auto p-0 bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20"
+                              align="start"
+                            >
                               <Calendar
                                 initialFocus
                                 mode="range"
@@ -357,7 +399,9 @@ export default function AdminContactsPage() {
                       </div>
 
                       <div>
-                        <label className="text-sm font-medium text-gray-200">Subject</label>
+                        <label className="text-sm  font-medium text-gray-200">
+                          Subject
+                        </label>
                         <Select
                           value={filters.subject || ""}
                           onValueChange={(value) =>
@@ -367,13 +411,22 @@ export default function AdminContactsPage() {
                             }))
                           }
                         >
-                          <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-xl">
+                          <SelectTrigger className="bg-white/10 cursor-pointer border-white/20 text-white rounded-xl">
                             <SelectValue placeholder="Select subject" />
                           </SelectTrigger>
-                          <SelectContent className="text-white hover:text-white bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20">
-                            <SelectItem value="all" className="focus:bg-white/10 text-white">All subjects</SelectItem>
+                          <SelectContent className="text-white cursor-pointer hover:text-white bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20">
+                            <SelectItem
+                              value="all"
+                              className="focus:bg-white/10 text-white"
+                            >
+                              All subjects
+                            </SelectItem>
                             {subjects.map((subject) => (
-                              <SelectItem key={subject} value={subject} className="focus:bg-white/10 text-white">
+                              <SelectItem
+                                key={subject}
+                                value={subject}
+                                className="focus:bg-white/10 focus:text-white cursor-pointer text-white"
+                              >
                                 {truncateText(subject, 30)}
                               </SelectItem>
                             ))}
@@ -392,9 +445,11 @@ export default function AdminContactsPage() {
                   </PopoverContent>
                 </Popover>
 
-                <Button 
-                  onClick={() => fetchContacts(currentPage, debouncedSearch, filters)}
-                  className="bg-gradient-to-r from-[#D5D502] to-yellow-500 hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 border-0 rounded-full"
+                <Button
+                  onClick={() =>
+                    fetchContacts(currentPage, debouncedSearch, filters)
+                  }
+                  className="cursor-pointer bg-gradient-to-r from-[#D5D502] to-yellow-500 hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 border-0 rounded-full"
                 >
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Refresh
@@ -403,19 +458,30 @@ export default function AdminContactsPage() {
 
               {/* Pagination Info */}
               {pagination && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="flex flex-col sm:flex-row justify-between items-center mb-4 p-3 bg-white/5 rounded-xl gap-2 border border-white/10"
                 >
                   <p className="text-sm text-gray-300">
-                    Showing <strong className="text-white">{(currentPage - 1) * 10 + 1}</strong> to{" "}
+                    Showing{" "}
+                    <strong className="text-white">
+                      {(currentPage - 1) * 10 + 1}
+                    </strong>{" "}
+                    to{" "}
                     <strong className="text-white">
                       {Math.min(currentPage * 10, pagination.totalContacts)}
                     </strong>{" "}
-                    of <strong className="text-white">{pagination.totalContacts}</strong> contacts
+                    of{" "}
+                    <strong className="text-white">
+                      {pagination.totalContacts}
+                    </strong>{" "}
+                    contacts
                   </p>
-                  <Badge variant="outline" className="bg-white/10 text-gray-300 border-white/20">
+                  <Badge
+                    variant="outline"
+                    className="bg-white/10 text-gray-300 border-white/20"
+                  >
                     Page {pagination.currentPage} of {pagination.totalPages}
                   </Badge>
                 </motion.div>
@@ -425,24 +491,41 @@ export default function AdminContactsPage() {
               {loading ? (
                 <div className="space-y-2">
                   {[...Array(5)].map((_, i) => (
-                    <Skeleton key={i} className="h-12 w-full bg-white/10 rounded-xl" />
+                    <Skeleton
+                      key={i}
+                      className="h-12 w-full bg-white/10 rounded-xl"
+                    />
                   ))}
                 </div>
               ) : contacts.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="text-gray-400 text-lg">No contact submissions found.</div>
+                  <div className="text-gray-400 text-lg">
+                    No contact submissions found.
+                  </div>
                 </div>
               ) : (
                 <div className="rounded-xl border border-white/20 overflow-hidden">
                   <Table>
                     <TableHeader className="bg-white/5">
                       <TableRow className="border-white/10 hover:bg-transparent">
-                        <TableHead className="text-gray-300 font-semibold">Name</TableHead>
-                        <TableHead className="text-gray-300 font-semibold">Email</TableHead>
-                        <TableHead className="text-gray-300 font-semibold">Subject</TableHead>
-                        <TableHead className="text-gray-300 font-semibold">Message</TableHead>
-                        <TableHead className="text-gray-300 font-semibold">Date Submitted</TableHead>
-                        <TableHead className="text-gray-300 font-semibold w-[80px]">Actions</TableHead>
+                        <TableHead className="text-gray-300 font-semibold">
+                          Name
+                        </TableHead>
+                        <TableHead className="text-gray-300 font-semibold">
+                          Email
+                        </TableHead>
+                        <TableHead className="text-gray-300 font-semibold">
+                          Subject
+                        </TableHead>
+                        <TableHead className="text-gray-300 font-semibold">
+                          Message
+                        </TableHead>
+                        <TableHead className="text-gray-300 font-semibold">
+                          Date Submitted
+                        </TableHead>
+                        <TableHead className="text-gray-300 font-semibold w-[80px]">
+                          Actions
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -455,7 +538,9 @@ export default function AdminContactsPage() {
                           className="border-white/10 hover:bg-white/5 transition-colors duration-200"
                         >
                           <TableCell className="font-medium">
-                            <div className="font-semibold text-white">{contact.name}</div>
+                            <div className="font-semibold text-white">
+                              {contact.name}
+                            </div>
                           </TableCell>
                           <TableCell>
                             <a
@@ -490,12 +575,18 @@ export default function AdminContactsPage() {
                           <TableCell>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-white/10 rounded-xl">
+                                <Button
+                                  variant="ghost"
+                                  className="h-8 w-8 p-0 cursor-pointer hover:bg-white/10 rounded-xl"
+                                >
                                   <span className="sr-only">Open menu</span>
                                   <MoreHorizontal className="h-4 w-4 text-gray-400" />
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20 text-white">
+                              <DropdownMenuContent
+                                align="end"
+                                className="cursor-pointer bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 border-white/20 text-white"
+                              >
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                 <DropdownMenuItem
                                   onClick={() =>
@@ -503,35 +594,26 @@ export default function AdminContactsPage() {
                                       `mailto:${contact.email}?subject=Re: ${contact.subject}`
                                     )
                                   }
-                                  className="focus:bg-white/10"
+                                  className="focus:bg-white/10 cursor-pointer hover:bg-gray-800 hover:text-white"
                                 >
                                   <Mail className="h-4 w-4 mr-2" />
                                   Reply
                                 </DropdownMenuItem>
-                                <DropdownMenuSeparator className="bg-white/20" />
+                                <DropdownMenuSeparator className="bg-white/20 cursor-pointer" />
                                 <DropdownMenuItem
-                                  onClick={() => {
-                                    const newSubject = prompt(
-                                      "Enter new subject:",
-                                      contact.subject
-                                    );
-                                    if (
-                                      newSubject &&
-                                      newSubject !== contact.subject
-                                    ) {
-                                      handleUpdate(contact._id, {
-                                        subject: newSubject,
-                                      });
-                                    }
-                                  }}
-                                  className="focus:bg-white/10"
+                                  onClick={() =>
+                                    handleEditing(contact.subject, contact._id)
+                                  }
+                                  className="focus:bg-white/10 cursor-pointer"
                                 >
                                   <Edit className="h-4 w-4 mr-2" />
                                   Edit Subject
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                  onClick={() => handleDelete(contact._id)}
-                                  className="text-red-400 focus:bg-red-500/10 focus:text-red-300"
+                                  onClick={() =>
+                                    openDeleteModal(contact._id, contact.name)
+                                  }
+                                  className="text-red-400 cursor-pointer focus:bg-red-500/10 focus:text-red-300"
                                 >
                                   <Trash2 className="h-4 w-4 mr-2" />
                                   Delete
@@ -546,7 +628,7 @@ export default function AdminContactsPage() {
                 </div>
               )}
               {pagination && pagination.totalPages > 1 && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
@@ -590,6 +672,28 @@ export default function AdminContactsPage() {
           </Card>
         </motion.div>
       </div>
+      {editingModal.isOpen && (
+        <EditSubject
+          handleUpdate={handleUpdate}
+          subject={editingModal.subject}
+          contactId={editingModal.contactId}
+          isOpen={editingModal.isOpen}
+          onClose={() =>
+            setEditingModal({ isOpen: false, contactId: "", subject: "" })
+          }
+        />
+      )}
+      {deleteModal.isOpen && (
+        <ConfirmDeleteModal
+          isOpen={deleteModal.isOpen}
+          onClose={() =>
+            setDeleteModal({ isOpen: false, contactId: "", contactName: "" })
+          }
+          onConfirm={() => handleDelete(deleteModal.contactId)}
+          title="Delete Contact"
+          description={`Are you sure you want to delete the contact from "${deleteModal.contactName}"? This action cannot be undone.`}
+        />
+      )}
     </div>
   );
 }

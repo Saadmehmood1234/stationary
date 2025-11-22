@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Order } from '@/types';
 import { motion } from 'framer-motion';
@@ -16,84 +16,58 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Eye, RefreshCw } from 'lucide-react';
+import { getOrders } from '@/app/actions/order.actions';
 
-const mockOrders: Order[] = [
-  {
-    _id: '1',
-    orderNumber: 'ORD-001',
-    customer: {
-      name: 'John Doe',
-      email: 'john@example.com',
-      phone: '+1-555-0123'
-    },
-    items: [
-      {
-        productId: 'prod-1',
-        name: 'Premium Gel Pen - ',
-        sku: 'PEN-GEL--07',
-        quantity: 2,
-        price: 3.99,
-        total: 7.98
-      },
-      {
-        productId: 'prod-2',
-        name: 'A5 Lined Notebook',
-        sku: 'NB-A5-LIN-120',
-        quantity: 1,
-        price: 8.99,
-        total: 8.99
-      }
-    ],
-    subtotal: 16.97,
-    tax: 1.44,
-    total: 18.41,
-    status: 'pending',
-    paymentStatus: 'paid',
-    collectionMethod: 'pickup',
-    notes: 'Please pack carefully',
-    createdAt: new Date('2024-01-15T10:30:00'),
-    updatedAt: new Date('2024-01-15T10:30:00')
-  },
-  {
-    _id: '2',
-    orderNumber: 'ORD-002',
-    customer: {
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      phone: '+1-555-0124'
-    },
-    items: [
-      {
-        productId: 'prod-3',
-        name: 'Art Marker Set - 12 Colors',
-        sku: 'MARKER-ART-12SET',
-        quantity: 1,
-        price: 24.99,
-        total: 24.99
-      }
-    ],
-    subtotal: 24.99,
-    tax: 2.12,
-    total: 27.11,
-    status: 'ready',
-    paymentStatus: 'paid',
-    collectionMethod: 'pickup',
-    createdAt: new Date('2024-01-15T09:15:00'),
-    updatedAt: new Date('2024-01-15T11:20:00')
-  }
-];
+interface PaginationInfo {
+  currentPage: number;
+  totalPages: number;
+  totalOrders: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
 
 export default function OrdersPage() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [pagination, setPagination] = useState<PaginationInfo | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredOrders = statusFilter === 'all' 
-    ? mockOrders 
-    : mockOrders.filter(order => order.status === statusFilter);
+  const fetchOrders = async (page: number = 1, status: string = 'all') => {
+    setLoading(true);
+    try {
+      const result = await getOrders(page, 10, status !== 'all' ? status : undefined);
+      
+      if (result.success && result.data) {
+        setOrders(result.data.orders);
+        setPagination(result.data.pagination);
+      } else {
+        console.error('Failed to fetch orders:', result.message);
+      }
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders(currentPage, statusFilter);
+  }, [currentPage, statusFilter]);
+
+  const handleRefresh = () => {
+    fetchOrders(currentPage, statusFilter);
+  };
+
+  const handleStatusFilterChange = (status: string) => {
+    setStatusFilter(status);
+    setCurrentPage(1);
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
-      case 'confirmed': return 'bg--500/20 text--300 border--500/30';
+      case 'confirmed': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
       case 'ready': return 'bg-green-500/20 text-green-300 border-green-500/30';
       case 'completed': return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
       case 'cancelled': return 'bg-red-500/20 text-red-300 border-red-500/30';
@@ -111,11 +85,19 @@ export default function OrdersPage() {
   };
 
   const filterButtons = [
-    { key: 'all', label: 'All Orders', color: 'from-[#D5D502] to-[#D5D506]' },
-    { key: 'pending', label: 'Pending', color: 'from-[#D5D502] to-[#D5D506]' },
-    { key: 'ready', label: 'Ready for Pickup', color: 'from-[#D5D502] to-[#D5D506]' },
-    { key: 'completed', label: 'Completed', color: 'from-[#D5D502] to-[#D5D506]' },
+    { key: 'all', label: 'All Orders', color: 'from-[#D5D502] to-yellow-500' },
+    { key: 'pending', label: 'Pending', color: 'from-[#D5D502] to-yellow-500' },
+    { key: 'confirmed', label: 'Confirmed', color: 'from-[#D5D502] to-yellow-500' },
+    { key: 'ready', label: 'Ready for Pickup', color: 'from-[#D5D502] to-yellow-500' },
+    { key: 'completed', label: 'Completed', color: 'from-[#D5D502] to-yellow-500' },
   ];
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+    }).format(amount);
+  };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
@@ -135,7 +117,7 @@ export default function OrdersPage() {
           style={{ top: "10%", left: "5%" }}
         />
         <motion.div
-          className="absolute w-72 h-72 bg--500 rounded-full blur-3xl opacity-10"
+          className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-10"
           animate={{
             x: [0, -80, 0],
             y: [0, 60, 0],
@@ -178,14 +160,18 @@ export default function OrdersPage() {
           className="flex justify-between items-center mb-8"
         >
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-[#D5D502] to--200 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-[#D5D502] to-blue-200 bg-clip-text text-transparent">
               Orders
             </h1>
             <p className="text-gray-300 mt-2 text-lg">Manage customer orders</p>
           </div>
-          <Button className="bg-gradient-to-r from-[#D5D502] to-[#D5D506] rounded-full cursor-pointer hover:from-[#c4c401] hover:to--600 text-gray-900 border-0">
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
+          <Button 
+            onClick={handleRefresh}
+            disabled={loading}
+            className="bg-gradient-to-r from-[#D5D502] to-yellow-500 rounded-full cursor-pointer hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 border-0"
+          >
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            {loading ? 'Loading...' : 'Refresh'}
           </Button>
         </motion.div>
 
@@ -197,18 +183,19 @@ export default function OrdersPage() {
           className="mb-8"
         >
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-[#D5D502] to--400"></div>
+            <div className="h-1 bg-gradient-to-r from-[#D5D502] to-yellow-400"></div>
             <CardContent className="p-6">
               <div className="flex flex-wrap gap-3">
                 {filterButtons.map((filter) => (
                   <button
                     key={filter.key}
-                    onClick={() => setStatusFilter(filter.key)}
+                    onClick={() => handleStatusFilterChange(filter.key)}
+                    disabled={loading}
                     className={`px-6 py-3 rounded-full transition-all cursor-pointer duration-300 font-medium ${
                       statusFilter === filter.key
-                        ? `bg-gradient-to-r ${filter.color} text-gray-900 shadow-lg shadow-${filter.color.split('-')[1]}-500/25`
+                        ? `bg-gradient-to-r ${filter.color} text-gray-900 shadow-lg shadow-yellow-500/25`
                         : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-white/20'
-                    }`}
+                    } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     {filter.label}
                   </button>
@@ -225,20 +212,32 @@ export default function OrdersPage() {
           transition={{ delay: 0.2 }}
         >
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from--400 to-[#D5D502]"></div>
+            <div className="h-1 bg-gradient-to-r from-yellow-400 to-[#D5D502]"></div>
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-white">
                 Order Management
               </CardTitle>
               <CardDescription className="text-gray-300">
-                {filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''} found
+                {loading ? 'Loading orders...' : `${orders.length} order${orders.length !== 1 ? 's' : ''} found`}
+                {pagination && ` • Page ${pagination.currentPage} of ${pagination.totalPages}`}
               </CardDescription>
             </CardHeader>
             <CardContent className="p-0">
-              {filteredOrders.length === 0 ? (
+              {loading ? (
+                <div className="space-y-4 p-6">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="h-16 bg-white/10 rounded-xl animate-pulse"></div>
+                  ))}
+                </div>
+              ) : orders.length === 0 ? (
                 <div className="text-center py-16">
                   <div className="text-gray-400 text-xl mb-2">No orders found</div>
-                  <p className="text-gray-500">No orders match your current filter criteria</p>
+                  <p className="text-gray-500">
+                    {statusFilter === 'all' 
+                      ? 'No orders have been placed yet.' 
+                      : `No orders match the "${statusFilter}" status.`
+                    }
+                  </p>
                 </div>
               ) : (
                 <div className="overflow-hidden">
@@ -256,12 +255,12 @@ export default function OrdersPage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredOrders.map((order, index) => (
+                      {orders.map((order, index) => (
                         <motion.tr
                           key={order._id}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
+                          transition={{ delay: index * 0.05 }}
                           className="border-white/10 hover:bg-white/5 transition-colors duration-200"
                         >
                           <TableCell>
@@ -290,7 +289,9 @@ export default function OrdersPage() {
                             </div>
                           </TableCell>
                           <TableCell>
-                            <div className="font-semibold text-white">₹{order.total.toFixed(2)}</div>
+                            <div className="font-semibold text-white">
+                              {formatCurrency(order.total)}
+                            </div>
                           </TableCell>
                           <TableCell>
                             <Badge 
@@ -322,7 +323,7 @@ export default function OrdersPage() {
                             <div className="flex space-x-3">
                               <Link
                                 href={`/admin/orders/${order._id}`}
-                                className="text-gray-400 hover:text--300 transition-colors duration-200 flex items-center gap-1"
+                                className="text-gray-400 hover:text-blue-300 transition-colors duration-200 flex items-center gap-1"
                               >
                                 <Eye className="h-4 w-4 text-gray-200" />
                                 View
@@ -336,6 +337,35 @@ export default function OrdersPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+              )}
+
+              {/* Pagination */}
+              {pagination && pagination.totalPages > 1 && (
+                <div className="flex justify-between items-center p-6 border-t border-white/10">
+                  <div className="text-sm text-gray-400">
+                    Showing {orders.length} of {pagination.totalOrders} orders
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(pagination.currentPage - 1)}
+                      disabled={!pagination.hasPrevPage || loading}
+                      className="border-white/20 text-white hover:bg-white/10 rounded-full"
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(pagination.currentPage + 1)}
+                      disabled={!pagination.hasNextPage || loading}
+                      className="border-white/20 text-white hover:bg-white/10 rounded-full"
+                    >
+                      Next
+                    </Button>
+                  </div>
                 </div>
               )}
             </CardContent>
