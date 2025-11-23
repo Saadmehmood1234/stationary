@@ -6,6 +6,137 @@ import dbConnect from "@/lib/dbConnect";
 import { CreatePrintOrderInput } from "@/types";
 import { uploadFile, validateFile, deleteFile } from "@/lib//fileUpload";
 import { PrintOrder as PrintOrderType } from '@/types'; 
+
+// Add this function to get daily print statistics
+async function getDailyPrintStats() {
+  try {
+    const today = new Date();
+    const last7Days = new Date(today);
+    last7Days.setDate(today.getDate() - 6); // Last 7 days including today
+
+    const dailyStats = await PrintOrder.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: last7Days }
+        }
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: "%Y-%m-%d",
+              date: "$createdAt"
+            }
+          },
+          count: { $sum: 1 },
+          totalRevenue: { $sum: "$estimatedCost" }
+        }
+      },
+      {
+        $sort: { _id: 1 }
+      },
+      {
+        $project: {
+          date: "$_id",
+          count: 1,
+          totalRevenue: 1,
+          _id: 0
+        }
+      }
+    ]);
+
+    // Fill in missing days with zero values
+    const filledStats = [];
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      const dateString = date.toISOString().split('T')[0];
+      
+      const existingStat = dailyStats.find(stat => stat.date === dateString);
+      
+      if (existingStat) {
+        filledStats.push({
+          label: getDayLabel(date),
+          value: existingStat.count,
+          revenue: existingStat.totalRevenue || 0
+        });
+      } else {
+        filledStats.push({
+          label: getDayLabel(date),
+          value: 0,
+          revenue: 0
+        });
+      }
+    }
+
+    return filledStats;
+  } catch (error) {
+    console.error('Error fetching daily print stats:', error);
+    return [];
+  }
+}
+
+// Helper function to format day labels
+function getDayLabel(date: Date): string {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  
+  if (date.toDateString() === today.toDateString()) {
+    return 'Today';
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    return 'Yesterday';
+  } else {
+    return date.toLocaleDateString('en-US', { weekday: 'short' });
+  }
+}
+
+// Add this function to get recent print orders for dashboard
+export async function getRecentPrintOrders(limit: number = 5) {
+  try {
+    await dbConnect();
+    
+    const orders = await PrintOrder.find()
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
+    
+    return {
+      success: true,
+      data: orders.map(order => ({
+        ...order,
+        _id: (order._id as any).toString(), // Fix the TypeScript error
+        createdAt: (order.createdAt as Date).toISOString(),
+        updatedAt: (order.updatedAt as Date).toISOString()
+      }))
+    };
+  } catch (error) {
+    console.error('Error fetching recent print orders:', error);
+    return { success: false, message: 'Failed to fetch recent print orders' };
+  }
+}
+
+
+// Add this function to get printing service breakdown
+async function getPrintServiceBreakdown() {
+  try {
+    const breakdown = await PrintOrder.aggregate([
+      {
+        $group: {
+          _id: "$colorType",
+          count: { $sum: 1 },
+          totalRevenue: { $sum: "$estimatedCost" }
+        }
+      }
+    ]);
+
+    return breakdown;
+  } catch (error) {
+    console.error('Error fetching print service breakdown:', error);
+    return [];
+  }
+}
+
 export async function createPrintOrder(formData: FormData) {
   await dbConnect();
 
@@ -103,7 +234,6 @@ export async function getPrintOrders() {
   }
 }
 
-
 export async function updatePrintOrderStatus(id: string, status: string, finalCost?: number) {
   await dbConnect();
 
@@ -136,7 +266,6 @@ export async function updatePrintOrderStatus(id: string, status: string, finalCo
     return { success: false, error: 'Failed to update order status' };
   }
 }
-
 
 export async function deletePrintOrder(id: string) {
   await dbConnect();
@@ -196,4 +325,50 @@ function calculateCost(order: any): number {
   }
 
   return Math.round(cost);
+}
+
+export async function getPrintAnalytics() {
+  try {
+    await dbConnect();
+    
+    const [
+      totalPrintRequests,
+      pendingPrintRequests,
+      blackWhiteCount,
+      colorCount,
+      bindingCount,
+      laminationCount,
+      photoCount,
+      dailyPrintStats,
+      serviceBreakdown
+    ] = await Promise.all([
+      PrintOrder.countDocuments(),
+      PrintOrder.countDocuments({ status: 'pending' }),
+      PrintOrder.countDocuments({ colorType: 'bw' }), // Fixed field name
+      PrintOrder.countDocuments({ colorType: 'color' }),
+      PrintOrder.countDocuments({ binding: { $ne: 'none' } }),
+      PrintOrder.countDocuments({ lamination: { $exists: true, $ne: false } }), // Fixed lamination query
+      PrintOrder.countDocuments({ printType: 'photo' }), // Assuming you have printType field
+      getDailyPrintStats(),
+      getPrintServiceBreakdown()
+    ]);
+    
+    return {
+      success: true,
+      data: {
+        totalPrintRequests,
+        pendingPrintRequests,
+        blackWhiteCount,
+        colorCount,
+        bindingCount,
+        laminationCount,
+        photoCount,
+        dailyPrintStats,
+        serviceBreakdown
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching print analytics:', error);
+    return { success: false, message: 'Failed to fetch print analytics' };
+  }
 }

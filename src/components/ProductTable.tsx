@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Table,
   TableBody,
@@ -10,11 +10,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   Dialog,
@@ -47,6 +49,15 @@ import {
   Calculator,
   Settings,
   Hash,
+  Search,
+  Filter,
+  ArrowUpDown,
+  BarChart3,
+  TrendingDown,
+  AlertTriangle,
+  ShoppingCart,
+  DollarSign,
+  Users,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Badge } from "./ui/badge";
@@ -56,6 +67,11 @@ interface ProductTableProps {
   products?: Product[];
 }
 
+type SortField = "name" | "price" | "stock" | "status" | "sku" | "sellCount";
+type SortDirection = "asc" | "desc";
+type StatusFilter = "all" | "active" | "out_of_stock" | "draft";
+type CategoryFilter = "all" | string;
+
 const ProductTable = ({ products }: ProductTableProps) => {
   const router = useRouter();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -63,6 +79,13 @@ const ProductTable = ({ products }: ProductTableProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Search and filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
+  const [sortField, setSortField] = useState<SortField>("name");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
   const handleViewDetail = (product: Product) => {
     setSelectedProduct(product);
@@ -99,6 +122,137 @@ const ProductTable = ({ products }: ProductTableProps) => {
     }
   };
 
+  // Analytics calculations
+  const analytics = useMemo(() => {
+    if (!products) return null;
+
+    const totalProducts = products.length;
+    const totalStock = products.reduce((sum, product) => sum + product.stock, 0);
+    const totalValue = products.reduce((sum, product) => sum + (product.price * product.stock), 0);
+    const totalSales = products.reduce((sum, product) => sum + product.sellCount, 0);
+    const activeProducts = products.filter(p => p.status === "active").length;
+    const outOfStockProducts = products.filter(p => p.stock === 0).length;
+    
+    const mostSoldProduct = products.reduce((max, product) => 
+      product.sellCount > max.sellCount ? product : max, products[0]);
+    
+    const leastStockProduct = products.reduce((min, product) => 
+      product.stock < min.stock ? product : min, products[0]);
+
+    const categories = [...new Set(products.map(p => p.category))];
+    const categoryStats = categories.map(category => {
+      const categoryProducts = products.filter(p => p.category === category);
+      return {
+        category,
+        count: categoryProducts.length,
+        totalStock: categoryProducts.reduce((sum, p) => sum + p.stock, 0),
+        totalSales: categoryProducts.reduce((sum, p) => sum + p.sellCount, 0),
+      };
+    });
+
+    return {
+      totalProducts,
+      totalStock,
+      totalValue,
+      totalSales,
+      activeProducts,
+      outOfStockProducts,
+      mostSoldProduct,
+      leastStockProduct,
+      categories,
+      categoryStats,
+    };
+  }, [products]);
+
+  // Filter and sort products
+  const filteredAndSortedProducts = useMemo(() => {
+    if (!products) return [];
+
+    let filtered = products.filter((product) => {
+      // Search filter
+      const matchesSearch = 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      // Status filter
+      const matchesStatus = statusFilter === "all" || product.status === statusFilter;
+      
+      // Category filter
+      const matchesCategory = categoryFilter === "all" || product.category === categoryFilter;
+
+      return matchesSearch && matchesStatus && matchesCategory;
+    });
+
+    // Sorting
+    filtered.sort((a, b) => {
+      let aValue: any = a[sortField];
+      let bValue: any = b[sortField];
+
+      // Handle specific field types
+      if (sortField === "name") {
+        aValue = a.name.toLowerCase();
+        bValue = b.name.toLowerCase();
+      } else if (sortField === "price" || sortField === "stock" || sortField === "sellCount") {
+        aValue = Number(aValue);
+        bValue = Number(bValue);
+      }
+
+      if (aValue < bValue) {
+        return sortDirection === "asc" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortDirection === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+
+    return filtered;
+  }, [products, searchTerm, statusFilter, categoryFilter, sortField, sortDirection]);
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortDirection("asc");
+    }
+  };
+
+  // Simple bar chart component for sales visualization
+  const SalesBarChart = ({ products }: { products: Product[] }) => {
+    const topProducts = products
+      .sort((a, b) => b.sellCount - a.sellCount)
+      .slice(0, 5);
+
+    const maxSales = Math.max(...topProducts.map(p => p.sellCount));
+
+    return (
+      <div className="space-y-2">
+        {topProducts.map((product) => (
+          <div key={product._id} className="flex items-center space-x-3">
+            <div className="w-32 text-sm text-gray-300 truncate">
+              {product.name}
+            </div>
+            <div className="flex-1">
+              <div
+                className="bg-gradient-to-r from-[#D5D502] to-yellow-500 rounded-full h-4 transition-all duration-500"
+                style={{
+                  width: `${(product.sellCount / maxSales) * 100}%`,
+                }}
+              />
+            </div>
+            <div className="w-12 text-right text-sm text-white font-medium">
+              {product.sellCount}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   if (!products || products.length === 0) {
     return (
       <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/20 p-8 text-center">
@@ -113,6 +267,306 @@ const ProductTable = ({ products }: ProductTableProps) => {
 
   return (
     <>
+      {/* Analytics Dashboard */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Total Products */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardContent className="">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Total Products</p>
+                <p className="text-2xl font-bold text-white">{analytics?.totalProducts}</p>
+              </div>
+              <div className="p-3 bg-blue-500/20 rounded-full">
+                <Package className="h-6 w-6 text-blue-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Total Stock */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardContent className="">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Total Stock</p>
+                <p className="text-2xl font-bold text-white">{analytics?.totalStock}</p>
+              </div>
+              <div className="p-3 bg-green-500/20 rounded-full">
+                <Package2 className="h-6 w-6 text-green-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Total Sales */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardContent className="">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Total Sales</p>
+                <p className="text-2xl font-bold text-white">{analytics?.totalSales}</p>
+              </div>
+              <div className="p-3 bg-[#D5D502]/20 rounded-full">
+                <ShoppingCart className="h-6 w-6 text-[#D5D502]" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Stock Value */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardContent className="">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Stock Value</p>
+                <p className="text-2xl font-bold text-[#D5D502]">
+                  ₹{analytics?.totalValue.toLocaleString()}
+                </p>
+              </div>
+              <div className="p-3 bg-purple-500/20 rounded-full">
+                <DollarSign className="h-6 w-6 text-purple-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Highlights Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Most Sold Product */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-green-400" />
+              Most Sold Product
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {analytics?.mostSoldProduct && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-white font-medium truncate">
+                    {analytics.mostSoldProduct.name}
+                  </span>
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                    {analytics.mostSoldProduct.sellCount} sold
+                  </Badge>
+                </div>
+                <div className="text-sm text-gray-400">
+                  SKU: {analytics.mostSoldProduct.sku}
+                </div>
+                <div className="text-[#D5D502] font-bold">
+                  ₹{analytics.mostSoldProduct.price}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Least Stock Product */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-yellow-400" />
+              Low Stock Alert
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {analytics?.leastStockProduct && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-white font-medium truncate">
+                    {analytics.leastStockProduct.name}
+                  </span>
+                  <Badge className={`${
+                    analytics.leastStockProduct.stock === 0 
+                      ? "bg-red-500/20 text-red-400 border-red-500/30"
+                      : "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+                  }`}>
+                    {analytics.leastStockProduct.stock} left
+                  </Badge>
+                </div>
+                <div className="text-sm text-gray-400">
+                  SKU: {analytics.leastStockProduct.sku}
+                </div>
+                <div className="text-[#D5D502] font-bold">
+                  ₹{analytics.leastStockProduct.price}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Sales Chart */}
+        <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-blue-400" />
+              Top Selling Products
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <SalesBarChart products={products} />
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search and Filter Controls */}
+      <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/20 p-6 mb-6">
+        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+          {/* Search Input */}
+          <div className="relative w-full lg:w-64">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 bg-white/5 border-white/20 text-white placeholder-gray-400 rounded-full"
+            />
+          </div>
+
+          {/* Filter and Sort Controls */}
+          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+            {/* Status Filter */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="border-white/20 cursor-pointer text-gray-300 bg-white/5 rounded-full hover:bg-white/10 hover:text-white"
+                >
+                  <Filter className="h-4 w-4 mr-2" />
+                  Status: {statusFilter === "all" ? "All" : statusFilter.replace("_", " ")}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-slate-800 border border-white/20">
+                <DropdownMenuItem
+                  onClick={() => setStatusFilter("all")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  All Status
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-white/20" />
+                <DropdownMenuItem
+                  onClick={() => setStatusFilter("active")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Active
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setStatusFilter("out_of_stock")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Out of Stock
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setStatusFilter("draft")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Draft
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Category Filter */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="border-white/20 cursor-pointer text-gray-300 bg-white/5 rounded-full hover:bg-white/10 hover:text-white"
+                >
+                  <Tag className="h-4 w-4 mr-2" />
+                  Category: {categoryFilter === "all" ? "All" : categoryFilter}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-slate-800 border border-white/20 max-h-60 overflow-y-auto">
+                <DropdownMenuItem
+                  onClick={() => setCategoryFilter("all")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  All Categories
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-white/20" />
+                {analytics?.categories.map((category) => (
+                  <DropdownMenuItem
+                    key={category}
+                    onClick={() => setCategoryFilter(category)}
+                    className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white capitalize"
+                  >
+                    {category.replace(/-/g, " ")}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Sort Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="border-white/20 cursor-pointer text-gray-300 bg-white/5 rounded-full hover:bg-white/10 hover:text-white"
+                >
+                  <ArrowUpDown className="h-4 w-4 mr-2" />
+                  Sort
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-slate-800 border border-white/20">
+                <DropdownMenuItem
+                  onClick={() => handleSort("name")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Name {sortField === "name" && (sortDirection === "asc" ? "↑" : "↓")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSort("price")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Price {sortField === "price" && (sortDirection === "asc" ? "↑" : "↓")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSort("stock")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Stock {sortField === "stock" && (sortDirection === "asc" ? "↑" : "↓")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSort("sellCount")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Sales {sortField === "sellCount" && (sortDirection === "asc" ? "↑" : "↓")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSort("status")}
+                  className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                >
+                  Status {sortField === "status" && (sortDirection === "asc" ? "↑" : "↓")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+
+        {/* Results Count */}
+        <div className="mt-4 text-sm text-gray-400">
+          Showing {filteredAndSortedProducts.length} of {products.length} products
+          {(searchTerm || statusFilter !== "all" || categoryFilter !== "all") && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setSearchTerm("");
+                setStatusFilter("all");
+                setCategoryFilter("all");
+              }}
+              className="ml-2 text-xs text-[#D5D502] hover:text-[#D5D502]/80 hover:bg-[#D5D502]/10"
+            >
+              Clear filters
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Products Table */}
       <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/20 overflow-hidden">
         <div className="p-6">
           <div className="overflow-x-auto">
@@ -120,12 +574,65 @@ const ProductTable = ({ products }: ProductTableProps) => {
               <TableHeader>
                 <TableRow className="border-white/10 hover:bg-transparent">
                   <TableHead className="w-[300px] text-gray-300">
-                    Product
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleSort("name")}
+                      className="p-0 hover:bg-transparent hover:text-gray-400 cursor-pointer text-gray-300 font-semibold"
+                    >
+                      Product
+                      <ArrowUpDown className="h-4 w-4 ml-2" />
+                    </Button>
                   </TableHead>
-                  <TableHead className="text-gray-300">SKU</TableHead>
-                  <TableHead className="text-gray-300">Price</TableHead>
-                  <TableHead className="text-gray-300">Stock</TableHead>
-                  <TableHead className="text-gray-300">Status</TableHead>
+                  <TableHead className="text-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleSort("sku")}
+                      className="p-0 hover:bg-transparent hover:text-gray-400 cursor-pointer text-gray-300 font-semibold"
+                    >
+                      SKU
+                      <ArrowUpDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </TableHead>
+                  <TableHead className="text-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleSort("price")}
+                      className="p-0 hover:bg-transparent hover:text-gray-400 cursor-pointer text-gray-300 font-semibold"
+                    >
+                      Price
+                      <ArrowUpDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </TableHead>
+                  <TableHead className="text-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleSort("stock")}
+                      className="p-0 hover:bg-transparent hover:text-gray-400 cursor-pointer text-gray-300 font-semibold"
+                    >
+                      Stock
+                      <ArrowUpDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </TableHead>
+                  <TableHead className="text-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleSort("sellCount")}
+                      className="p-0 hover:bg-transparent hover:text-gray-400 cursor-pointer text-gray-300 font-semibold"
+                    >
+                      Sales
+                      <ArrowUpDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </TableHead>
+                  <TableHead className="text-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleSort("status")}
+                      className="p-0 hover:bg-transparent hover:text-gray-400 cursor-pointer text-gray-300 font-semibold"
+                    >
+                      Status
+                      <ArrowUpDown className="h-4 w-4 ml-2" />
+                    </Button>
+                  </TableHead>
                   <TableHead className="text-gray-300">Detail</TableHead>
                   <TableHead className="text-right text-gray-300">
                     Actions
@@ -133,7 +640,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {products.map((product) => (
+                {filteredAndSortedProducts.map((product) => (
                   <TableRow
                     key={product._id}
                     className="border-white/10 hover:bg-white/5"
@@ -146,6 +653,9 @@ const ProductTable = ({ products }: ProductTableProps) => {
                         <div className="text-sm text-gray-400 line-clamp-1">
                           {product.shortDescription}
                         </div>
+                        <div className="text-xs text-gray-500 mt-1 capitalize">
+                          {product.category?.replace(/-/g, " ")}
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell className="text-gray-300">
@@ -155,7 +665,23 @@ const ProductTable = ({ products }: ProductTableProps) => {
                       ₹{product.price}
                     </TableCell>
                     <TableCell className="text-gray-300">
-                      {product.stock}
+                      <div className="flex items-center space-x-2">
+                        <span>{product.stock}</span>
+                        {product.stock <= 5 && product.stock > 0 && (
+                          <AlertTriangle className="h-3 w-3 text-yellow-400" />
+                        )}
+                        {product.stock === 0 && (
+                          <AlertTriangle className="h-3 w-3 text-red-400" />
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-gray-300">
+                      <div className="flex items-center space-x-2">
+                        <span>{product.sellCount}</span>
+                        {product.sellCount > 0 && (
+                          <TrendingUp className="h-3 w-3 text-green-400" />
+                        )}
+                      </div>
                     </TableCell>
                     <TableCell>
                       <span
@@ -228,6 +754,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
         </div>
       </div>
 
+      {/* Rest of your existing dialogs and modals remain the same */}
       <AlertDialog
         open={isDeleteDialogOpen}
         onOpenChange={setIsDeleteDialogOpen}
@@ -259,10 +786,10 @@ const ProductTable = ({ products }: ProductTableProps) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
       <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
         <DialogContent className="max-w-6xl w-full max-h-[95vh] overflow-y-auto bg-gradient-to-br from-[#0F1416] via-[#171E21] to-[#1a2630] border border-white/10 rounded-2xl shadow-2xl shadow-black/50 backdrop-blur-xl">
-          {/* Header with Gradient */}
-          <div className="relative">
+                   <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-[#D5D502] via-[#D5D502]  rounded-t-2xl" />
             <DialogHeader className="relative p-6 pb-4">
               <div className="flex items-center justify-between">

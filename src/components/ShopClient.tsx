@@ -558,8 +558,8 @@ export default function ShopClient({ initialProducts }: Props) {
                     <h3 className="text-white font-semibold">Price Range</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between text-sm text-gray-300">
-                        <span>${priceRange[0]}</span>
-                        <span>${priceRange[1]}</span>
+                        <span>₹{priceRange[0]}</span>
+                        <span>₹{priceRange[1]}</span>
                       </div>
                       <div className="flex gap-2">
                         <input

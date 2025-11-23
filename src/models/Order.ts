@@ -1,3 +1,4 @@
+// models/Order.ts
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IOrderItem {
@@ -22,6 +23,7 @@ export interface IOrder extends Document {
   total: number;
   status: 'pending' | 'confirmed' | 'ready' | 'completed' | 'cancelled';
   paymentStatus: 'pending' | 'paid' | 'failed';
+  paymentMethod: string;
   collectionMethod: 'pickup' | 'delivery';
   notes?: string;
   createdAt: Date;
@@ -64,6 +66,11 @@ const OrderSchema = new Schema({
     enum: ['pending', 'paid', 'failed'],
     default: 'pending'
   },
+  paymentMethod: {
+    type: String,
+    required: true,
+    default: 'razorpay'
+  },
   collectionMethod: { 
     type: String, 
     required: true, 
@@ -73,7 +80,6 @@ const OrderSchema = new Schema({
 }, {
   timestamps: true
 });
-
 
 OrderSchema.pre('save', async function(next) {
   if (this.isNew) {

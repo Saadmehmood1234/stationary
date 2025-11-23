@@ -170,6 +170,7 @@ export interface Order {
   total: number;
   status: "pending" | "confirmed" | "ready" | "completed" | "cancelled";
   paymentStatus: "pending" | "paid" | "failed";
+  paymentMethod:string
   collectionMethod: "pickup" | "delivery";
   notes?: string;
   createdAt: Date;

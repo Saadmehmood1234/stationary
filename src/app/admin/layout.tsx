@@ -111,11 +111,11 @@ export default function AdminLayout({
                 <span>Contact</span>
               </Link>
               <Link
-                href="/"
+                href="/admin/images"
                 className="flex items-center space-x-2 text-gray-300 hover:text-[#D5D502] transition-colors py-2 px-3 rounded-full hover:bg-white/5"
               >
                 <Store className="w-4 h-4" />
-                <span>View Store</span>
+                <span>Images</span>
               </Link>
             </nav>
 

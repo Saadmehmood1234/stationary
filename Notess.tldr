@@ -431,18 +431,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 6059.481230091588,
-			"y": -248.30224057947146,
-			"lastActivityTimestamp": 1763815287986,
+			"x": 5662.614759633185,
+			"y": -77.76903316897256,
+			"lastActivityTimestamp": 1763921615585,
 			"meta": {}
 		},
 		{
-			"editingShapeId": "shape:EXGZiGk0LXh2kReyPD0v5",
+			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:EXGZiGk0LXh2kReyPD0v5"
+				"shape:uHRuuCc_56w8ClUPhn8Wo"
 			],
-			"hoveredShapeId": "shape:EXGZiGk0LXh2kReyPD0v5",
+			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -1500,45 +1500,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 1211.1101721185848,
-			"y": 467.5042353163269,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:aonT8pG0j7xJp5gnyCPDy",
-			"type": "text",
-			"props": {
-				"color": "black",
-				"size": "m",
-				"w": 50.087501525878906,
-				"font": "draw",
-				"textAlign": "start",
-				"autoSize": true,
-				"scale": 1,
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "last"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0Luzt8eG",
-			"typeName": "shape"
-		},
-		{
 			"x": 201.60000610351562,
 			"y": 253.8000030517578,
 			"rotation": 0,
@@ -2146,50 +2107,6 @@
 				"terminal": "start"
 			},
 			"typeName": "binding"
-		},
-		{
-			"x": 3747.3750708591724,
-			"y": 71.95758029653706,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:knSf37MfrNbq0kbRcN-3W",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 0.07354713879749397,
-					"y": 3.5840189404102603
-				},
-				"end": {
-					"x": 7.826563266942685,
-					"y": 293.49504023558535
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0Aykz4RM",
-			"typeName": "shape"
 		},
 		{
 			"x": -34.66269661071567,
@@ -3018,9 +2935,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -4672.45796421552,
-			"y": 653.8645990227661,
-			"z": 0.4931424128404752,
+			"x": -1094.8701190696925,
+			"y": 1169.1298933202847,
+			"z": 0.15027110279294986,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -3639,148 +3556,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 5614.031964851399,
-			"y": -374.41989510608096,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:EXGZiGk0LXh2kReyPD0v5",
-			"type": "geo",
-			"props": {
-				"w": 690.801753124871,
-				"h": 418.1000061035156,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Products Page admin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Add search"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Add filter"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Add sorting"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) Show product quantity"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Show most sold product"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) Show least stock product"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) Show graph"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Analytics"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aEHDl4qV",
-			"typeName": "shape"
-		},
-		{
 			"x": 552,
 			"y": 411.6659773936036,
 			"rotation": 0,
@@ -4374,50 +4149,6 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": 4812.331669626687,
-			"y": 358.8525356968023,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:MjuZEfT8EVHogVAFf5R4f",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 0,
-					"y": 18.519965019306596
-				},
-				"end": {
-					"x": -18.701523236222783,
-					"y": -261.82025520145044
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aDuBNBU4",
-			"typeName": "shape"
-		},
-		{
 			"x": 336.8000183105469,
 			"y": 195.1999969482422,
 			"rotation": 0,
@@ -4675,8 +4406,8 @@
 					"y": 373.4038515052272
 				},
 				"end": {
-					"x": 976.9134867691184,
-					"y": -2.505035733022055
+					"x": 1026.47106192545,
+					"y": 559.1479403198568
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -4838,136 +4569,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "afdCUBkG",
-			"typeName": "shape"
-		},
-		{
-			"x": 5615.8979526796975,
-			"y": 381.8256193604725,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:fQJxD-u9zStr-KTEH2Tgl",
-			"type": "geo",
-			"props": {
-				"w": 737.2609819225324,
-				"h": 269.6000061035156,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Printing admin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add breadcrumb"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2)  Add search"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Add filter"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Add sorting"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Add cursor-pointer at the update status"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) make rounded the select for update status"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) "
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aA7SvekV",
 			"typeName": "shape"
 		},
 		{
@@ -5237,14 +4838,14 @@
 				"fill": "none",
 				"color": "black",
 				"labelColor": "black",
-				"bend": 0,
+				"bend": -301.1041217894304,
 				"start": {
 					"x": 0,
 					"y": 0
 				},
 				"end": {
-					"x": 444.5367277843843,
-					"y": -5.292022189790032
+					"x": 854.4623518134604,
+					"y": 1128.6585909900311
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -5261,7 +4862,7 @@
 				"scale": 1
 			},
 			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0HglpLvV",
+			"index": "aFrteVgO",
 			"typeName": "shape"
 		},
 		{
@@ -7530,24 +7131,6 @@
 			"typeName": "page"
 		},
 		{
-			"meta": {},
-			"id": "binding:IpwAJCFkbJ2nu8JskoaSZ",
-			"type": "arrow",
-			"fromId": "shape:MjuZEfT8EVHogVAFf5R4f",
-			"toId": "shape:-2Nr6iIkZxhfrzSXlGy4T",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.48947204961804364,
-					"y": 0.9975407527096494
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
-		},
-		{
 			"x": -3.4375188118214055,
 			"y": 943.1881532489118,
 			"rotation": 0,
@@ -7728,24 +7311,6 @@
 			"parentId": "page:AVoeqc-WQmawv51ek9uMr",
 			"index": "aA0xyltV",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:enOKbYpcsDY7zyK3nMjHg",
-			"type": "arrow",
-			"fromId": "shape:SeSmGt5ku0elmLB3WBa-b",
-			"toId": "shape:-woi_Y1cRmYyI-pawfZgM",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.46935686108364644,
-					"y": 0.9863163300539217
-				},
-				"snap": "none",
-				"terminal": "start"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": -120.1868882013091,
@@ -8064,50 +7629,6 @@
 			},
 			"parentId": "page:AVoeqc-WQmawv51ek9uMr",
 			"index": "aDLIrtfV",
-			"typeName": "shape"
-		},
-		{
-			"x": 1612.1409857812703,
-			"y": 710.2116626901575,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:SeSmGt5ku0elmLB3WBa-b",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 374.3471243016825,
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 705.1682750583911,
-					"y": 733.6376064192839
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0DxJXrnS",
 			"typeName": "shape"
 		},
 		{
@@ -8723,18 +8244,6 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1) Add breadcrumb"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
 									"text": "2) Add more fields and make it according to the products"
 								}
 							]
@@ -9054,42 +8563,6 @@
 			"parentId": "page:mcGrMFSiVbzbdGcPpKzzm",
 			"index": "a4tt3N7V",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:CJjhbUE74LacP2JCOk_iN",
-			"type": "arrow",
-			"fromId": "shape:t_Vrz4mQ4fUFl5FYiCnFN",
-			"toId": "shape:JhZ1crAyPxvBnyET9Lfbe",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.470022375509762,
-					"y": 0.007543782473110861
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
-		},
-		{
-			"meta": {},
-			"id": "binding:4R9AG7ufYw2FqtzidN8k1",
-			"type": "arrow",
-			"fromId": "shape:t_Vrz4mQ4fUFl5FYiCnFN",
-			"toId": "shape:fQJxD-u9zStr-KTEH2Tgl",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.5088336508566581,
-					"y": 0.9992379443847601
-				},
-				"snap": "none",
-				"terminal": "start"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": -798.8576111325333,
@@ -9684,24 +9157,6 @@
 			"typeName": "shape"
 		},
 		{
-			"meta": {},
-			"id": "binding:aaaJ-WKFZEEux-nXhmezL",
-			"type": "arrow",
-			"fromId": "shape:SeSmGt5ku0elmLB3WBa-b",
-			"toId": "shape:A11GcwRZiAkeJ2veLeFzQ",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.002927486023959186,
-					"y": 0.5244475859688382
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
-		},
-		{
 			"x": 3346.3396133054316,
 			"y": 513.7291922299554,
 			"rotation": 0,
@@ -10178,8 +9633,8 @@
 					"y": 18.966137110572845
 				},
 				"end": {
-					"x": -4.867239844748859,
-					"y": -256.0266942995107
+					"x": -26.288038048131078,
+					"y": -799.5800232614598
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -10577,64 +10032,6 @@
 			"typeName": "binding"
 		},
 		{
-			"x": 1365.2973839332572,
-			"y": 327.89953938258515,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:-woi_Y1cRmYyI-pawfZgM",
-			"type": "geo",
-			"props": {
-				"w": 700.2733269250043,
-				"h": 279.15833059201634,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": " Home page"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add some more things"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0DiFphVV",
-			"typeName": "shape"
-		},
-		{
 			"x": -347.3000530453314,
 			"y": 68.88299841377807,
 			"rotation": 0,
@@ -10947,24 +10344,6 @@
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "aWpWXVv8",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:jc38LgykGuP60Lwkkqlzp",
-			"type": "arrow",
-			"fromId": "shape:knSf37MfrNbq0kbRcN-3W",
-			"toId": "shape:hb85idA54kmAIMoDK1vJ4",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.4702702401734487,
-					"y": 0.021308004901630477
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": 3996.730277628666,
@@ -11798,7 +11177,7 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1208,
+				"w": 1188,
 				"h": 477.6000061035156
 			},
 			"insets": [
@@ -12249,24 +11628,6 @@
 			"parentId": "page:kV40JkLHuu3AUzLSUIRKf",
 			"index": "a6LAsSSV",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:TzFZJ4JHHypHzCO--9Fjr",
-			"type": "arrow",
-			"fromId": "shape:6WxWY7OwJ2cfPA6yqI5jJ",
-			"toId": "shape:fQJxD-u9zStr-KTEH2Tgl",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.4885757020384524,
-					"y": 0.013755968151158385
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": -1122.2770705603214,
@@ -13078,6 +12439,24 @@
 			"typeName": "binding"
 		},
 		{
+			"meta": {},
+			"id": "binding:UrX0W7WnywHp1ec1E6EOA",
+			"type": "arrow",
+			"fromId": "shape:uHRuuCc_56w8ClUPhn8Wo",
+			"toId": "shape:JhZ1crAyPxvBnyET9Lfbe",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.4982600772983397,
+					"y": 0.004140043021553165
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
 			"x": 322.2000389099121,
 			"y": -1114.4675461722904,
 			"rotation": 0,
@@ -13540,174 +12919,6 @@
 								{
 									"type": "text",
 									"text": "Dashbaord admi "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Show total order"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Pending orders"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Total revenue"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Low stocks"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Graph for daily, weekly,monthly and yearly order"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Graph for revenue"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Graph for each product stock available"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) Daaily orders/Recent order"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Most sale products"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) Recent Printing request"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) Total Printing "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Printing graph"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "13) Black & white printing info"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "14) color printing info"
 								}
 							]
 						},
@@ -14200,50 +13411,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 5987.9683008317315,
-			"y": 649.8909068859155,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:t_Vrz4mQ4fUFl5FYiCnFN",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 19.538283938616587,
-					"y": 303.92315180569926
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aFxkfSzh",
-			"typeName": "shape"
-		},
-		{
 			"x": 240.8000030517578,
 			"y": 202.05296859301293,
 			"rotation": 0,
@@ -14322,50 +13489,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "b0EjpIt0V",
-			"typeName": "shape"
-		},
-		{
-			"x": 5947.349802367341,
-			"y": 34.71164524981589,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:6WxWY7OwJ2cfPA6yqI5jJ",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 26.461124812103662,
-					"y": 9.836891384042701
-				},
-				"end": {
-					"x": 34.507274203162524,
-					"y": 345.0714805362268
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aAlIc1Gl",
 			"typeName": "shape"
 		},
 		{

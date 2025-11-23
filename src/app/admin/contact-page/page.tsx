@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   getPaginatedContacts,
@@ -62,16 +62,28 @@ import {
   Trash2,
   Mail,
   RefreshCw,
+  BarChart3,
+  TrendingUp,
+  Users,
+  MessageCircle,
+  Clock,
+  ArrowUpDown,
+  MailOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import EditSubject from "@/components/EditSubject";
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
 import toast from "react-hot-toast";
+
 interface EditingData {
   contactId: string;
   subject: string;
 }
+
+type SortField = "name" | "email" | "subject" | "createdAt" | "message";
+type SortDirection = "asc" | "desc";
+
 export default function AdminContactsPage() {
   const [contacts, setContacts] = useState<ContactDocument[]>([]);
   const [pagination, setPagination] = useState<
@@ -85,6 +97,9 @@ export default function AdminContactsPage() {
   const [dateRange, setDateRange] = useState<
     { from: Date; to: Date } | undefined
   >();
+  const [sortField, setSortField] = useState<SortField>("createdAt");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  
   const [editingModal, setEditingModal] = useState<{
     isOpen: boolean;
     contactId: string;
@@ -103,7 +118,110 @@ export default function AdminContactsPage() {
     contactId: "",
     contactName: "",
   });
+  
   const debouncedSearch = useDebounce(search, 300);
+
+  // Analytics calculations
+  const analytics = useMemo(() => {
+    if (!contacts.length) return null;
+
+    const totalContacts = contacts.length;
+    const today = new Date();
+    const last7Days = new Date(today.setDate(today.getDate() - 7));
+    
+    const recentContacts = contacts.filter(
+      contact => new Date(contact.createdAt) > last7Days
+    ).length;
+
+    const uniqueSubjects = [...new Set(contacts.map(contact => contact.subject))].length;
+    
+    const contactsBySubject = contacts.reduce((acc, contact) => {
+      acc[contact.subject] = (acc[contact.subject] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const mostCommonSubject = Object.entries(contactsBySubject)
+      .sort(([,a], [,b]) => b - a)[0] || ['None', 0];
+
+    const averageMessageLength = contacts.reduce((sum, contact) => 
+      sum + contact.message.length, 0) / totalContacts;
+
+    // Contacts by time of day (mock data for demonstration)
+    const morningContacts = contacts.filter(contact => {
+      const hour = new Date(contact.createdAt).getHours();
+      return hour >= 6 && hour < 12;
+    }).length;
+
+    const afternoonContacts = contacts.filter(contact => {
+      const hour = new Date(contact.createdAt).getHours();
+      return hour >= 12 && hour < 18;
+    }).length;
+
+    const eveningContacts = contacts.filter(contact => {
+      const hour = new Date(contact.createdAt).getHours();
+      return hour >= 18 || hour < 6;
+    }).length;
+
+    return {
+      totalContacts,
+      recentContacts,
+      uniqueSubjects,
+      mostCommonSubject,
+      averageMessageLength,
+      contactsBySubject,
+      morningContacts,
+      afternoonContacts,
+      eveningContacts,
+    };
+  }, [contacts]);
+
+  // Filter and sort contacts
+  const filteredAndSortedContacts = useMemo(() => {
+    let filtered = contacts.filter((contact) => {
+      // Search filter
+      const matchesSearch = 
+        contact.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        contact.email.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        contact.subject.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        contact.message.toLowerCase().includes(debouncedSearch.toLowerCase());
+
+      // Subject filter
+      const matchesSubject = !filters.subject || contact.subject === filters.subject;
+
+      // Date range filter
+      let matchesDateRange = true;
+      if (dateRange?.from && dateRange?.to) {
+        const contactDate = new Date(contact.createdAt);
+        matchesDateRange = contactDate >= dateRange.from && contactDate <= dateRange.to;
+      }
+
+      return matchesSearch && matchesSubject && matchesDateRange;
+    });
+
+    // Sorting
+    filtered.sort((a, b) => {
+      let aValue: any = a[sortField];
+      let bValue: any = b[sortField];
+
+      if (sortField === 'createdAt') {
+        aValue = new Date(aValue).getTime();
+        bValue = new Date(bValue).getTime();
+      } else if (typeof aValue === 'string') {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+
+      if (aValue < bValue) {
+        return sortDirection === 'asc' ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+
+    return filtered;
+  }, [contacts, debouncedSearch, filters.subject, dateRange, sortField, sortDirection]);
 
   const fetchContacts = useCallback(
     async (
@@ -196,10 +314,22 @@ export default function AdminContactsPage() {
       alert("Failed to update contact");
     }
   };
+
   const clearFilters = () => {
     setSearch("");
     setFilters({});
     setDateRange(undefined);
+    setSortField("createdAt");
+    setSortDirection("desc");
+  };
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -216,6 +346,7 @@ export default function AdminContactsPage() {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
+
   const openDeleteModal = (contactId: string, contactName: string) => {
     setDeleteModal({
       isOpen: true,
@@ -223,6 +354,7 @@ export default function AdminContactsPage() {
       contactName,
     });
   };
+
   const handleEditing = (subject: string, contactId: string) => {
     setEditingModal({
       isOpen: true,
@@ -230,6 +362,44 @@ export default function AdminContactsPage() {
       subject,
     });
   };
+
+  // Simple bar chart for subject distribution
+  const SubjectBarChart = ({ contacts }: { contacts: ContactDocument[] }) => {
+    const subjectCounts = contacts.reduce((acc, contact) => {
+      acc[contact.subject] = (acc[contact.subject] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const topSubjects = Object.entries(subjectCounts)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+
+    const maxCount = Math.max(...topSubjects.map(([, count]) => count));
+
+    return (
+      <div className="space-y-2">
+        {topSubjects.map(([subject, count]) => (
+          <div key={subject} className="flex items-center space-x-3">
+            <div className="w-32 text-sm text-gray-300 truncate">
+              {truncateText(subject, 20)}
+            </div>
+            <div className="flex-1">
+              <div
+                className="bg-gradient-to-r from-[#D5D502] to-yellow-500 rounded-full h-3 transition-all duration-500"
+                style={{
+                  width: `${(count / maxCount) * 100}%`,
+                }}
+              />
+            </div>
+            <div className="w-8 text-right text-sm text-white font-medium">
+              {count}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 overflow-hidden p-6">
       {/* Animated Background Elements */}
@@ -295,12 +465,166 @@ export default function AdminContactsPage() {
                 Contact Submissions
               </CardTitle>
               <CardDescription className="text-gray-300 text-lg">
-                Manage and review all contact form submissions from your
-                website.
+                Manage and review all contact form submissions from your website.
               </CardDescription>
             </CardHeader>
           </Card>
         </motion.div>
+
+        {/* Analytics Dashboard */}
+        {analytics && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Total Contacts */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardContent className="">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Total Contacts</p>
+                    <p className="text-2xl font-bold text-white">{analytics.totalContacts}</p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      {analytics.recentContacts} this week
+                    </p>
+                  </div>
+                  <div className="p-3 bg-blue-500/20 rounded-full">
+                    <Users className="h-6 w-6 text-blue-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Unique Subjects */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardContent className="">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Unique Subjects</p>
+                    <p className="text-2xl font-bold text-white">{analytics.uniqueSubjects}</p>
+                    <p className="text-xs text-gray-400 mt-1 truncate">
+                      Top: {truncateText(analytics.mostCommonSubject[0], 15)}
+                    </p>
+                  </div>
+                  <div className="p-3 bg-green-500/20 rounded-full">
+                    <MailOpen className="h-6 w-6 text-green-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Average Message Length */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardContent className="">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Avg Message</p>
+                    <p className="text-2xl font-bold text-[#D5D502]">
+                      {Math.round(analytics.averageMessageLength)} chars
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      Per contact
+                    </p>
+                  </div>
+                  <div className="p-3 bg-purple-500/20 rounded-full">
+                    <MessageCircle className="h-6 w-6 text-purple-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recent Activity */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardContent className="">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">This Week</p>
+                    <p className="text-2xl font-bold text-green-400">{analytics.recentContacts}</p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      New submissions
+                    </p>
+                  </div>
+                  <div className="p-3 bg-yellow-500/20 rounded-full">
+                    <TrendingUp className="h-6 w-6 text-yellow-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Highlights Section */}
+        {analytics && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Subject Distribution */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-blue-400" />
+                  Top Subjects
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <SubjectBarChart contacts={contacts} />
+              </CardContent>
+            </Card>
+
+            {/* Time Distribution */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-yellow-400" />
+                  Contact Times
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                    <span className="text-gray-300">Morning</span>
+                    <span className="text-white font-bold">{analytics.morningContacts}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                    <span className="text-gray-300">Afternoon</span>
+                    <span className="text-white font-bold">{analytics.afternoonContacts}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg border border-white/10">
+                    <span className="text-gray-300">Evening</span>
+                    <span className="text-white font-bold">{analytics.eveningContacts}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recent Contacts */}
+            <Card className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
+                  <Users className="h-5 w-5 text-green-400" />
+                  Recent Contacts
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {contacts
+                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                    .slice(0, 3)
+                    .map(contact => (
+                      <div key={contact._id} className="flex items-center justify-between">
+                        <div>
+                          <div className="text-white text-sm font-medium truncate">
+                            {contact.name}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {truncateText(contact.subject, 25)}
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {new Date(contact.createdAt).toLocaleDateString()}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Main Content Card */}
         <motion.div
@@ -311,7 +635,8 @@ export default function AdminContactsPage() {
           <Card className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl overflow-hidden">
             <div className="h-1 bg-gradient-to-r from-yellow-400 to-[#D5D502]"></div>
             <CardContent className="p-6">
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              {/* Search and Filter Controls */}
+              <div className="flex flex-col lg:flex-row gap-4 mb-6">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
@@ -321,6 +646,45 @@ export default function AdminContactsPage() {
                     className="pl-10 bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-full focus:ring-2 focus:ring-[#D5D502]/50"
                   />
                 </div>
+
+                {/* Sort Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="border-white/20 cursor-pointer text-gray-300 bg-white/5 rounded-full hover:bg-white/10 hover:text-white"
+                    >
+                      <ArrowUpDown className="h-4 w-4 mr-2" />
+                      Sort
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-slate-800 border border-white/20">
+                    <DropdownMenuItem
+                      onClick={() => handleSort('createdAt')}
+                      className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                    >
+                      Date {sortField === 'createdAt' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => handleSort('name')}
+                      className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                    >
+                      Name {sortField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => handleSort('email')}
+                      className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                    >
+                      Email {sortField === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => handleSort('subject')}
+                      className="text-gray-300 cursor-pointer hover:bg-white/10 hover:text-white"
+                    >
+                      Subject {sortField === 'subject' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
                 <Popover>
                   <PopoverTrigger asChild>
@@ -434,58 +798,43 @@ export default function AdminContactsPage() {
                         </Select>
                       </div>
 
-                      <Button
-                        variant="outline"
-                        onClick={clearFilters}
-                        className="w-full border-white/20 bg-gray-800 cursor-pointer hover:text-white text-white hover:bg-gray-800/10 rounded-full"
-                      >
-                        Clear Filters
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          onClick={clearFilters}
+                          className="flex-1 border-white/20 bg-gray-800 cursor-pointer hover:text-white text-white hover:bg-gray-800/10 rounded-full"
+                        >
+                          Clear All
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            fetchContacts(currentPage, debouncedSearch, filters)
+                          }
+                          className="cursor-pointer bg-gradient-to-r from-[#D5D502] to-yellow-500 hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 border-0 rounded-full"
+                        >
+                          <RefreshCw className="h-4 w-4 mr-2" />
+                          Refresh
+                        </Button>
+                      </div>
                     </div>
                   </PopoverContent>
                 </Popover>
-
-                <Button
-                  onClick={() =>
-                    fetchContacts(currentPage, debouncedSearch, filters)
-                  }
-                  className="cursor-pointer bg-gradient-to-r from-[#D5D502] to-yellow-500 hover:from-[#c4c401] hover:to-yellow-600 text-gray-900 border-0 rounded-full"
-                >
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Refresh
-                </Button>
               </div>
 
-              {/* Pagination Info */}
-              {pagination && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex flex-col sm:flex-row justify-between items-center mb-4 p-3 bg-white/5 rounded-xl gap-2 border border-white/10"
-                >
-                  <p className="text-sm text-gray-300">
-                    Showing{" "}
-                    <strong className="text-white">
-                      {(currentPage - 1) * 10 + 1}
-                    </strong>{" "}
-                    to{" "}
-                    <strong className="text-white">
-                      {Math.min(currentPage * 10, pagination.totalContacts)}
-                    </strong>{" "}
-                    of{" "}
-                    <strong className="text-white">
-                      {pagination.totalContacts}
-                    </strong>{" "}
-                    contacts
-                  </p>
-                  <Badge
-                    variant="outline"
-                    className="bg-white/10 text-gray-300 border-white/20"
+              {/* Results Count */}
+              <div className="mb-4 text-sm text-gray-400">
+                Showing {filteredAndSortedContacts.length} of {contacts.length} contacts
+                {(search || filters.subject || dateRange) && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearFilters}
+                    className="ml-2 text-xs text-[#D5D502] hover:text-[#D5D502]/80 hover:bg-[#D5D502]/10"
                   >
-                    Page {pagination.currentPage} of {pagination.totalPages}
-                  </Badge>
-                </motion.div>
-              )}
+                    Clear filters
+                  </Button>
+                )}
+              </div>
 
               {/* Table */}
               {loading ? (
@@ -509,19 +858,47 @@ export default function AdminContactsPage() {
                     <TableHeader className="bg-white/5">
                       <TableRow className="border-white/10 hover:bg-transparent">
                         <TableHead className="text-gray-300 font-semibold">
-                          Name
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('name')}
+                            className="p-0 hover:bg-transparent text-gray-300 font-semibold"
+                          >
+                            Name
+                            <ArrowUpDown className="h-4 w-4 ml-2" />
+                          </Button>
                         </TableHead>
                         <TableHead className="text-gray-300 font-semibold">
-                          Email
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('email')}
+                            className="p-0 hover:bg-transparent text-gray-300 font-semibold"
+                          >
+                            Email
+                            <ArrowUpDown className="h-4 w-4 ml-2" />
+                          </Button>
                         </TableHead>
                         <TableHead className="text-gray-300 font-semibold">
-                          Subject
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('subject')}
+                            className="p-0 hover:bg-transparent text-gray-300 font-semibold"
+                          >
+                            Subject
+                            <ArrowUpDown className="h-4 w-4 ml-2" />
+                          </Button>
                         </TableHead>
                         <TableHead className="text-gray-300 font-semibold">
                           Message
                         </TableHead>
                         <TableHead className="text-gray-300 font-semibold">
-                          Date Submitted
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('createdAt')}
+                            className="p-0 hover:bg-transparent text-gray-300 font-semibold"
+                          >
+                            Date Submitted
+                            <ArrowUpDown className="h-4 w-4 ml-2" />
+                          </Button>
                         </TableHead>
                         <TableHead className="text-gray-300 font-semibold w-[80px]">
                           Actions
@@ -529,7 +906,7 @@ export default function AdminContactsPage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {contacts.map((contact, index) => (
+                      {filteredAndSortedContacts.map((contact, index) => (
                         <motion.tr
                           key={contact._id}
                           initial={{ opacity: 0, y: 10 }}
@@ -627,6 +1004,8 @@ export default function AdminContactsPage() {
                   </Table>
                 </div>
               )}
+
+              {/* Pagination */}
               {pagination && pagination.totalPages > 1 && (
                 <motion.div
                   initial={{ opacity: 0 }}

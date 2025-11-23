@@ -56,7 +56,7 @@ export default function ProductDetailPage() {
   }, [dispatch, product]);
 
   const handlePurchase = () => {
-    toast.success("We will add purchasing option soon........")
+    toast.success("We will add purchasing option soon........");
   };
   const hasDiscount =
     product?.comparePrice &&
@@ -73,8 +73,9 @@ export default function ProductDetailPage() {
     "discountPercentage",
     discountPercentage,
     "hasDiscounth",
-    hasDiscount,product?.price,  product?.comparePrice
-
+    hasDiscount,
+    product?.price,
+    product?.comparePrice
   );
   const getStockStatus = () => {
     if (!product) return { text: "Loading...", color: "text-gray-600" };
@@ -380,7 +381,7 @@ export default function ProductDetailPage() {
                     <span className="text-3xl font-bold text-[#D5D502]">
                       ₹{product.price.toFixed(2)}
                     </span>
-                    {hasDiscount  && (
+                    {hasDiscount && (
                       <>
                         <span className="text-xl text-gray-400 line-through">
                           ₹{product.comparePrice!.toFixed(2)}

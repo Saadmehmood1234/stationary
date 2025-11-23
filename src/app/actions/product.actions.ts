@@ -464,3 +464,48 @@ function generateSlug(name: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 }
+
+export async function getProductAnalytics() {
+  try {
+    await dbConnect();
+    
+    const [totalProducts, lowStockProducts, popularProducts, stockData] = await Promise.all([
+      Product.countDocuments(),
+      Product.countDocuments({ stock: { $lte: 10 } }),
+      Product.find().sort({ sellCount: -1 }).limit(5).lean(),
+      Product.find().select('name stock').sort({ stock: 1 }).limit(10).lean()
+    ]);
+
+    // Properly serialize the data for Client Components
+    const serializedPopularProducts = popularProducts.map((product: any) => ({
+      _id: product._id.toString(),
+      name: product.name,
+      sales: product.sellCount || 0,
+      sku: product.sku,
+      price: product.price,
+      stock: product.stock,
+      // Add any other fields you need
+    }));
+
+    const serializedStockData = stockData.map((product: any) => ({
+      _id: product._id.toString(),
+      name: product.name,
+      stock: product.stock,
+      sku: product.sku,
+      // Ensure all fields are plain values
+    }));
+
+    return {
+      success: true,
+      data: {
+        totalProducts,
+        lowStockProducts,
+        popularProducts: serializedPopularProducts,
+        stockData: serializedStockData
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching product analytics:', error);
+    return { success: false, message: 'Failed to fetch product analytics' };
+  }
+}
