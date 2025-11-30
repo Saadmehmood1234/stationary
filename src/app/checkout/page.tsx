@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useCart } from "@/components/providers/CartProvider";
 import Link from "next/link";
@@ -30,7 +30,7 @@ interface OrderData {
   notes?: string;
 }
 
-export default function CheckoutPage() {
+ function CheckoutContent() {
   const { state, dispatch } = useCart();
   const searchParams = useSearchParams();
   const productIdsFromParams = searchParams?.getAll("products") || [];
@@ -483,5 +483,23 @@ export default function CheckoutPage() {
         )}
       </div>
     </div>
+  );
+}
+
+function CheckoutLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D5D502] mx-auto mb-4"></div>
+        <p className="text-gray-400">Loading checkout...</p>
+      </div>
+    </div>
+  );
+}
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<CheckoutLoading />}>
+      <CheckoutContent />
+    </Suspense>
   );
 }
