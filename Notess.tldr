@@ -193,50 +193,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 3788.088254219447,
-			"y": 1419.6142942970516,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:vwmGawQGwoayZnVhU8AMe",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 270.04115534485845,
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 1074.1522238273342,
-					"y": -181.98456277548667
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b06rcbE51",
-			"typeName": "shape"
-		},
-		{
 			"x": 252.1016328767863,
 			"y": 543.1630762899064,
 			"rotation": 0,
@@ -280,64 +236,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "ar6w6dxV",
-			"typeName": "shape"
-		},
-		{
-			"x": 2321.6638948188083,
-			"y": 1265.2133221913318,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:A11GcwRZiAkeJ2veLeFzQ",
-			"type": "geo",
-			"props": {
-				"w": 887.2453712642847,
-				"h": 188.1719302471447,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Printing"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add payment option"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0ChlPrKV",
 			"typeName": "shape"
 		},
 		{
@@ -431,18 +329,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 2790.674204592617,
-			"y": 1474.0108078266421,
-			"lastActivityTimestamp": 1764440282266,
+			"x": 4790.61319470578,
+			"y": -487.4019315083956,
+			"lastActivityTimestamp": 1764501914818,
 			"meta": {}
 		},
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:ucO3aRBAAB7jVkMWGff3v"
+				"shape:sYLimS9TnlSHVMIz_hhjK"
 			],
-			"hoveredShapeId": "shape:ucO3aRBAAB7jVkMWGff3v",
+			"hoveredShapeId": "shape:sYLimS9TnlSHVMIz_hhjK",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -493,88 +391,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "aRuI1QY8",
-			"typeName": "shape"
-		},
-		{
-			"x": 2408.1460850032954,
-			"y": 190.07909502595805,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:I5A-wfpLSvMh95woMVKE1",
-			"type": "geo",
-			"props": {
-				"w": 721.732347200832,
-				"h": 284.55281016994047,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Shop Detail Page-"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Add payment option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Calculate amount "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Show success after success"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b081nWVMV",
 			"typeName": "shape"
 		},
 		{
@@ -1304,202 +1120,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 6871.878050069863,
-			"y": -37.05274202454348,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:gi-E_i8u5B2kZubKrTegj",
-			"type": "geo",
-			"props": {
-				"w": 735.2650661752,
-				"h": 475.50765919933946,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Admin sidebar"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add Daily product sale"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Stocks"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Revenue"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) leads"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Customer Feedback"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Track sales"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Due bills"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) What products needs to buy list"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Schedule Your task/work"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) Track Printing "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) Track Printing machinery"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Money spent on a printing"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aNYRK6OV",
-			"typeName": "shape"
-		},
-		{
 			"x": 201.60000610351562,
 			"y": 253.8000030517578,
 			"rotation": 0,
@@ -1644,50 +1264,6 @@
 			},
 			"parentId": "page:PyOCZQ7QrTxd_ausmk3R3",
 			"index": "a4xE8PiV",
-			"typeName": "shape"
-		},
-		{
-			"x": 6014.489040847755,
-			"y": 1393.107665678197,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:yIfePTgfeDz4WzTXUsINQ",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 230.33287269007144,
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 1288.3511071785579,
-					"y": -33.2972642022346
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0IqEeI3V",
 			"typeName": "shape"
 		},
 		{
@@ -1838,24 +1414,6 @@
 				"normalizedAnchor": {
 					"x": 0.49469955882320205,
 					"y": 0.9544669196173367
-				},
-				"snap": "none",
-				"terminal": "start"
-			},
-			"typeName": "binding"
-		},
-		{
-			"meta": {},
-			"id": "binding:8MrTOy3KJmzU_9hGY9c3x",
-			"type": "arrow",
-			"fromId": "shape:tnA8XZOrmAdUAcsAcR4N1",
-			"toId": "shape:oUoUUoKEAwMGS4m8K5YFj",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.4918371952927176,
-					"y": 0.006818000753545218
 				},
 				"snap": "none",
 				"terminal": "start"
@@ -2192,24 +1750,6 @@
 			"typeName": "shape"
 		},
 		{
-			"meta": {},
-			"id": "binding:-IkDJ_gnZ7W4E4KyAB3jy",
-			"type": "arrow",
-			"fromId": "shape:vwmGawQGwoayZnVhU8AMe",
-			"toId": "shape:pixq-0acD950AhBhcLUpp",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.5100857277215743,
-					"y": 0.9714045515537851
-				},
-				"snap": "none",
-				"terminal": "start"
-			},
-			"typeName": "binding"
-		},
-		{
 			"x": 0,
 			"y": 0,
 			"z": 1,
@@ -2323,50 +1863,6 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": 7260.221098434598,
-			"y": 749.7428329312613,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:tnA8XZOrmAdUAcsAcR4N1",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 2.2517755186263457,
-					"y": -5.8759042703436535
-				},
-				"end": {
-					"x": -9.235958589658367,
-					"y": -301.7049467264802
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "ajziYz06",
-			"typeName": "shape"
-		},
-		{
 			"meta": {},
 			"id": "binding:iqB8hjZO6hRILGW2Jk7Kb",
 			"type": "arrow",
@@ -2475,45 +1971,6 @@
 				"terminal": "end"
 			},
 			"typeName": "binding"
-		},
-		{
-			"x": 906.3613447166181,
-			"y": 719.7870018904522,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:u3DNKbPk5UqvcHB6ydc1o",
-			"type": "text",
-			"props": {
-				"color": "black",
-				"size": "m",
-				"w": 117.9124984741211,
-				"font": "draw",
-				"textAlign": "start",
-				"autoSize": true,
-				"scale": 3.451260087621205,
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Currently"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0Kre9dbV",
-			"typeName": "shape"
 		},
 		{
 			"x": -36.59017708485794,
@@ -2935,9 +2392,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -402.2900584865898,
-			"y": -274.00767012824775,
-			"z": 0.27533260832150114,
+			"x": -3153.296862657004,
+			"y": 2012.467348638438,
+			"z": 0.2066796667648481,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -3038,50 +2495,6 @@
 			},
 			"parentId": "page:Y044GnciL1N3D2S6MS_ck",
 			"index": "a59WRzpG",
-			"typeName": "shape"
-		},
-		{
-			"x": 2775.864457006814,
-			"y": 793.6994976857903,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:HFjgs7CGcWrmvrUUZWGOs",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 17.749992422193827,
-					"y": 469.2976467324677
-				},
-				"end": {
-					"x": 11.507288705995506,
-					"y": -314.52938767004684
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0CzpPOAp",
 			"typeName": "shape"
 		},
 		{
@@ -3700,8 +3113,8 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 6866.92276942513,
-			"y": -612.043153727076,
+			"x": 4744.569516465732,
+			"y": -1537.966693126514,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -3709,11 +3122,11 @@
 			"id": "shape:sYLimS9TnlSHVMIz_hhjK",
 			"type": "geo",
 			"props": {
-				"w": 730,
-				"h": 351.45545550027447,
+				"w": 946,
+				"h": 1292.8619509984956,
 				"geo": "rectangle",
 				"dash": "draw",
-				"growY": 0,
+				"growY": 16.23802458744194,
 				"url": "",
 				"scale": 1,
 				"color": "black",
@@ -3799,7 +3212,427 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "5) Create server action for product sales and analytics for daily, monthly and yearly"
+									"text": "5) correct the search functionality,"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "6) add category page and url,"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "7) product name url and page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "8) add sku search, url and page"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "9) Add google signin"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "10) Add role"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "11) Check signin before making order"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "12) Order invoice"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "13) Download invoice"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "14) Add verify now button if not verified"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "15) Session issue fix"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "16) Sent order confirmation mail"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "17) Add razorpay payment gateway"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "18) make refresh button working"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "19) Add payment option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Printing"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "20) Add payment option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Add to Cart"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "21) Add payment option in shop"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "22) Add more fields and make it according to the products"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "23) Add upload image option"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "24) In the product specifications, add option to select the product type then add specifications according to the product"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "25) Add dynamic fields according to the need"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "26) Add sidebar"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "27) Add Daily product sale"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "28) Stocks"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "29) Revenue"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "30) leads"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "31) Customer Feedback"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "32) Track sales"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "33) Due bills"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "34) What products needs to buy list"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "35) Schedule Your task/work"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "36) Track Printing "
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "37) Track Printing machinery"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "38) Money spent on a printing"
 								}
 							]
 						},
@@ -4384,50 +4217,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 2750.929102178069,
-			"y": -188.79341430871114,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:_95aKkMZ6ObEPOUhL8FiR",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": -258.6793958427819,
-				"start": {
-					"x": -17.267209662255482,
-					"y": 373.4038515052272
-				},
-				"end": {
-					"x": 1026.47106192545,
-					"y": 559.1479403198568
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b09egexRG",
-			"typeName": "shape"
-		},
-		{
 			"x": -935.1503004385952,
 			"y": 251.13258910439612,
 			"rotation": 0,
@@ -4819,50 +4608,6 @@
 			},
 			"parentId": "page:N5o-hrvuq3zEdrSqXBeFo",
 			"index": "aCtcVckV",
-			"typeName": "shape"
-		},
-		{
-			"x": 5164.716805040523,
-			"y": -177.28140241350707,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:uHRuuCc_56w8ClUPhn8Wo",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": -301.1041217894304,
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 854.4623518134604,
-					"y": 1128.6585909900311
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aFrteVgO",
 			"typeName": "shape"
 		},
 		{
@@ -5507,50 +5252,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 7215.462333767921,
-			"y": -42.89276865885847,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:tbU_YOHTSUNhVZp8X4Vg5",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 1.3038660340234856,
-					"y": -216.44509418094975
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b07ws3gth",
-			"typeName": "shape"
-		},
-		{
 			"meta": {},
 			"id": "binding:hIa2Ai55DE4twk28KVYd-",
 			"type": "arrow",
@@ -5912,130 +5613,6 @@
 			"typeName": "page"
 		},
 		{
-			"x": 4518.717018618432,
-			"y": 916.3372325270866,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:h8BIzHhdi0e3_6SMvRbJ1",
-			"type": "geo",
-			"props": {
-				"w": 680.7499270008686,
-				"h": 299.3000183105469,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Profil Pag"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Show status"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) Show product"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Order invoice"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) Download invoice"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Add verify now button if not verified"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "13) Session issue fix"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aSDdyucV",
-			"typeName": "shape"
-		},
-		{
 			"x": 0,
 			"y": 0,
 			"z": 1,
@@ -6302,24 +5879,6 @@
 			"parentId": "page:sChW4FNDAuKAdZZS4QUyf",
 			"index": "a37dcDnV",
 			"typeName": "shape"
-		},
-		{
-			"meta": {},
-			"id": "binding:OAersTjNm9MLq2Xc8cVL_",
-			"type": "arrow",
-			"fromId": "shape:tbU_YOHTSUNhVZp8X4Vg5",
-			"toId": "shape:sYLimS9TnlSHVMIz_hhjK",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.47923757585864996,
-					"y": 0.9961362203969196
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
 		},
 		{
 			"x": -87.58669112511376,
@@ -7942,24 +7501,6 @@
 		},
 		{
 			"meta": {},
-			"id": "binding:6zLPo9GqmFhg40agcVBFT",
-			"type": "arrow",
-			"fromId": "shape:HFjgs7CGcWrmvrUUZWGOs",
-			"toId": "shape:A11GcwRZiAkeJ2veLeFzQ",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.5319278858989045,
-					"y": 0.030558280224013645
-				},
-				"snap": "none",
-				"terminal": "start"
-			},
-			"typeName": "binding"
-		},
-		{
-			"meta": {},
 			"id": "binding:gkqG2sD47D1_rzp7barbk",
 			"type": "arrow",
 			"fromId": "shape:6RPOTSKewXbPMwrx2wUqa",
@@ -8195,106 +7736,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "aOU4Fmwl",
-			"typeName": "shape"
-		},
-		{
-			"x": 5633.6830875958085,
-			"y": 954.9310505852432,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:JhZ1crAyPxvBnyET9Lfbe",
-			"type": "geo",
-			"props": {
-				"w": 763,
-				"h": 427.4758164612353,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Create Product admin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Add more fields and make it according to the products"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Add upload image option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) In the product specifications, add option to select the product type then add specifications according to the product"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Add dynamic fields according to the need"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aFGaNzxG",
 			"typeName": "shape"
 		},
 		{
@@ -9203,24 +8644,6 @@
 			"typeName": "shape"
 		},
 		{
-			"meta": {},
-			"id": "binding:uP1LSk63hKxDAGk7g-w2X",
-			"type": "arrow",
-			"fromId": "shape:UzG5OktlSS9ETN-IOHvDD",
-			"toId": "shape:pixq-0acD950AhBhcLUpp",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.5118632015662461,
-					"y": 0.008975595050978096
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
-		},
-		{
 			"x": 235.07143700066104,
 			"y": -513.0092052758139,
 			"rotation": 0,
@@ -9611,50 +9034,6 @@
 			"typeName": "binding"
 		},
 		{
-			"x": 4856.3878587339805,
-			"y": 896.236627037472,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:sFNEN4k06yo9j0oT0Rcrn",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 0,
-					"y": 18.966137110572845
-				},
-				"end": {
-					"x": -26.288038048131078,
-					"y": -799.5800232614598
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b02qMtGpp",
-			"typeName": "shape"
-		},
-		{
 			"x": 1426.9324103747958,
 			"y": 288.05738276183524,
 			"rotation": 0,
@@ -9877,94 +9256,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "a3yUOLDL",
-			"typeName": "shape"
-		},
-		{
-			"x": 3424.7149505454954,
-			"y": 370.82800271230025,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:hb85idA54kmAIMoDK1vJ4",
-			"type": "geo",
-			"props": {
-				"w": 699.489665940866,
-				"h": 356.71301121181153,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Add to Cart"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add payment option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Calculate the amount"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Show success message"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0AnQEqsV",
 			"typeName": "shape"
 		},
 		{
@@ -10343,51 +9634,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "aWpWXVv8",
-			"typeName": "shape"
-		},
-		{
-			"x": 3996.730277628666,
-			"y": -1262.8302593652766,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:ONpupqUmSBtPtDyORaiUZ",
-			"type": "text",
-			"props": {
-				"color": "black",
-				"size": "m",
-				"w": 123.1875,
-				"font": "draw",
-				"textAlign": "start",
-				"autoSize": true,
-				"scale": 7.723052134354405,
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "WorkFlow"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0Fl18MoV",
 			"typeName": "shape"
 		},
 		{
@@ -11163,11 +10409,13 @@
 		{
 			"followingUserId": null,
 			"opacityForNextShape": 1,
-			"stylesForNextShape": {},
+			"stylesForNextShape": {
+				"tldraw:geo": "rectangle"
+			},
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "grabbing",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -11178,7 +10426,7 @@
 				"x": 0,
 				"y": 0,
 				"w": 1188,
-				"h": 472
+				"h": 495.20001220703125
 			},
 			"insets": [
 				false,
@@ -11441,50 +10689,6 @@
 			"typeName": "binding"
 		},
 		{
-			"x": 3765.247048775167,
-			"y": 720.7760025161112,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:UzG5OktlSS9ETN-IOHvDD",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 0,
-				"start": {
-					"x": 11.428439856058503,
-					"y": 18.962061786412505
-				},
-				"end": {
-					"x": 24.03211292021024,
-					"y": 350.1819104740157
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b06vmK2FS",
-			"typeName": "shape"
-		},
-		{
 			"x": 350.3999938964844,
 			"y": -1079.33516253501,
 			"rotation": 0,
@@ -11717,50 +10921,6 @@
 			},
 			"parentId": "page:L9l4gH4g0ftg5tGHj-Whj",
 			"index": "b0897pzoG",
-			"typeName": "shape"
-		},
-		{
-			"x": 1648.8508415135002,
-			"y": 1406.8226101920402,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:ucO3aRBAAB7jVkMWGff3v",
-			"type": "arrow",
-			"props": {
-				"kind": "arc",
-				"elbowMidPoint": 0.5,
-				"dash": "draw",
-				"size": "m",
-				"fill": "none",
-				"color": "black",
-				"labelColor": "black",
-				"bend": 822.1977752738143,
-				"start": {
-					"x": -609.162756583713,
-					"y": -558.8710891093475
-				},
-				"end": {
-					"x": 1160.8936089976314,
-					"y": 50.84824166213883
-				},
-				"arrowheadStart": "none",
-				"arrowheadEnd": "arrow",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph"
-						}
-					]
-				},
-				"labelPosition": 0.5,
-				"font": "draw",
-				"scale": 1
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0CmVcg5U",
 			"typeName": "shape"
 		},
 		{
@@ -12439,24 +11599,6 @@
 			"typeName": "binding"
 		},
 		{
-			"meta": {},
-			"id": "binding:UrX0W7WnywHp1ec1E6EOA",
-			"type": "arrow",
-			"fromId": "shape:uHRuuCc_56w8ClUPhn8Wo",
-			"toId": "shape:JhZ1crAyPxvBnyET9Lfbe",
-			"props": {
-				"isPrecise": true,
-				"isExact": false,
-				"normalizedAnchor": {
-					"x": 0.4982600772983397,
-					"y": 0.004140043021553165
-				},
-				"snap": "none",
-				"terminal": "end"
-			},
-			"typeName": "binding"
-		},
-		{
 			"x": 322.2000389099121,
 			"y": -1114.4675461722904,
 			"rotation": 0,
@@ -12698,248 +11840,6 @@
 				"terminal": "end"
 			},
 			"typeName": "binding"
-		},
-		{
-			"x": 4477.751859848654,
-			"y": -442.87453481044395,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:-2Nr6iIkZxhfrzSXlGy4T",
-			"type": "geo",
-			"props": {
-				"w": 685,
-				"h": 536.8999938964844,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Order page admin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "3) Show order data in the admin order page"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Add update order status option"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "5) Sent order confirmation mail"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "6) Create server actions for different analytics for order"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "7) Add razorpay payment gateway"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "8) Track Amount"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "9) Add filter based on status"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "10) Add search functionality"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "11) make refresh button working"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "12) Add sorting"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "13 Add filters"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							}
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "aDH6IwJV",
-			"typeName": "shape"
-		},
-		{
-			"x": 6891.483358408073,
-			"y": 745.8957145733002,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:oUoUUoKEAwMGS4m8K5YFj",
-			"type": "geo",
-			"props": {
-				"w": 754.2933293696025,
-				"h": 605.5093533277534,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Dashbaord admi "
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add sidebar"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "ajgRzz48",
-			"typeName": "shape"
 		},
 		{
 			"x": 253.80001831054688,
@@ -13199,88 +12099,6 @@
 			},
 			"parentId": "page:Y044GnciL1N3D2S6MS_ck",
 			"index": "aGRWml4V",
-			"typeName": "shape"
-		},
-		{
-			"x": 3632.3308166459924,
-			"y": 1084.1714697967432,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:pixq-0acD950AhBhcLUpp",
-			"type": "geo",
-			"props": {
-				"w": 634.4104295398029,
-				"h": 216.34195663825543,
-				"geo": "rectangle",
-				"dash": "draw",
-				"growY": 0,
-				"url": "",
-				"scale": 1,
-				"color": "black",
-				"labelColor": "black",
-				"fill": "none",
-				"size": "m",
-				"font": "draw",
-				"align": "middle",
-				"verticalAlign": "middle",
-				"richText": {
-					"type": "doc",
-					"content": [
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "Auth"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "1) Add google signin"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "2) Add role"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "4) Check signin before making order"
-								}
-							]
-						}
-					]
-				}
-			},
-			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b06odKFaV",
 			"typeName": "shape"
 		},
 		{
