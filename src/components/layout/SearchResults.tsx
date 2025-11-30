@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Product } from "@/types";
-import { Search, Clock, TrendingUp, Loader2, X } from "lucide-react";
+import { Search, Clock, TrendingUp, Loader2, X, RefreshCw } from "lucide-react";
 
 interface SearchResultsProps {
   query: string;
@@ -35,7 +35,7 @@ export function SearchResults({
   if (isLoading) {
     return (
       <div className="p-6 text-center">
-        <Loader2 className="h-6 w-6 animate-spin text-[#D5D502] mx-auto mb-2" />
+        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         <p className="text-gray-400 text-sm">Searching...</p>
       </div>
     );

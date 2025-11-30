@@ -836,7 +836,6 @@ export default function AdminContactsPage() {
                 )}
               </div>
 
-              {/* Table */}
               {loading ? (
                 <div className="space-y-2">
                   {[...Array(5)].map((_, i) => (

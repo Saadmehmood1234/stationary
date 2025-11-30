@@ -7,7 +7,7 @@ import { loginUser } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, EyeOff, Loader2, BookOpen } from "lucide-react";
+import { Eye, EyeOff, Loader2, BookOpen, RefreshCw } from "lucide-react";
 import { useSession } from "@/components/providers/SessionWrapper"; 
 function SigninContent() {
   const router = useRouter();
@@ -131,7 +131,7 @@ function SigninContent() {
           >
             {loading ? (
               <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                 Signing in...
               </>
             ) : (
@@ -161,8 +161,7 @@ function LoadingFallback() {
     <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardContent className="p-8 text-center">
         <div className="flex items-center justify-center gap-3 text-gray-300">
-          <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading...</span>
+         <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         </div>
       </CardContent>
     </Card>

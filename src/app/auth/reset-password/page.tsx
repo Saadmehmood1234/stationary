@@ -7,7 +7,7 @@ import { resetPassword } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, EyeOff, Loader2, CheckCircle, Lock } from "lucide-react";
+import { Eye, EyeOff, Loader2, CheckCircle, Lock, RefreshCw } from "lucide-react";
 
 function ResetPasswordContent() {
   const router = useRouter();
@@ -187,7 +187,7 @@ function ResetPasswordContent() {
           >
             {loading ? (
               <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+               <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                 Resetting Password...
               </>
             ) : (
@@ -205,8 +205,7 @@ function LoadingFallback() {
     <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardContent className="p-8 text-center">
         <div className="flex items-center justify-center gap-3 text-gray-300">
-          <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading...</span>
+          <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         </div>
       </CardContent>
     </Card>

@@ -28,6 +28,23 @@ export default function CartPage() {
     dispatch({ type: "CLEAR_CART" });
   };
 
+  // Generate checkout URL with product IDs as query parameters
+  const getCheckoutUrl = () => {
+    if (state.items.length === 0) return "/checkout";
+    
+    // Create array of product IDs from cart items
+    const productIds = state.items.map(item => item.product._id).filter(Boolean);
+    
+    // If you want to pass specific product data, you can use query params
+    if (productIds.length > 0) {
+      const params = new URLSearchParams();
+      productIds.forEach(id => params.append('products', id));
+      return `/checkout?${params.toString()}`;
+    }
+    
+    return "/checkout";
+  };
+
   if (state.items.length === 0) {
     return (
       <div className="min-h-screen py-12">
@@ -44,10 +61,10 @@ export default function CartPage() {
             className="max-w-md mx-auto text-center"
           >
             <div className="relative mb-8">
-              <div className="w-32 h-32 bg-gradient-to-br from-[#D5D502] to-[#c4c400] rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-32 h-32 bg-gradient-to-br from-[#ECB800] to-[#c4c400] rounded-full flex items-center justify-center mx-auto mb-6">
                 <ShoppingBag className="w-16 h-16 text-slate-900" />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502] to-[#c4c400] rounded-full blur-xl opacity-30"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ECB800] to-[#c4c400] rounded-full blur-xl opacity-30"></div>
             </div>
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-6">
@@ -72,14 +89,14 @@ export default function CartPage() {
             >
               <Link
                 href="/shop"
-                className="bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 px-8 py-4 rounded-full font-semibold hover:from-[#c4c400] hover:to-[#b3b300] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                className="bg-gradient-to-r from-[#ECB800] to-[#c4c400] text-slate-900 px-8 py-4 rounded-full font-semibold hover:from-[#c4c400] hover:to-[#b3b300] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
               >
                 <Store className="w-5 h-5" />
                 Explore Shop
               </Link>
               <Link
                 href="/printing"
-                className="border-2 border-[#D5D502] text-[#D5D502] px-8 py-4 rounded-full font-semibold hover:bg-[#D5D502] hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-3"
+                className="border-2 border-[#D5D502] text-[#D5D502] px-8 py-4 rounded-full font-semibold hover:bg-gradient-to-r hover:from-[#ECB800] hover:to-[#c4c400] hover:text-slate-900 transition-all duration-300 flex items-center justify-center gap-3"
               >
                 Start Printing
               </Link>
@@ -91,7 +108,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen  py-8">
+    <div className="min-h-screen py-8">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-72 h-72 bg-[#D5D502] rounded-full blur-[100px] opacity-10"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-[120px] opacity-10"></div>
@@ -324,7 +341,7 @@ export default function CartPage() {
                     whileTap={{ scale: 0.98 }}
                   >
                     <Link
-                      href="/checkout"
+                      href={getCheckoutUrl()}
                       className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] 
       hover:shadow-lg hover:shadow-[#D5D502]/25 text-slate-900 py-2 px-6 rounded-full font-semibold  transition-all duration-300 shadow-lg flex items-center justify-center gap-3"
                     >

@@ -15,7 +15,7 @@ export default function OrderDetailPage() {
   const params = useParams();
   const orderId = params.id as string;
   
-  const [order, setOrder] = useState<Order | null>(null);
+  const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -85,8 +85,7 @@ export default function OrderDetailPage() {
         <div className="relative max-w-7xl mx-auto">
           <div className="flex justify-center items-center min-h-96">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D5D502] mx-auto mb-4"></div>
-              <p className="text-gray-300">Loading order details...</p>
+             <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
             </div>
           </div>
         </div>
@@ -237,7 +236,7 @@ export default function OrderDetailPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <div className="space-y-4">
-                    {order.items.map((item, index) => (
+                    {order.items.map((item:any, index:any) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, x: -20 }}

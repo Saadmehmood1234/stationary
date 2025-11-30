@@ -21,6 +21,7 @@ import {
   AlertTriangle,
   Plane,
   Book,
+  RefreshCw,
 } from "lucide-react";
 
 
@@ -223,8 +224,7 @@ function LoadingFallback() {
     <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardContent className="p-8 text-center">
         <div className="flex items-center justify-center gap-3 text-gray-300">
-          <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading verification...</span>
+          <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         </div>
       </CardContent>
     </Card>

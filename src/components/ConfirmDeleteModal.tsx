@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertTriangle, X, Trash2 } from "lucide-react";
+import { AlertTriangle, X, Trash2, RefreshCw } from "lucide-react";
 
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
@@ -71,7 +71,7 @@ export default function ConfirmDeleteModal({
                 className="flex-1 cursor-pointer px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-200 font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                 ) : (
                   <Trash2 className="w-4 h-4" />
                 )}

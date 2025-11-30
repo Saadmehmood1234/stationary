@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { getProductById } from '@/app/actions/product.actions';
 import { EditProductForm } from '@/components/EditProductForm';
 import { Product } from '@/types';
-import { Loader2 } from 'lucide-react';
+import { Loader2, RefreshCw } from 'lucide-react';
 
 export default function EditProductPage() {
   const params = useParams();
@@ -50,8 +50,7 @@ export default function EditProductPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
         <div className="flex items-center gap-3 text-white">
-          <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading product...</span>
+         <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         </div>
       </div>
     );

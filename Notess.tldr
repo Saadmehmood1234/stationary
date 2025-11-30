@@ -431,18 +431,18 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 5662.614759633185,
-			"y": -77.76903316897256,
-			"lastActivityTimestamp": 1763921615585,
+			"x": 2790.674204592617,
+			"y": 1474.0108078266421,
+			"lastActivityTimestamp": 1764440282266,
 			"meta": {}
 		},
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:uHRuuCc_56w8ClUPhn8Wo"
+				"shape:ucO3aRBAAB7jVkMWGff3v"
 			],
-			"hoveredShapeId": null,
+			"hoveredShapeId": "shape:ucO3aRBAAB7jVkMWGff3v",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -2935,9 +2935,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -1094.8701190696925,
-			"y": 1169.1298933202847,
-			"z": 0.15027110279294986,
+			"x": -402.2900584865898,
+			"y": -274.00767012824775,
+			"z": 0.27533260832150114,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -11167,7 +11167,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "default",
+				"type": "grabbing",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -11178,7 +11178,7 @@
 				"x": 0,
 				"y": 0,
 				"w": 1188,
-				"h": 477.6000061035156
+				"h": 472
 			},
 			"insets": [
 				false,
@@ -11742,8 +11742,8 @@
 					"y": -558.8710891093475
 				},
 				"end": {
-					"x": 1393.339741659362,
-					"y": 65.37612495349703
+					"x": 1160.8936089976314,
+					"y": 50.84824166213883
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
@@ -11760,7 +11760,7 @@
 				"scale": 1
 			},
 			"parentId": "page:rLFftkeea7MdYYK-XjLmo",
-			"index": "b0Kyl6ukf",
+			"index": "b0CmVcg5U",
 			"typeName": "shape"
 		},
 		{
@@ -12930,43 +12930,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "15) binding info"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "16) Lamination info"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "17) Photo info"
-								}
-							]
-						},
-						{
-							"type": "paragraph",
-							"attrs": {
-								"dir": "auto"
-							},
-							"content": [
-								{
-									"type": "text",
-									"text": "18) Add sidebar"
+									"text": "1) Add sidebar"
 								}
 							]
 						}

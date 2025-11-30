@@ -6,7 +6,7 @@ import { forgotPassword } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, ArrowLeft, CheckCircle, Key } from "lucide-react";
+import { Loader2, ArrowLeft, CheckCircle, Key, RefreshCw } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
@@ -124,7 +124,7 @@ export default function ForgotPasswordPage() {
             >
               {loading ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                   Sending Reset Link...
                 </>
               ) : (

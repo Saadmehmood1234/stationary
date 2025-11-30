@@ -43,6 +43,7 @@ import {
   Clock,
   CheckCircle,
   XCircle,
+  RefreshCw,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -253,8 +254,7 @@ export default function PrintOrdersAdmin() {
     return (
       <div className="relative min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex justify-center items-center">
         <div className="flex items-center gap-3 text-white">
-          <Loader2 className="h-6 w-6 animate-spin" />
-          <span>Loading orders...</span>
+          <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         </div>
       </div>
     );

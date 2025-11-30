@@ -13,6 +13,14 @@ import {
   SlidersHorizontal,
   TrendingUp,
   Zap,
+  ArrowUpDown,
+  Calendar,
+  AArrowUp,
+  AArrowDown,
+  Trophy,
+  DollarSign,
+  Sparkles,
+  IndianRupee,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -247,15 +255,42 @@ export default function ShopClient({ initialProducts }: Props) {
   }, [maxPrice]);
 
   const sortOptions = [
-    { value: "newest" as SortBy, label: "Newest", icon: "🆕" },
-    { value: "name" as SortBy, label: "Name A-Z", icon: "🔤" },
-    { value: "price-low" as SortBy, label: "Price: Low to High", icon: "💰" },
-    { value: "price-high" as SortBy, label: "Price: High to Low", icon: "💎" },
-    { value: "best-seller" as SortBy, label: "Best Sellers", icon: "🏆" },
-    { value: "featured" as SortBy, label: "Featured", icon: "⭐" },
-    { value: "trending" as SortBy, label: "Trending", icon: "📈" },
+    {
+      value: "newest" as SortBy,
+      label: "Newest",
+      icon: <Calendar className="h-4 w-4" />,
+    },
+    {
+      value: "name" as SortBy,
+      label: "Name A-Z",
+      icon: <AArrowUp className="h-4 w-4" />,
+    },
+    {
+      value: "price-low" as SortBy,
+      label: "Price: Low to High",
+      icon: <IndianRupee className="h-4 w-4" />,
+    },
+    {
+      value: "price-high" as SortBy,
+      label: "Price: High to Low",
+      icon: <IndianRupee className="h-4 w-4" />,
+    },
+    {
+      value: "best-seller" as SortBy,
+      label: "Best Sellers",
+      icon: <Trophy className="h-4 w-4" />,
+    },
+    {
+      value: "featured" as SortBy,
+      label: "Featured",
+      icon: <Star className="h-4 w-4" />,
+    },
+    {
+      value: "trending" as SortBy,
+      label: "Trending",
+      icon: <TrendingUp className="h-4 w-4" />,
+    },
   ];
-
   const stockStatusOptions = [
     { value: "all" as StockStatus, label: "All Status" },
     { value: "in-stock" as StockStatus, label: "In Stock" },
@@ -413,7 +448,7 @@ export default function ShopClient({ initialProducts }: Props) {
                               <span
                                 className={`text-xs px-1.5 py-0.5 rounded-full ${
                                   selectedCategory === category._id
-                                    ? "bg-[#D5D502] text-white"
+                                    ? "bg-[#D5D502] text-gray-900"
                                     : "bg-white/10 text-gray-400"
                                 }`}
                               >
@@ -467,7 +502,9 @@ export default function ShopClient({ initialProducts }: Props) {
                                   : "text-gray-300 hover:bg-white/5"
                               }`}
                             >
-                              <span className="text-sm">{option.icon}</span>
+                              <span className="flex-shrink-0">
+                                {option.icon}
+                              </span>
                               <span className="font-medium text-sm">
                                 {option.label}
                               </span>
@@ -484,7 +521,7 @@ export default function ShopClient({ initialProducts }: Props) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleViewMode}
-                  className="p-2.5 bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300"
+                  className="p-2.5 cursor-pointer bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300"
                   title={viewMode === "grid" ? "List view" : "Grid view"}
                 >
                   {viewMode === "grid" ? (
@@ -499,12 +536,12 @@ export default function ShopClient({ initialProducts }: Props) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleFilters}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300 relative"
+                  className="flex items-center cursor-pointer gap-2 px-4 py-2.5 bg-white/5 backdrop-blur-lg border border-white/20 rounded-full text-white hover:bg-white/10 transition-all duration-300 relative"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
                   <span>Filters</span>
                   {activeFilterCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-[#D5D502] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 bg-[#D5D502] text-gray-900 text-xs rounded-full w-5 h-5 flex items-center justify-center">
                       {activeFilterCount}
                     </span>
                   )}
@@ -532,9 +569,9 @@ export default function ShopClient({ initialProducts }: Props) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   onClick={clearFilters}
-                  className="text-sm text-[#D5D502] hover:text-[#D5D502]/80 transition-colors flex items-center gap-1"
+                  className="text-sm cursor-pointer text-[#D5D502] hover:text-[#D5D502]/80 transition-colors flex items-center gap-1"
                 >
-                  <X className="w-3 h-3" />
+                  <X className="w-3 h-3 " />
                   Clear all filters
                 </motion.button>
               )}
@@ -663,7 +700,6 @@ export default function ShopClient({ initialProducts }: Props) {
           )}
         </AnimatePresence>
 
-
         <div className="container mx-auto px-4 py-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             <AnimatePresence mode="wait">
@@ -725,7 +761,7 @@ export default function ShopClient({ initialProducts }: Props) {
                     </motion.p>
 
                     <motion.button
-                    onClick={clearFilters}
+                      onClick={clearFilters}
                       whileHover={{
                         scale: 1.05,
                         boxShadow: "0 0 30px rgba(34, 211, 238, 0.3)",

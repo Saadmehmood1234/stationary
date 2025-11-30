@@ -17,6 +17,7 @@ import {
   Clock,
   TrendingUp,
   Loader2,
+  RefreshCw,
 } from "lucide-react";
 import Image from "next/image";
 import { ThemeToggle } from "../theme-toggle";
@@ -457,7 +458,7 @@ const SearchResultsContent: React.FC<SearchResultsContentProps> = ({
   if (isLoading) {
     return (
       <div className="p-4 text-center">
-        <Loader2 className="h-6 w-6 animate-spin text-[#D5D502] mx-auto mb-2" />
+        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         <p className="text-gray-400 text-sm">Searching...</p>
       </div>
     );

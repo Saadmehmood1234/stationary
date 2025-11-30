@@ -22,6 +22,7 @@ import {
   ArrowRight,
   GraduationCap,
   Star,
+  RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -364,7 +365,7 @@ export default function ModernPrintingPage() {
             >
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="group relative cursor-pointer bg-gradient-to-r from-[#D5D506] to-[#D5D502] text-gray-900 px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#D5D506]/25 transition-all duration-300 flex items-center gap-3"
+                className="group relative cursor-pointer bg-gradient-to-r from-[#EABA00] to-[#D5D502] text-gray-900 px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#D5D506]/25 transition-all duration-300 flex items-center gap-3"
               >
                 <Printer className="w-5 h-5" />
                 Request Print Online
@@ -1250,13 +1251,13 @@ export default function ModernPrintingPage() {
                           !!isSubmitting ||
                           (!!selectedFile && uploadProgress < 100)
                         }
-                        className="flex-1 cursor-pointer rounded-full bg-gradient-to-r from-[#D5D506] to-yellow-400 hover:from-[#D5D506] hover:to-yellow-300 text-gray-900 h-11 sm:h-12 text-sm sm:text-base font-semibold shadow-lg hover:shadow-[#D5D506]/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 order-1 sm:order-2"
+                        className="flex-1 justify-center items-center cursor-pointer rounded-full bg-gradient-to-r from-[#D5D506] to-yellow-400 hover:from-[#D5D506] hover:to-yellow-300 text-gray-900 h-11 sm:h-12 text-sm sm:text-base font-semibold shadow-lg hover:shadow-[#D5D506]/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 order-1 sm:order-2"
                       >
                         {isSubmitting ? (
-                          <>
-                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin mr-2" />
+                          <div className="flex justify-center gap-6 items-center">
+                            <RefreshCw className="h-36 w-36 animate-spin text-gray-900 mx-auto" />
                             {selectedFile ? "Uploading..." : "Submitting..."}
-                          </>
+                          </div>
                         ) : (
                           <>
                             <Send className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />

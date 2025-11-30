@@ -7,7 +7,7 @@ import { registerUser } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, EyeOff, Loader2, UserPlus } from "lucide-react";
+import { Eye, EyeOff, Loader2, RefreshCw, UserPlus } from "lucide-react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -174,7 +174,7 @@ export default function SignupPage() {
             >
               {loading ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                   Creating Account...
                 </>
               ) : (

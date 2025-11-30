@@ -12,7 +12,8 @@ import {
   Loader2,
   FolderOpen,
   Search,
-  BarChart3
+  BarChart3,
+  RefreshCw
 } from "lucide-react";
 import { 
   uploadImageAction, 
@@ -326,7 +327,7 @@ export default function ImageUploadPage() {
                 <div className="flex justify-center">
                   <div className="p-3 bg-[#D5D502]/10 rounded-full">
                     {isUploading ? (
-                      <Loader2 className="w-6 h-6 text-[#D5D502] animate-spin" />
+                     <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                     ) : (
                       <Upload className="w-6 h-6 text-[#D5D502]" />
                     )}
@@ -349,7 +350,7 @@ export default function ImageUploadPage() {
         {/* Images Grid */}
         {isLoading ? (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 text-[#D5D502] animate-spin" />
+           <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
           </div>
         ) : (
           <motion.div

@@ -34,59 +34,51 @@ import {
   CreditCard,
   ShoppingBag,
   User2Icon,
+  RefreshCw,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 import { useSession } from "@/components/providers/SessionWrapper";
 import Image from "next/image";
+import { getOrderById, getUserOrders } from "../actions/order.actions";
+import Link from "next/link";
 interface OrderItem {
   name: string;
   quantity: number;
   price: number;
+  total: number;
 }
 
 interface Order {
   id: string;
+  orderNumber: string;
   date: string;
-  status: string;
+  status: "pending" | "confirmed" | "ready" | "completed" | "cancelled";
   total: number;
   items: OrderItem[];
+  customer: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  paymentStatus: "pending" | "paid" | "failed";
+  collectionMethod: "pickup" | "delivery";
+  notes?: string;
+  subtotal?: number;
+  tax?: number;
+  paymentMethod?: string;
 }
-
-const mockOrders = [
-  {
-    id: "ORD-001",
-    date: "2024-01-15",
-    status: "delivered",
-    total: 1250.75,
-    items: [
-      { name: "Premium Notebook Set", quantity: 2, price: 299.99 },
-      { name: "Artistic Pens", quantity: 1, price: 150.99 },
-      { name: "A4 Printing Paper", quantity: 1, price: 499.99 },
-    ],
-  },
-  {
-    id: "ORD-002",
-    date: "2024-01-10",
-    status: "processing",
-    total: 899.5,
-    items: [{ name: "Custom Business Cards", quantity: 1, price: 899.5 }],
-  },
-  {
-    id: "ORD-003",
-    date: "2024-01-05",
-    status: "cancelled",
-    total: 450.25,
-    items: [{ name: "Sticky Notes Pack", quantity: 3, price: 150.25 }],
-  },
-];
 
 const getStatusTextColor = (status: string) => {
   switch (status) {
-    case "delivered":
+    case "completed":
       return "text-green-400";
-    case "processing":
+    case "ready":
       return "text-blue-400";
+    case "confirmed":
+      return "text-blue-400";
+    case "pending":
+      return "text-yellow-400";
     case "cancelled":
       return "text-red-400";
     default:
@@ -96,10 +88,14 @@ const getStatusTextColor = (status: string) => {
 
 const getStatusIcon = (status: string) => {
   switch (status) {
-    case "delivered":
+    case "completed":
       return <CheckCircle className="h-5 w-5 text-green-500" />;
-    case "processing":
+    case "ready":
+      return <Truck className="h-5 w-5 text-blue-500" />;
+    case "confirmed":
       return <Clock className="h-5 w-5 text-blue-500" />;
+    case "pending":
+      return <Clock className="h-5 w-5 text-yellow-500" />;
     case "cancelled":
       return <XCircle className="h-5 w-5 text-red-500" />;
     default:
@@ -109,16 +105,21 @@ const getStatusIcon = (status: string) => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case "delivered":
+    case "completed":
       return "bg-green-500/20 text-green-400 border-green-500/30";
-    case "processing":
+    case "ready":
       return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+    case "confirmed":
+      return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+    case "pending":
+      return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
     case "cancelled":
       return "bg-red-500/20 text-red-400 border-red-500/30";
     default:
       return "bg-gray-500/20 text-gray-400 border-gray-500/30";
   }
 };
+
 export default function ProfilePage() {
   const { session, loading } = useProtectedRoute();
   const { refreshSession } = useSession();
@@ -129,7 +130,10 @@ export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
   const [tab, setTab] = useState("profile");
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [ordersError, setOrdersError] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -152,6 +156,12 @@ export default function ProfilePage() {
     }
     loadUserProfile();
   }, [session, router]);
+
+  useEffect(() => {
+    if (tab === "orders") {
+      loadUserOrders();
+    }
+  }, [tab]);
 
   const loadUserProfile = async () => {
     try {
@@ -179,6 +189,41 @@ export default function ProfilePage() {
     }
   };
 
+  const loadUserOrders = async () => {
+    setOrdersLoading(true);
+    setOrdersError("");
+    try {
+      const result = await getUserOrders();
+      if (result.success) {
+        setOrders(result.data || []);
+      } else {
+        setOrdersError(result.message || "Failed to load orders");
+        setOrders([]);
+      }
+    } catch (err: any) {
+      setOrdersError(err.message || "Failed to load orders");
+      setOrders([]);
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+  const handleViewOrderDetails = async (order: Order) => {
+    try {
+      const result = await getOrderById(order.id);
+      if (result.success) {
+        console.log("Dtaa",result.data);
+        if (result.data) {
+          setSelectedOrder(result.data);
+        } else {
+          setOrdersError("Order data not found");
+        }
+      } else {
+        setOrdersError(result.message || "Failed to load order details");
+      }
+    } catch (err: any) {
+      setOrdersError(err.message || "Failed to load order details");
+    }
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -250,11 +295,10 @@ export default function ProfilePage() {
         return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     }
   };
-  console.log("Session", session);
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D5D502]"></div>
+        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
       </div>
     );
   }
@@ -428,7 +472,7 @@ export default function ProfilePage() {
                     <Button
                       type="button"
                       onClick={() => setIsEditing(!isEditing)}
-                      className="w-full sm:w-auto cursor-pointer bg-gradient-to-r from-[#D5D502] to-[#c4c400] hover:from-[#c4c400] hover:to-[#b3b300] text-slate-900 hover:shadow-xl hover:shadow-[#D5D502]/30 transition-all duration-300 px-6 py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg shadow-[#D5D502]/20"
+                      className="w-full sm:w-auto cursor-pointer bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:from-[#c4c400] hover:to-[#b3b300] text-slate-900 hover:shadow-xl hover:shadow-[#D5D502]/30 transition-all duration-300 px-6 py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg shadow-[#D5D502]/20"
                     >
                       {isEditing ? (
                         <div className="flex items-center gap-2">
@@ -461,7 +505,7 @@ export default function ProfilePage() {
                       </div>
                       <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
                         <motion.div
-                          className="h-full bg-gradient-to-r from-[#D5D502] to-[#c4c400]"
+                          className="h-full bg-gradient-to-r from-yellow-500 to-[#D5D502]"
                           animate={{
                             x: [-100, 100],
                           }}
@@ -943,7 +987,6 @@ export default function ProfilePage() {
           </motion.div>
         </div>
       )}
-
       {tab === "orders" && !selectedOrder && (
         <div className="container mx-auto p-4 sm:p-6 max-w-6xl relative z-10">
           <motion.div
@@ -951,70 +994,95 @@ export default function ProfilePage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
-              My Orders
-            </h1>
-            <p className="text-gray-400 text-center mt-3 text-base sm:text-lg">
-              Track and manage your orders
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
-          >
-            <div className=" rounded-2xl p-4 text-center border border-white/10">
-              <div className="text-2xl font-bold text-white">
-                {mockOrders.length}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent">
+                  My Orders
+                </h1>
+                <p className="text-gray-400 text-center mt-3 text-base sm:text-lg">
+                  Track and manage your orders
+                </p>
               </div>
-              <div className="text-gray-400 text-sm">Total Orders</div>
             </div>
-            <div className=" rounded-2xl p-4 text-center border border-white/10">
-              <div className="text-2xl font-bold text-green-400">
-                {
-                  mockOrders.filter((order) => order.status === "delivered")
-                    .length
-                }
-              </div>
-              <div className="text-gray-400 text-sm">Delivered</div>
-            </div>
-            <div className=" rounded-2xl p-4 text-center border border-white/10">
-              <div className="text-2xl font-bold text-blue-400">
-                {
-                  mockOrders.filter((order) => order.status === "processing")
-                    .length
-                }
-              </div>
-              <div className="text-gray-400 text-sm">Processing</div>
-            </div>
-            <div className=" rounded-2xl p-4 text-center border border-white/10">
-              <div className="text-2xl font-bold text-[#D5D502]">
-                ₹
-                {mockOrders
-                  .reduce((total, order) => total + order.total, 0)
-                  .toFixed(2)}
-              </div>
-              <div className="text-gray-400 text-sm">Total Spent</div>
-            </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
-            {mockOrders.map((order, index) => (
-              <OrderCard
-                key={order.id}
-                order={order}
-                index={index}
-                onViewDetails={(order: any) => setSelectedOrder(order)}
-              />
-            ))}
+            {ordersError && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl backdrop-blur-sm mb-6"
+              >
+                {ordersError}
+              </motion.div>
+            )}
 
-            {mockOrders.length === 0 && <EmptyOrders />}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+            >
+              <div className="rounded-2xl p-4 text-center border border-white/10">
+                <div className="text-2xl font-bold text-white">
+                  {orders.length}
+                </div>
+                <div className="text-gray-400 text-sm">Total Orders</div>
+              </div>
+              <div className="rounded-2xl p-4 text-center border border-white/10">
+                <div className="text-2xl font-bold text-green-400">
+                  {
+                    orders.filter((order) => order.status === "completed")
+                      .length
+                  }
+                </div>
+                <div className="text-gray-400 text-sm">Completed</div>
+              </div>
+              <div className="rounded-2xl p-4 text-center border border-white/10">
+                <div className="text-2xl font-bold text-blue-400">
+                  {
+                    orders.filter(
+                      (order) =>
+                        order.status === "pending" ||
+                        order.status === "confirmed" ||
+                        order.status === "ready"
+                    ).length
+                  }
+                </div>
+                <div className="text-gray-400 text-sm">Processing</div>
+              </div>
+              <div className="rounded-2xl p-4 text-center border border-white/10">
+                <div className="text-2xl font-bold text-[#D5D502]">
+                  ₹
+                  {orders
+                    .reduce((total, order) => total + order.total, 0)
+                    .toFixed(2)}
+                </div>
+                <div className="text-gray-400 text-sm">Total Spent</div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="space-y-6"
+            >
+              {ordersLoading ? (
+                <div className="text-center py-12">
+                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
+                </div>
+              ) : orders.length > 0 ? (
+                orders.map((order, index) => (
+                  <OrderCard
+                    key={order.id}
+                    order={order}
+                    index={index}
+                    onViewDetails={handleViewOrderDetails}
+                  />
+                ))
+              ) : (
+                <EmptyOrders />
+              )}
+            </motion.div>
           </motion.div>
         </div>
       )}
@@ -1055,7 +1123,7 @@ const OrderCard = ({
             </div>
             <div className="min-w-0 flex-1">
               <h3 className="text-lg sm:text-xl font-bold text-white truncate">
-                {order.id}
+                {order.orderNumber}
               </h3>
               <div className="flex items-center gap-2 text-gray-400 text-sm mt-1">
                 <Calendar className="h-4 w-4 flex-shrink-0" />
@@ -1126,15 +1194,28 @@ const OrderCard = ({
             </span>
           </div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button
-              onClick={() => onViewDetails(order)}
-              className="cursor-pointer bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 px-6 py-2.5 rounded-full font-semibold text-sm sm:text-base"
-            >
-              <Eye className="h-4 w-4 mr-2" />
-              View Details
-            </Button>
-          </motion.div>
+          <div className="flex gap-2">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                onClick={() => onViewDetails(order)}
+                className="cursor-pointer bg-gradient-to-r from-[#EDB400] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 px-4 py-2 rounded-full font-semibold text-sm"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                View Details
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href={`/track-order/${order.id}`} className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer border-[#D5D502] text-[#D5D502] bg-gray-800 hover:bg-[#D5D502] hover:text-slate-900 px-4 py-2 rounded-full font-semibold text-sm"
+                >
+                  <Truck className="h-4 w-4 mr-2" />
+                  Track Order
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -1156,7 +1237,7 @@ const EmptyOrders = () => (
     <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
       Start exploring our products and make your first order to see them here
     </p>
-    <Button className="rounded-full cursor-pointer bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25 px-8 py-3">
+    <Button className="rounded-full cursor-pointer bg-gradient-to-r from-yellow-500 to-[#D5D502] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25 px-8 py-3">
       <ShoppingBag className="h-4 w-4 mr-2" />
       Start Shopping
     </Button>
@@ -1292,15 +1373,15 @@ const OrderDetailsContent = ({ order }: any) => (
     </div>
 
     <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
-      <Button className="flex-1 cursor-pointer rounded-full bg-gradient-to-r from-[#D5D502] to-[#c4c400] text-slate-900 hover:shadow-lg hover:shadow-[#D5D502]/25">
-        Track Order
-      </Button>
-      <Button
-        variant="outline"
-        className="flex-1 bg-gray-700 cursor-pointer rounded-full border-[#D5D502] text-[#D5D502] hover:bg-[#D5D502] hover:text-slate-900"
-      >
-        Download Invoice
-      </Button>
+      <Link href={`/track-order/${order.id}`} className="w-full">
+        <Button
+          variant="outline"
+          className="w-full cursor-pointer border-[#D5D502] text-[#D5D502] bg-gray-800 hover:bg-[#D5D502] hover:text-slate-900 px-4 py-2 rounded-full font-semibold text-sm"
+        >
+          <Truck className="h-4 w-4 mr-2" />
+          Track Order
+        </Button>
+      </Link>
     </div>
   </div>
 );

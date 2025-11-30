@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   Users,
+  RefreshCw,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -38,7 +39,7 @@ export default function AdminLayout({
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
-        <div className="text-white text-lg">Loading...</div>
+        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
       </div>
     );
   }

@@ -91,6 +91,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
 
           {user && (
             <div className="p-6 border-t border-white/10">
+              <Link href="/profile">
               <div className="flex items-center space-x-3 p-4 bg-white/10 rounded-xl">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#D5D502] to-[#D5D502]">
                   <span className="text-sm font-medium text-gray-900">
@@ -106,6 +107,7 @@ export function MobileMenu({ itemCount }: MobileMenuProps) {
                   </p>
                 </div>
               </div>
+              </Link>
             </div>
           )}
 

@@ -19,6 +19,7 @@ import {
   ShoppingCart,
   BarChart3,
   Calendar,
+  RefreshCw,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { getOrderAnalytics } from "@/app/actions/order.actions";
@@ -272,7 +273,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 p-4 flex items-center justify-center">
-        <div className="text-white text-xl">Loading Dashboard...</div>
+        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
       </div>
     );
   }

@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Loader2, ArrowLeft, Save, AlertCircle } from 'lucide-react'
+import { Loader2, ArrowLeft, Save, AlertCircle, RefreshCw } from 'lucide-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast';
 interface EditProductFormProps {
@@ -456,7 +456,7 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
           >
             {isLoading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                 Updating...
               </>
             ) : (

@@ -7,6 +7,7 @@ import { useCart } from "@/components/providers/CartProvider";
 import Link from "next/link";
 import { getProductById } from "@/app/actions/product.actions";
 import toast from "react-hot-toast";
+import { RefreshCw } from "lucide-react";
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -56,7 +57,21 @@ export default function ProductDetailPage() {
   }, [dispatch, product]);
 
   const handlePurchase = () => {
-    toast.success("We will add purchasing option soon........");
+    if (!product) return;
+
+    setIsAddingToCart(true);
+
+    // Use BUY_NOW action instead of ADD_ITEM
+    dispatch({
+      type: "BUY_NOW",
+      payload: product,
+      quantity: quantity,
+    });
+
+    setTimeout(() => {
+      setIsAddingToCart(false);
+      router.push("/checkout");
+    }, 500);
   };
   const hasDiscount =
     product?.comparePrice &&
@@ -211,7 +226,7 @@ export default function ProductDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D5D502]"></div>
+        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
       </div>
     );
   }

@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Plus, X, Upload } from "lucide-react";
+import { Loader2, Plus, X, Upload, RefreshCw } from "lucide-react";
 import { createProduct } from "@/app/actions/product.actions";
 import toast from "react-hot-toast";
 import { Product, ProductFormData } from "@/types";
@@ -921,7 +921,7 @@ export default function CreateProductPage() {
             >
               {loading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
                   Creating Product...
                 </>
               ) : (
