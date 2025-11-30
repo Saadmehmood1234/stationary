@@ -5,9 +5,15 @@ import Link from "next/link";
 import { forgotPassword } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Loader2, ArrowLeft, CheckCircle, Key, RefreshCw } from "lucide-react";
-
+import {motion} from "framer-motion";
 export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -52,7 +58,9 @@ export default function ForgotPasswordPage() {
           <CardContent className="space-y-6 text-center">
             <div className="space-y-3">
               <p className="text-gray-300">
-                If an account with <strong className="text-white">{email}</strong> exists, we've sent a password reset link.
+                If an account with{" "}
+                <strong className="text-white">{email}</strong> exists, we've
+                sent a password reset link.
               </p>
               <p className="text-sm text-gray-400">
                 The link will expire in 1 hour for security reasons.
@@ -60,16 +68,19 @@ export default function ForgotPasswordPage() {
             </div>
 
             <div className="space-y-3">
-              <Button asChild className="w-full rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
-                <Link href="/auth/signin">
-                  Back to Sign In
-                </Link>
+              <Button
+                asChild
+                className="w-full rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              >
+                <Link href="/auth/signin">Back to Sign In</Link>
               </Button>
-              
-              <Button asChild variant="outline"  className="w-full rounded-full border-white/20 text-gray-900 hover:bg-white/10 hover:text-white">
-                <Link href="/">
-                  Go to Homepage
-                </Link>
+
+              <Button
+                asChild
+                variant="outline"
+                className="w-full rounded-full border-white/20 text-gray-900 hover:bg-white/10 hover:text-white"
+              >
+                <Link href="/">Go to Homepage</Link>
               </Button>
             </div>
           </CardContent>
@@ -101,7 +112,10 @@ export default function ForgotPasswordPage() {
             )}
 
             <div className="space-y-3">
-              <label htmlFor="email" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-300"
+              >
                 Email
               </label>
               <Input
@@ -119,23 +133,59 @@ export default function ForgotPasswordPage() {
 
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-graay-900 rounded-full cursor-pointer hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+              className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 rounded-full cursor-pointer hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold relative overflow-hidden group disabled:opacity-80 disabled:cursor-not-allowed"
               disabled={loading}
             >
               {loading ? (
-                <>
-                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
-                  Sending Reset Link...
-                </>
+                <div className="flex items-center justify-center gap-3 relative z-10">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  >
+                    <RefreshCw className="h-5 w-5" />
+                  </motion.div>
+                  <span>Sending Reset Link...</span>
+                </div>
               ) : (
-                "Send Reset Link"
+                <motion.span
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="relative z-10"
+                >
+                  Send Reset Link
+                </motion.span>
+              )}
+
+              {/* Email sending shimmer effect */}
+              {loading && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "100%" }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
               )}
             </Button>
           </form>
 
           <div className="pt-4 border-t border-white/20 text-center">
-            <Button asChild variant="ghost" className="text-[#D5D502] hover:text-yellow-400 hover:rounded-full hover:bg-white/5">
-              <Link href="/auth/signin" className="flex items-center justify-center">
+            <Button
+              asChild
+              variant="ghost"
+              className="text-[#D5D502] hover:text-yellow-400 hover:rounded-full hover:bg-white/5"
+            >
+              <Link
+                href="/auth/signin"
+                className="flex items-center justify-center"
+              >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Sign In
               </Link>

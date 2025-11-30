@@ -6,14 +6,21 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { loginUser } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Eye, EyeOff, Loader2, BookOpen, RefreshCw } from "lucide-react";
-import { useSession } from "@/components/providers/SessionWrapper"; 
+import {motion} from "framer-motion";
+import { useSession } from "@/components/providers/SessionWrapper";
 function SigninContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
-  const { refreshSession } = useSession(); 
+  const { refreshSession } = useSession();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -74,7 +81,10 @@ function SigninContent() {
           )}
 
           <div className="space-y-3">
-            <label htmlFor="email" className="text-sm font-medium text-gray-300">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-300"
+            >
               Email
             </label>
             <Input
@@ -92,7 +102,10 @@ function SigninContent() {
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-300"
+              >
                 Password
               </label>
               <Link
@@ -126,16 +139,41 @@ function SigninContent() {
 
           <Button
             type="submit"
-            className="w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+            className="w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold relative overflow-hidden group disabled:opacity-90 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? (
-              <>
-                <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
-                Signing in...
-              </>
+              <div className="flex items-center justify-center gap-3 relative z-10">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <RefreshCw className="h-5 w-5" />
+                </motion.div>
+                <span>Signing in...</span>
+              </div>
             ) : (
-              "Sign In"
+              <motion.span
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative z-10"
+              >
+                Sign In
+              </motion.span>
+            )}
+
+            {/* Shimmer effect during loading */}
+            {loading && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                initial={{ x: "-100%" }}
+                animate={{ x: "100%" }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
             )}
           </Button>
         </form>
@@ -161,7 +199,7 @@ function LoadingFallback() {
     <Card className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl">
       <CardContent className="p-8 text-center">
         <div className="flex items-center justify-center gap-3 text-gray-300">
-         <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
+          <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
         </div>
       </CardContent>
     </Card>

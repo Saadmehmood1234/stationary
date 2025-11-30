@@ -6,9 +6,15 @@ import { useRouter } from "next/navigation";
 import { registerUser } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Eye, EyeOff, Loader2, RefreshCw, UserPlus } from "lucide-react";
-
+import {motion} from "framer-motion";
 export default function SignupPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -87,7 +93,10 @@ export default function SignupPage() {
             )}
 
             <div className="space-y-3">
-              <label htmlFor="name" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium text-gray-300"
+              >
                 Full Name
               </label>
               <Input
@@ -104,7 +113,10 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-3">
-              <label htmlFor="email" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-300"
+              >
                 Email
               </label>
               <Input
@@ -121,7 +133,10 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-3">
-              <label htmlFor="password" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-300"
+              >
                 Password
               </label>
               <div className="relative">
@@ -151,7 +166,10 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-3">
-              <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="confirmPassword"
+                className="text-sm font-medium text-gray-300"
+              >
                 Confirm Password
               </label>
               <Input
@@ -169,16 +187,43 @@ export default function SignupPage() {
 
             <Button
               type="submit"
-              className="w-full cursor-pointer bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 rounded-full hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+              className="w-full cursor-pointer bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 rounded-full hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold relative overflow-hidden group"
               disabled={loading}
             >
               {loading ? (
-                <>
-                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
-                  Creating Account...
-                </>
+                <div className="flex items-center justify-center gap-3">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  >
+                    <RefreshCw className="h-5 w-5" />
+                  </motion.div>
+                  <span>Creating Account...</span>
+                </div>
               ) : (
-                "Create Account"
+                <>
+                  <span className="relative z-10">Create Account</span>
+                  {/* Hover effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#D5D502] to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+                </>
+              )}
+
+              {/* Loading shimmer effect */}
+              {loading && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "100%" }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
               )}
             </Button>
           </form>

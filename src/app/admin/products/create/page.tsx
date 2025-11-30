@@ -920,10 +920,10 @@ export default function CreateProductPage() {
               className="bg-gradient-to-r from-yellow-500 to-[#D5D502] hover:from-[#c4c401] cursor-pointer  hover:to-[#c4c406] text-gray-900 font-semibold rounded-full transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#D5D502]/20 border-0"
             >
               {loading ? (
-                <>
-                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
+                <div className="flex justify-center items-center it gap-2">
+                  <RefreshCw className="animate-spin text-gray-900 mx-auto" size={20}/>
                   Creating Product...
-                </>
+                </div>
               ) : (
                 "Create Product"
               )}

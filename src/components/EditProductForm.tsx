@@ -455,10 +455,10 @@ export const EditProductForm = ({ product }: EditProductFormProps) => {
             className="bg-gradient-to-r from-[#D5D502] to-[#DACF00] hover:from-[#c4c401] hover:to-[#DACF00] text-gray-900 cursor-pointer font-semibold rounded-full transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#D5D502]/20 border-0 min-w-32"
           >
             {isLoading ? (
-              <>
-                <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
+              <div className="flex items-center justify-center gap-4">
+                <RefreshCw className="animate-spin text-[#D5D502] mx-auto mb-4" size={20}/>
                 Updating...
-              </>
+              </div>
             ) : (
               <>
                 <Save className="h-4 w-4 mr-2" />

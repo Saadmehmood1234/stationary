@@ -6,14 +6,27 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { resetPassword } from "@/app/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, EyeOff, Loader2, CheckCircle, Lock, RefreshCw } from "lucide-react";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Eye,
+  EyeOff,
+  Loader2,
+  CheckCircle,
+  Lock,
+  RefreshCw,
+} from "lucide-react";
+import {motion} from "framer-motion";
 function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  
+
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -102,13 +115,11 @@ function ResetPasswordContent() {
             </p>
           </div>
 
-          <Button 
-            asChild 
+          <Button
+            asChild
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
           >
-            <a href="/auth/signin">
-              Sign In Now
-            </a>
+            <a href="/auth/signin">Sign In Now</a>
           </Button>
         </CardContent>
       </Card>
@@ -134,7 +145,10 @@ function ResetPasswordContent() {
           )}
 
           <div className="space-y-3">
-            <label htmlFor="password" className="text-sm font-medium text-gray-300">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-gray-300"
+            >
               New Password
             </label>
             <div className="relative my-2">
@@ -164,7 +178,10 @@ function ResetPasswordContent() {
           </div>
 
           <div className="space-y-3">
-            <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-medium text-gray-300"
+            >
               Confirm New Password
             </label>
             <Input
@@ -182,16 +199,41 @@ function ResetPasswordContent() {
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 rounded-full cursor-pointer hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold"
+            className="w-full bg-gradient-to-r from-yellow-500 to-[#D5D502] text-gray-900 rounded-full cursor-pointer hover:shadow-lg hover:shadow-[#D5D502]/25 transition-all duration-300 h-12 text-base font-semibold relative overflow-hidden group disabled:opacity-80 disabled:cursor-not-allowed"
             disabled={loading || !token}
           >
             {loading ? (
-              <>
-               <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
-                Resetting Password...
-              </>
+              <div className="flex items-center justify-center gap-3 relative z-10">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <RefreshCw className="h-5 w-5" />
+                </motion.div>
+                <span>Resetting Password...</span>
+              </div>
             ) : (
-              "Reset Password"
+              <motion.span
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative z-10"
+              >
+                Reset Password
+              </motion.span>
+            )}
+
+            {/* Loading shimmer effect */}
+            {loading && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                initial={{ x: "-100%" }}
+                animate={{ x: "100%" }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
             )}
           </Button>
         </form>

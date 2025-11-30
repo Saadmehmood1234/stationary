@@ -211,7 +211,7 @@ export default function ProfilePage() {
     try {
       const result = await getOrderById(order.id);
       if (result.success) {
-        console.log("Dtaa",result.data);
+        console.log("Dtaa", result.data);
         if (result.data) {
           setSelectedOrder(result.data);
         } else {
@@ -270,35 +270,138 @@ export default function ProfilePage() {
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "delivered":
-        return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case "processing":
-        return <Clock className="h-5 w-5 text-blue-500" />;
-      case "cancelled":
-        return <XCircle className="h-5 w-5 text-red-500" />;
-      default:
-        return <Package className="h-5 w-5 text-gray-500" />;
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "delivered":
-        return "bg-green-500/20 text-green-400 border-green-500/30";
-      case "processing":
-        return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      case "cancelled":
-        return "bg-red-500/20 text-red-400 border-red-500/30";
-      default:
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-    }
-  };
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 flex items-center justify-center">
-        <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
+      <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute w-64 h-64 bg-[#D5D502] rounded-full blur-3xl opacity-10"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{ top: "30%", left: "10%" }}
+          />
+          <motion.div
+            className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-10"
+            animate={{
+              x: [0, -80, 0],
+              y: [0, 60, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{ top: "60%", right: "15%" }}
+          />
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-[#D5D502] rounded-full opacity-40"
+              animate={{
+                y: [0, -100, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Main Content */}
+        <div className="flex items-center justify-center min-h-screen relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            {/* Animated Icon Container */}
+            <motion.div
+              className="relative mb-8"
+              animate={{
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <div className="w-24 h-24 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 flex items-center justify-center mx-auto shadow-2xl shadow-[#D5D502]/10">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  <RefreshCw className="h-10 w-10 text-[#D5D502]" />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Text Content */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent mb-4">
+                Loading Profile
+              </h2>
+              <p className="text-gray-400 text-lg mb-6 max-w-md">
+                Preparing your Profile...
+              </p>
+
+              {/* Progress Bar */}
+              <div className="w-64 h-2 bg-white/10 rounded-full overflow-hidden mx-auto">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-[#D5D502] to-[#c4c400]"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </div>
+
+              {/* Loading Dots */}
+              <div className="flex justify-center space-x-2 mt-6">
+                {[0, 1, 2].map((index) => (
+                  <motion.div
+                    key={index}
+                    className="w-2 h-2 bg-[#D5D502] rounded-full"
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.5, 1, 0.5],
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      delay: index * 0.2,
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     );
   }
@@ -1067,8 +1170,136 @@ export default function ProfilePage() {
               className="space-y-6"
             >
               {ordersLoading ? (
-                <div className="text-center py-12">
-                  <RefreshCw className="h-12 w-12 animate-spin text-[#D5D502] mx-auto mb-4" />
+                <div className="min-h-screen bg-gradient-to-br from-[#171E21] via-[#171E21] to-slate-900 relative overflow-hidden">
+                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <motion.div
+                      className="absolute w-64 h-64 bg-[#D5D502] rounded-full blur-3xl opacity-10"
+                      animate={{
+                        x: [0, 100, 0],
+                        y: [0, -50, 0],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      style={{ top: "30%", left: "10%" }}
+                    />
+                    <motion.div
+                      className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-10"
+                      animate={{
+                        x: [0, -80, 0],
+                        y: [0, 60, 0],
+                      }}
+                      transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      style={{ top: "60%", right: "15%" }}
+                    />
+                    {[...Array(6)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-1 h-1 bg-[#D5D502] rounded-full opacity-40"
+                        animate={{
+                          y: [0, -100, 0],
+                          opacity: [0.3, 0.8, 0.3],
+                        }}
+                        transition={{
+                          duration: 3 + Math.random() * 2,
+                          repeat: Infinity,
+                          delay: Math.random() * 2,
+                        }}
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Main Content */}
+                  <div className="flex items-center justify-center min-h-screen relative z-10">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center"
+                    >
+                      {/* Animated Icon Container */}
+                      <motion.div
+                        className="relative mb-8"
+                        animate={{
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        <div className="w-24 h-24 bg-gradient-to-br from-[#D5D502]/20 to-[#c4c400]/10 rounded-full border border-[#D5D502]/30 flex items-center justify-center mx-auto shadow-2xl shadow-[#D5D502]/10">
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "linear",
+                            }}
+                          >
+                            <RefreshCw className="h-10 w-10 text-[#D5D502]" />
+                          </motion.div>
+                        </div>
+                      </motion.div>
+
+                      {/* Text Content */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-[#D5D502] bg-clip-text text-transparent mb-4">
+                          Loading Order
+                        </h2>
+                        <p className="text-gray-400 text-lg mb-6 max-w-md">
+                          Preparing your Orders...
+                        </p>
+
+                        {/* Progress Bar */}
+                        <div className="w-64 h-2 bg-white/10 rounded-full overflow-hidden mx-auto">
+                          <motion.div
+                            className="h-full bg-gradient-to-r from-[#D5D502] to-[#c4c400]"
+                            initial={{ width: "0%" }}
+                            animate={{ width: "100%" }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                        </div>
+
+                        {/* Loading Dots */}
+                        <div className="flex justify-center space-x-2 mt-6">
+                          {[0, 1, 2].map((index) => (
+                            <motion.div
+                              key={index}
+                              className="w-2 h-2 bg-[#D5D502] rounded-full"
+                              animate={{
+                                scale: [1, 1.5, 1],
+                                opacity: [0.5, 1, 0.5],
+                              }}
+                              transition={{
+                                duration: 1,
+                                repeat: Infinity,
+                                delay: index * 0.2,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  </div>
                 </div>
               ) : orders.length > 0 ? (
                 orders.map((order, index) => (
