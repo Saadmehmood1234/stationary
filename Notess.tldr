@@ -329,16 +329,16 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 5554.37689044984,
-			"y": 351.89065654071663,
-			"lastActivityTimestamp": 1765561895236,
+			"x": 5575.8815874238135,
+			"y": 333.6041158638171,
+			"lastActivityTimestamp": 1765561995168,
 			"meta": {}
 		},
 		{
-			"editingShapeId": null,
+			"editingShapeId": "shape:sYLimS9TnlSHVMIz_hhjK",
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:OYW1Cwn3iZYAqYnl5RBpf"
+				"shape:sYLimS9TnlSHVMIz_hhjK"
 			],
 			"hoveredShapeId": "shape:sYLimS9TnlSHVMIz_hhjK",
 			"erasingShapeIds": [],
@@ -2503,9 +2503,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -4660.851391765223,
-			"y": 7.552379827884115,
-			"z": 0.8657839510567195,
+			"x": -4671.925894223936,
+			"y": -46.52554795822152,
+			"z": 0.9363291041598775,
 			"meta": {},
 			"id": "camera:page:rLFftkeea7MdYYK-XjLmo",
 			"typeName": "camera"
@@ -3225,7 +3225,7 @@
 		},
 		{
 			"x": 4744.569516465732,
-			"y": -1537.966693126514,
+			"y": -1560.1965141876494,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -3233,11 +3233,11 @@
 			"id": "shape:sYLimS9TnlSHVMIz_hhjK",
 			"type": "geo",
 			"props": {
-				"w": 946,
-				"h": 1292.8619509984956,
+				"w": 955,
+				"h": 1925.329796647073,
 				"geo": "rectangle",
 				"dash": "draw",
-				"growY": 610.2380245874419,
+				"growY": 155.97025218105205,
 				"url": "",
 				"scale": 1,
 				"color": "black",
@@ -3870,6 +3870,66 @@
 								{
 									"type": "text",
 									"text": "38) Money spent on a printing"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "39) Performance Optimization"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "40) Lazy Loading"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "41) Image size reduce"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "42) Server component"
 								}
 							]
 						},
@@ -10948,7 +11008,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "cross",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
