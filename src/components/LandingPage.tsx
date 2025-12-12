@@ -1,6 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 const LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -27,6 +32,21 @@ const LandingPage = () => {
       image: "/back3.jpg",
       cta: "Discover More",
     },
+  ];
+
+  const swiperImages = [
+    "/stationary1.jpg",
+    "/stationary2.jpeg",
+    "/stationary3.jpg",
+    "/stationary4.jpg",
+    "/stationary5.jpg",
+    "/stationary6.jpg",
+    "/stationary7.jpg",
+    "/stationary8.avif",
+    "/stationary9.jpeg",
+    "/stationary10.jpg",
+    "/stationary11.jpg",
+    "/stationary12.jpg",
   ];
 
   useEffect(() => {
@@ -151,215 +171,199 @@ const LandingPage = () => {
         ))}
       </div>
 
-      <div className="relative w-full min-h-screen  overflow-hidden">
-        <div className="relative z-10 min-h-screen flex items-center justify-center py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-            <div className="grid grid-cols-4 md:grid-cols-12 gap-6 lg:gap-8 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="group md:col-span-4 col-span-2"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
-                    <img
-                      src="/stationary1.jpg"
-                      alt="Luxury Pens Collection"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="group md:col-span-3 col-span-1"
-              >
-                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <img
-                    src="/stationary2.jpeg"
-                    alt="Stationery Collection"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="group md:col-span-2 col-span-1"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/20 to-pink-500/20">
-                    <img
-                      src="/stationary3.jpg"
-                      alt="Artistic Notebooks"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
+      <div className="relative w-full min-h-screen overflow-hidden">
+        <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-12 px-4">
+          <div className="w-full max-w-7xl mx-auto px-4">
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              loop={true}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 30,
+                },
+              }}
+              className="w-full"
+            >
+              {swiperImages.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group relative"
+                  >
+                    <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden transition-all duration-500 hover:border-[#D5D502]/50 hover:shadow-lg hover:shadow-[#D5D502]/20">
+                      <div className="relative w-full h-80 overflow-hidden rounded-3xl">
+                        <img
+                          src={image}
+                          alt={`Stationery ${index + 1}`}
+                          className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                          style={{
+                            aspectRatio: "4/3",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                      </div>
+                      
+                      {/* <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div className="text-white">
+                          <h3 className="text-xl font-bold mb-2">
+                            Stationery {index + 1}
+                          </h3>
+                          <p className="text-sm text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            Premium quality stationery for your everyday needs
+                          </p>
+                          <button className="mt-4 cursor-pointer px-6 py-2 bg-[#D5D502] text-black font-semibold rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-white hover:scale-105">
+                            View Details
+                          </button>
+                        </div>
+                      </div> */}
+                    </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
+            <div className="mt-16">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="group md:col-span-3 col-span-3"
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-[#D5D502] to-blue-300 bg-clip-text text-transparent"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-[#D5D502]/20">
-                    <img
-                      src="/stationary4.jpg"
-                      alt="Office Essentials"
-                      className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
-                    />
-                  </div>
-
-                  <div className="absolute inset-0 bg-[#D5D502]/0 group-hover:bg-[#D5D502]/10 transition-all duration-500 rounded-3xl"></div>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="group md:col-span-5 col-span-1"
+                Featured Products
+              </motion.h2>
+              
+              <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                spaceBetween={30}
+                slidesPerView={1}
+                navigation
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
+                loop={true}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                }}
+                className="w-full"
               >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/20 to-[#D5D502]/20">
-                    <img
-                      src="/stationary10.jpg"
-                      alt="Office Essentials"
-                      className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
-                    />
-                  </div>
-
-                  <div className="absolute inset-0 bg-[#D5D502]/0 group-hover:bg-[#D5D502]/10 transition-all duration-500 rounded-3xl"></div>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="group md:col-span-1 col-span-1"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <img
-                    src="/stationary5.jpg"
-                    alt="Writing Instruments"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-              </motion.div>
-                            <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="group md:col-span-4  col-span-2"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <img
-                    src="/stationary11.jpg"
-                    alt="Writing Instruments"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-              </motion.div>
-                            <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="group md:col-span-2 col-span-1"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <img
-                    src="/stationary12.jpg"
-                    alt="Writing Instruments"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="grid grid-cols-4 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="group md:col-span-2 col-span-1"
-              >
-                <div className="relative bg-gradient-to-br from-purple-500/15 to-pink-600/15 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-purple-300/30 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <img
-                    src="/stationary6.jpg"
-                    alt="Stationery Collection"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
-                className="group md:col-span-1 col-span-3"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <img
-                    src="/stationary7.jpg"
-                    alt="Desk Accessories"
-                    className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="group md:col-span-5 col-span-2"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
-                    <img
-                      src="/stationary8.avif"
-                      alt="Luxury Pens Collection"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="group md:col-span-4 col-span-2"
-              >
-                <div className="relative bg-white/5 backdrop-blur-lg sm:rounded-3xl rounded-xl border border-white/20 overflow-hidden h-64 md:h-80 transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D5D502]/20 to-blue-500/20">
-                    <img
-                      src="/stationary9.jpeg"
-                      alt="Luxury Pens Collection"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-              </motion.div>
+                {products.map((product, index) => (
+                  <SwiperSlide key={index}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.2 }}
+                      className="group relative h-[500px]"
+                    >
+                      <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl border border-white/20 overflow-hidden h-full transition-all duration-500 hover:border-[#D5D502]/50 hover:shadow-sm hover:shadow-[#D5D502]/30">
+                        <div className="absolute inset-0">
+                          <img
+                            src={product.image}
+                            alt={product.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            style={{
+                              aspectRatio: "16/9",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                        </div>
+                        
+                        <div className="relative h-full flex flex-col justify-end p-8">
+                          <h3 className="text-2xl font-bold text-white mb-3">
+                            {product.title}
+                          </h3>
+                          <p className="text-gray-200 mb-6">
+                            {product.description}
+                          </p>
+                          <button className="self-start cursor-pointer px-6 py-3 bg-[#D5D502] text-black font-semibold rounded-full hover:bg-white hover:scale-105 transition-all duration-300">
+                            {product.cta}
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
-          <style jsx>{`
-            .group:hover {
-              transform: perspective(1000px) rotateX(5deg) rotateY(5deg)
-                scale(1.02);
-              transition: transform 0.5s ease;
+
+          {/* Custom Swiper Styles */}
+          <style jsx global>{`
+            .swiper-button-next,
+            .swiper-button-prev {
+              color: #D5D502;
+              background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(10px);
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              border: 2px solid rgba(213, 213, 2, 0.3);
+              transition: all 0.3s ease;
             }
-            .group {
-              transition: transform 0.5s ease;
+            .swiper-button-next:hover,
+            .swiper-button-prev:hover {
+              background: rgba(213, 213, 2, 0.2);
+              border-color: #D5D502;
+              transform: scale(1.1);
+            }
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+              font-size: 20px;
+              font-weight: bold;
+            }
+            .swiper-pagination-bullet {
+              background: rgba(255, 255, 255, 0.5);
+              opacity: 0.5;
+              width: 12px;
+              height: 12px;
+              transition: all 0.3s ease;
+            }
+            .swiper-pagination-bullet-active {
+              background: #D5D502;
+              opacity: 1;
+              transform: scale(1.2);
+            }
+            .swiper-slide {
+              height: auto;
             }
           `}</style>
         </div>
+
+        {/* Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(15)].map((_, i) => (
             <motion.div
